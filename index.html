@@ -544,6 +544,8 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
   #cam .strip span[data-fl],#cam .strip span[data-m]{white-space:normal; padding:7px 8px; font-size:12px; line-height:1.3}
 }
 
+#camnat{position:relative; overflow:hidden}
+.offscreen{position:absolute; left:0; top:0; width:1px; height:1px; opacity:0; pointer-events:none}
 </style>
 </head>
 <body>
@@ -591,17 +593,17 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
     </select>
     <div id="einfo" class="einfo"></div>
     <div id="ewarn" class="ewarn"></div>
-    <div class="ebtns"><button id="ego">ZIPを書き出す</button></div>
+    <div class="ebtns"><button id="ego">ZIPを書き出す</button><button id="ephoto" class="sub">写真アプリへ保存</button></div>
     <div class="ebtns" id="eshareline" style="display:none"><button id="eshare" class="sub">さっきのZIPを共有シートから保存する</button></div>
     <div id="eprog" class="eprog"><div class="eprogbar"><i id="eprogb"></i></div><div id="eprogt"></div></div>
-    <p class="ehelp">ZIPの中は「MHポンプ／処理区／○○MP_①②」「処理場名／地下1階・1階・その他」のフォルダに分かれ、撮影記録（Excel）が入ります。<br>書き出したあと「保存できましたか？」と聞きます。保存できたことを確かめてから「保存できた」を押してください。押した写真だけが「書き出し済み」になります。大きいときは ZIP を自動で何個かに分けます（すべて同じフォルダに展開してください）。</p>
+    <p class="ehelp">ZIPの中は「MHポンプ／処理区／○○MP_①②」「処理場名／地下1階・1階・その他」のフォルダに分かれ、撮影記録（Excel）が入ります。<br>書き出したあと「保存できましたか？」と聞きます。保存できたことを確かめてから「保存できた」を押してください。押した写真だけが「書き出し済み」になります。大きいときは ZIP を自動で何個かに分けます（すべて同じフォルダに展開してください）。<br>「写真アプリへ保存」は、iPad の写真アプリに30枚ずつ入れます（共有シートで「画像を保存」）。写真アプリにはフォルダ分けが残らないので、納品用は ZIP を使ってください。写真アプリへの保存は「書き出し済み」には数えません。</p>
   </div>
   <div class="ecard">
     <label class="el">書き出すときの写真の大きさ</label>
     <select id="eex">
       <option value="300">1枚 300KB以内（長辺1600px）</option>
-      <option value="500">1枚 500KB以内（長辺2048px）　推奨</option>
-      <option value="800">1枚 800KB以内（長辺2560px）</option>
+      <option value="500">1枚 500KB以内（長辺2048px）</option>
+      <option value="800">1枚 800KB以内（長辺2560px）　標準</option>
       <option value="0">縮小しない（iPadの原本のまま）</option>
     </select>
     <div id="eeinfo" class="einfo"></div>
@@ -667,7 +669,7 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
       <div class="cbtns">
         <button id="camtorch" class="cbtn" aria-pressed="false" hidden>ライト</button>
         <button id="camori" class="cbtn" aria-pressed="true">横長固定</button>
-        <label id="camnat" class="cbtn">純正カメラで撮る<input type="file" accept="image/*" capture="environment" id="camfile" multiple hidden></label>
+        <label id="camnat" class="cbtn">純正カメラで撮る<input type="file" accept="image/*" capture="environment" id="camfile" class="offscreen"></label>
       </div>
     </div>
     <div class="strip" id="cbar1"></div>
@@ -733,8 +735,8 @@ const DATA = {
   }
  ]
 };          // 練習用の架空案件。初回起動時に1回だけ案件として登録する
-const BUILD='2026-10-02 11:15', BUILDV='2026-10-02_1115';
-const freshST=()=>({photos:{},exported:{},notes:{},noteExp:{},done:{},dc:{},seq:0,cfg:{p:'0',ex:'500'}});
+const BUILD='2026-10-02 12:52', BUILDV='2026-10-02_1252';
+const freshST=()=>({photos:{},exported:{},notes:{},noteExp:{},done:{},dc:{},seq:0,cfg:{p:'0',ex:'800'},saved:{},cfgv:2});
 /* この iPad の設定（案件をまたいで共通） */
 let DEV={tag:'', fz:1, camLand:true};
 async function loadDev(){ try{ DEV=Object.assign(DEV, (await get('meta','dev'))||{}); }catch(e){} applyFz(); }
@@ -804,7 +806,7 @@ const PRESETS={
 };
 const cfg=()=>PRESETS[(ST.cfg&&ST.cfg.p)||'0']||PRESETS['0'];
 const EXP={'300':[1600,300],'500':[2048,500],'800':[2560,800],'0':[0,0]};
-const exv=()=>EXP[(ST.cfg&&ST.cfg.ex)||'500']||EXP['500'];
+const exv=()=>EXP[(ST.cfg&&ST.cfg.ex)||'800']||EXP['800'];
 const epx=()=>exv()[0], ekb=()=>exv()[1];
 async function reencode(blob, w0, h0){
   const px=epx(), kb=ekb();
@@ -832,11 +834,19 @@ const livePhotos=sid=>photosOf(sid).filter(id=>!ST.photos[id].x);
 const nPhotos=sid=>{ let n=0; for(const id in ST.photos) if(ST.photos[id].s===sid) n++; return n; };
 const dcOf=sid=>(ST.dc&&ST.dc[sid])||[];
 const hasNote=sid=>!!(ST.notes[sid] && (ST.notes[sid].t||'').trim());
+/* 写真ファイルを読む。createImageBitmap が使えない・失敗する形式は <img> で読み直す */
+async function decodeImage(blob){
+  try{ return await createImageBitmap(blob); }catch(e){}
+  const u=URL.createObjectURL(blob);
+  try{ const im=new Image(); im.src=u; await im.decode(); return im; }
+  catch(e){ throw new Error('写真を読み込めませんでした（'+(blob.type||'種類不明')+'・'+Math.round((blob.size||0)/1024)+'KB）'); }
+  finally{ setTimeout(()=>URL.revokeObjectURL(u),1000); }
+}
 async function shrink(src){
   const c=cfg();
   const own = src instanceof Blob;
-  const bmp = own ? await createImageBitmap(src) : src;
-  const w0=bmp.width||bmp.videoWidth, h0=bmp.height||bmp.videoHeight;
+  const bmp = own ? await decodeImage(src) : src;
+  const w0=bmp.naturalWidth||bmp.width||bmp.videoWidth, h0=bmp.naturalHeight||bmp.height||bmp.videoHeight;
   const s = c.px ? Math.min(1, c.px/Math.max(w0,h0)) : 1;
   const w=Math.round(w0*s), h=Math.round(h0*s);
   let cv;
@@ -948,7 +958,7 @@ async function withExif(blob,p,label,w,h){
 }
 
 /* ================= カメラ ================= */
-let CAMSTREAM=null, CURS=null, CAMM='', CAMSHOTS=0, CAMLASTID=null, CAMQ=Promise.resolve(), CAMPEND=0, WL=null, TORCH=false;
+let NATIVE=false, CAMSTREAM=null, CURS=null, CAMM='', CAMSHOTS=0, CAMLASTID=null, CAMQ=Promise.resolve(), CAMPEND=0, WL=null, TORCH=false;
 const camOn=()=>$('#cam').classList.contains('on');
 async function wake(){ try{ if('wakeLock' in navigator && !WL){ WL=await navigator.wakeLock.request('screen'); WL.addEventListener('release',()=>WL=null);} }catch(e){} }
 function unwake(){ try{ if(WL) WL.release(); }catch(e){} WL=null; }
@@ -1004,6 +1014,7 @@ async function camClose(){
 }
 document.addEventListener('visibilitychange',async()=>{
   if(document.visibilityState!=='visible' || !camOn()) return;
+  if(NATIVE){ setTimeout(()=>{ if(NATIVE) camResume(); },1500); return; }     // 純正カメラから戻ったときは取り込みを先に
   const live=CAMSTREAM && CAMSTREAM.getVideoTracks().some(t=>t.readyState==='live');
   if(!live) await camStart();
   WL=null; wake();
@@ -1056,9 +1067,15 @@ function camShoot(){
     if(camOn() && CURS && CURS.id===sid) camBars();
   });
 }
+/* 純正カメラ（ファイル選択）で撮った写真を取り込む。iOS は種類（type）を空で渡すことがあるので拡張子でも判定する */
+const isImg=f=>(f.type||'').startsWith('image/') || (!f.type && /\.(jpe?g|heic|heif|png)$/i.test(f.name||'')) || (!f.type && !f.name);
 async function fromFiles(files){
-  let n=0; const m=CURS.t==='pl'? CAMM : '';
-  for(const f of files){ if(!f.type.startsWith('image/')) continue; CAMLASTID=await addPhoto(CURS.id, m, f); n++; }
+  let n=0; const m=CURS.t==='pl'? CAMM : '', bad=[];
+  for(const f of files){
+    if(!isImg(f)){ bad.push((f.name||'名前なし')+'（'+(f.type||'種類不明')+'）'); continue; }
+    CAMLASTID=await addPhoto(CURS.id, m, f); n++;
+  }
+  if(bad.length) alert('写真ではないファイルなので取り込みませんでした：\n'+bad.join('\n'));
   return n;
 }
 $('#camok').addEventListener('click',camClose);
@@ -1079,10 +1096,24 @@ $('#cbar2').addEventListener('click',e=>{
   const s=e.target.closest('[data-m]'); if(!s) return;
   CAMM = s.dataset.m==='' ? '' : CURS.machines[+s.dataset.m]; camBars();
 });
-$('#camnat').addEventListener('click',()=>$('#camfile').click());
+/* 「純正カメラで撮る」：ラベルを押すと iOS の撮影画面が1回だけ開く（JSからは開かない＝二重に開かない）。
+   開く前にアプリ内カメラの映像を止めてカメラを空け、戻ってきたら映像を再開する */
+function camPause(){ if(CAMSTREAM){ CAMSTREAM.getTracks().forEach(t=>t.stop()); CAMSTREAM=null; } $('#camv').srcObject=null; }
+async function camResume(){ NATIVE=false; if(camOn() && !CAMSTREAM) await camStart(); }
+$('#camnat').addEventListener('click',()=>{ NATIVE=true; camPause(); });
+$('#camfile').addEventListener('cancel',()=>camResume());
+addEventListener('focus',()=>{ if(NATIVE) setTimeout(()=>{ if(NATIVE) camResume(); },1500); });
 $('#camfile').addEventListener('change',async e=>{
-  const n=await fromFiles(e.target.files);
-  e.target.value=''; CAMSHOTS+=n; camCount(); camBars(); camLast();
+  const files=[...(e.target.files||[])]; e.target.value='';
+  NATIVE=false;
+  if(!files.length){ toast('写真を受け取れませんでした（ファイルが空でした）'); await camResume(); return; }
+  $('#camlast').classList.add('busy');
+  try{
+    const n=await fromFiles(files);
+    CAMSHOTS+=n; camCount(); camBars(); camLast();
+    if(n) toast('純正カメラの写真を '+n+' 枚取り込みました');
+  }catch(err){ alert('純正カメラの写真を取り込めませんでした。\n'+(err&&err.message||err)); }
+  finally{ $('#camlast').classList.remove('busy'); await camResume(); }
 });
 
 /* ================= ZIP（無圧縮・依存なし） ================= */
@@ -1337,15 +1368,23 @@ const mb=n=>n>=1073741824? (n/1073741824).toFixed(2)+' GB' : (n/MB).toFixed(n<10
 let PARTMB=null;            // ZIP 1個の上限（MB）。通常は自動（縮小あり250MB／縮小なし800MB）
 function tsName(d){ const z=n=>String(n).padStart(2,'0'); return d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'_'+z(d.getHours())+z(d.getMinutes()); }
 const where=s=> s.t==='mp' ? s.pump : s.n;
+/* 写真ごとのファイル名（ZIPと写真アプリで同じ名前にする）。番号は場所ごと・名前ごとに撮影順 */
+function fileNames(){
+  const m={};
+  for(const s of S){ const f=siteFolder(s), seq={};
+    for(const id of photosOf(s.id)){ const p=ST.photos[id]; if(p.x) continue;
+      const base=baseName(s,p); seq[base]=(seq[base]||0)+1; m[id]=f+'/'+base+'_'+String(seq[base]).padStart(3,'0')+'.jpg'; } }
+  return m;
+}
 function exportPlan(targets){
+  const FN=fileNames();
   const rec=[['区分','場所','対象ポンプ／階','機器名','ファイル名','撮影日時','種別']];
   const kb=ekb(), groups=[]; let nPhoto=0, nSkip=0;
   for(const s of targets){
-    const f=siteFolder(s), seq={}, g={s, ents:[], est:0};
+    const f=siteFolder(s), g={s, ents:[], est:0};
     for(const id of photosOf(s.id)){
       const p=ST.photos[id]; if(p.x){ nSkip++; continue; }
-      const base=baseName(s,p); seq[base]=(seq[base]||0)+1;
-      const fn=f+'/'+base+'_'+String(seq[base]).padStart(3,'0')+'.jpg', est=kb? Math.min(p.b||0, kb*1024) : (p.b||0);
+      const fn=FN[id], est=kb? Math.min(p.b||0, kb*1024) : (p.b||0);
       g.ents.push({k:'ph', id, name:fn, est}); g.est+=est; nPhoto++;
       rec.push([s.g, s.t==='mp'?s.n:s.n, where(s), p.m||'', fn, stamp(p.ts), 'iPad']);
     }
@@ -1413,6 +1452,7 @@ function expInfo(){
   const w=$('#ewarn'); w.style.display = np>1 ? 'block':'none';
   w.textContent = np>1 ? `大きいので、ZIPを約 ${np} 個に分けて書き出します（1個 ${mb(lim)} まで）。すべて同じフォルダに展開してください。` : '';
   $('#ego').disabled = t.length===0;
+  photoBtn();
   return t;
 }
 let EXPORTING=false, LAST=null;
@@ -1494,6 +1534,50 @@ async function doExport(){
     okmsg:i=>'書き出し済みにしました'+(plan.parts.length>1?'（'+(i+1)+'/'+plan.parts.length+'）':'')});
 }
 $('#ego').addEventListener('click',doExport);
+/* ---------- 写真アプリへ保存：30枚ずつ。保存した写真は覚えておき、押すたびに続きを保存する ---------- */
+const PBATCH=30; let PREP=null;
+function photoTargets(){ const r=[]; for(const s of expTargets()) for(const id of livePhotos(s.id)) r.push([s,id]); return r; }
+function photoBtn(){
+  const b=$('#ephoto'); if(!b) return;
+  if(PREP){ b.textContent='▶ '+PREP.files.length+' 枚を写真アプリへ保存（共有シートで「画像を保存」）'; return; }
+  const all=photoTargets(), rest=all.filter(([s,id])=>!ST.saved[id]).length;
+  b.textContent= !all.length ? '写真アプリへ保存' : rest ? `写真アプリへ保存（未保存 ${rest} 枚・${PBATCH}枚ずつ）` : '写真アプリへ保存（すべて保存済み）';
+}
+async function sharePrep(){
+  const job=PREP;
+  try{
+    await navigator.share({files:job.files});
+    const now=Date.now(); job.ids.forEach(id=>ST.saved[id]=now); save(); PREP=null; photoBtn();
+    const rest=photoTargets().filter(([s,id])=>!ST.saved[id]).length;
+    toast(job.ids.length+' 枚を保存しました'+(rest? '。続きはもう一度押してください（残り '+rest+' 枚）' : '。すべて保存しました'),4500);
+  }catch(e){
+    if(e && e.name==='NotAllowedError'){ photoBtn(); toast('準備ができました。もう一度ボタンを押してください',4000); }
+    else if(e && e.name==='AbortError'){ photoBtn(); toast('キャンセルしました。もう一度押すと同じ写真を保存します',4000); }
+    else { PREP=null; photoBtn(); alert('保存できませんでした。\n'+(e&&e.message||e)); }
+  }
+}
+async function toPhotos(){
+  if(PREP){ await sharePrep(); return; }
+  noteSave();
+  const all=photoTargets(); if(!all.length){ alert('保存する写真がありません。'); return; }
+  let rest=all.filter(([s,id])=>!ST.saved[id]);
+  if(!rest.length){
+    if(!confirm('この範囲の写真はすべて写真アプリへ保存済みです。\nもう一度最初から保存しますか？')) return;
+    all.forEach(([s,id])=>delete ST.saved[id]); save(); rest=all; }
+  const batch=rest.slice(0,PBATCH), files=[], ids=[], b=$('#ephoto'), FN=fileNames();
+  b.disabled=true; b.textContent='準備しています…';
+  try{
+    for(const [s,id] of batch){
+      const p=ST.photos[id], bl=await get('blobs',id); if(!bl) continue;
+      const bx=await withExif(bl,p,photoLabel(s,p));
+      files.push(new File([bx], (FN[id]||id+'.jpg').split('/').pop(), {type:'image/jpeg', lastModified:p.ts})); ids.push(id);
+    }
+  } finally { b.disabled=false; }
+  if(!files.length){ photoBtn(); alert('保存する写真がありません。'); return; }
+  if(!navigator.canShare || !navigator.canShare({files})){ photoBtn(); alert('この端末では写真アプリへの保存（共有シート）が使えません。ZIP書き出しをお使いください。'); return; }
+  PREP={files, ids}; await sharePrep();
+}
+$('#ephoto').addEventListener('click',toPhotos);
 async function verifyZip(zip, E){
   const rd=async(o,l)=>new Uint8Array(await zip.slice(o,o+l).arrayBuffer());
   try{
@@ -1607,12 +1691,14 @@ async function loadProject(pid){
   if(!p){ await del('meta','cur'); go('home'); return; }
   p.used=Date.now(); put('projects',pid,p).catch(()=>{});
   initProject(p);
-  ST=Object.assign(freshST(), (await get('meta','ST:'+pid))||{});
-  ST.cfg=Object.assign({p:'0',ex:'500'}, ST.cfg||{});
+  const saved=await get('meta','ST:'+pid);
+  ST=Object.assign(freshST(), saved||{});
+  ST.cfg=Object.assign({p:'0',ex:'800'}, ST.cfg||{}); ST.saved=ST.saved||{};
+  if(((saved&&saved.cfgv)||0)<2){ if(ST.cfg.ex==='500') ST.cfg.ex='800'; ST.cfgv=2; }   // 標準を800KBに変えた版：前の標準（500）のままの案件は1回だけ800に切り替える
   const have=new Set(await keys('blobs'));                       // 実体を失った写真の記録を掃除
   for(const id of Object.keys(ST.photos)){ if(have.has(id)) continue; if(have.has('t:'+id)) ST.photos[id].x=1; else delete ST.photos[id]; }
   for(const id of Object.keys(ST.photos)) if(!SI[ST.photos[id].s]) ST.photos[id].s=S[0]&&S[0].id;   // 念のため
-  LAST=null; $('#eshareline').style.display='none';
+  LAST=null; PREP=null; $('#eshareline').style.display='none';
   $('#eqty').value=ST.cfg.p; $('#eex').value=ST.cfg.ex;
   save(); go('main');
 }
