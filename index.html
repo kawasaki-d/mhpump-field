@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="MHポンプ">
+<meta name="apple-mobile-web-app-title" content="ストマネ">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>MHポンプ撮影</title>
+<title>ストマネ現場チェックリスト</title>
 <style>
 :root{
   --bg:#f4f5f7; --panel:#ffffff; --line:#d8dce3; --line2:#eceef2;
@@ -455,16 +455,7 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
 #pv2{position:fixed; inset:0; z-index:300; background:rgba(0,0,0,.93); display:none; overflow-y:auto}
 #pv2.on{display:block}
 .pv2in{min-height:100%; display:flex; flex-direction:column}
-#pv2img{width:100%; height:100%; object-fit:contain; display:block; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none}
-.pv2top{position:sticky; top:0; z-index:3; display:flex; align-items:center; gap:12px; background:#111; color:#ddd;
-  padding:calc(8px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right)) 8px max(12px,env(safe-area-inset-left))}
-.pv2top button{min-height:42px; padding:0 16px; border-radius:9px; border:0; background:#fff; color:#111; font-weight:800; font-size:calc(14px*var(--fz,1))}
-#pv2n{font-size:calc(13px*var(--fz,1)); font-variant-numeric:tabular-nums; color:#bbb}
-.pv2wrap{position:relative; height:62vh; background:#000; flex:none; overflow:hidden; touch-action:pan-y}
-#pv2img.sw{transition:transform .18s ease-out}
-.pvnav{position:absolute; top:50%; transform:translateY(-50%); width:48px; height:72px; border:0; border-radius:10px; background:rgba(0,0,0,.45); color:#fff; font-size:34px; line-height:1}
-#vprev{left:8px} #vnext{right:8px}
-.pvnav[hidden]{display:none}
+#pv2img{width:100%; max-height:62vh; object-fit:contain; background:#000; flex:none}
 .pv2b{background:var(--panel); padding:13px; flex:1}
 .pv2b h4{margin:0 0 4px; font-size:calc(14px*var(--fz,1))}
 .pv2b .m{font-size:calc(11px*var(--fz,1)); color:var(--muted); margin-bottom:11px}
@@ -520,58 +511,40 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
 .btnlike.sub{border-style:solid; background:var(--panel)}
 .gtile .px{position:absolute; top:5px; left:5px; right:auto; bottom:auto; background:#555; border-radius:4px; padding:1px 5px; font-size:calc(10px*var(--fz,1))}
 
-
-/* ---------- MHポンプ撮影：追加分 ---------- */
-.sec{margin:18px 2px 8px; font-size:calc(16px*var(--fz,1)); font-weight:800; display:flex; align-items:baseline; gap:8px}
-.sec:first-child{margin-top:4px}
-.sec i{font-style:normal; font-size:calc(12px*var(--fz,1)); font-weight:600; color:var(--muted)}
-.pbdg{display:inline-block; font-size:calc(12px*var(--fz,1)); font-weight:800; padding:2px 9px; border-radius:6px; white-space:nowrap; border:1px solid var(--accent); color:var(--accent); background:var(--accent-bg)}
-.pbdg.none{border-color:var(--line); color:var(--muted); background:var(--line2)}
-.pbdg.fl{border-color:var(--cam); color:var(--cam); background:var(--cam-bg)}
-.mk{font-size:calc(11px*var(--fz,1)); color:var(--muted); white-space:nowrap}
-.mk.memo{color:var(--warn); font-weight:700}
-.card .r1{margin-top:2px}
-.togo{min-height:38px; min-width:64px; border-radius:8px; font-size:calc(12px*var(--fz,1)); font-weight:700; border:1px dashed var(--line); background:var(--panel); color:var(--muted)}
-.card.done .togo{border:1px solid var(--ok); background:var(--ok); color:#fff}
-#detail #ntxt{min-height:80px}
-.mgrp{margin:16px 0 7px; font-size:calc(13px*var(--fz,1)); font-weight:700; color:var(--muted); display:flex; gap:8px; align-items:baseline}
-.mgrp i{font-style:normal; font-weight:600}
-.dcinfo{font-size:calc(12px*var(--fz,1)); color:var(--muted); margin:-6px 0 12px}
-#slm{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:16px; max-width:900px}
-#slm button{min-height:44px; padding:0 14px; border-radius:10px; border:1px solid #555; background:#222; color:#ddd; font-size:14px; font-weight:700}
-#slm button[aria-pressed="true"]{background:#fff; color:#111; border-color:#fff}
-.vchips{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px}
-.vchips button{display:inline-flex!important; width:auto!important; min-height:40px!important; margin:0!important; font-size:calc(13px*var(--fz,1))!important}
-.vchips button[aria-pressed="true"]{background:var(--accent-bg)!important; border-color:var(--accent)!important; color:var(--accent)!important; font-weight:700}
-.pv2b select{width:100%; min-height:var(--tap); padding:0 10px; font:inherit; border:1px solid var(--line); border-radius:9px; background:var(--bg); color:var(--txt); margin-bottom:10px}
-.pv2b .vl{font-size:calc(11px*var(--fz,1)); color:var(--muted); font-weight:700; margin:4px 0 5px}
-#eex,#eqty{width:100%; min-height:var(--tap); padding:0 12px; font:inherit; font-size:calc(15px*var(--fz,1)); border:1px solid var(--line); border-radius:var(--r); background:var(--bg); color:var(--txt)}
-.chips2{display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap}
-#cam .strip span[data-fl],#cam .strip span[data-m]{flex:none; font-size:13px; padding:9px 12px; border-radius:8px; background:#2c2c2c; color:#ccc; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; cursor:pointer}
-#cam .strip.lv2 span[data-m]{background:#3a3a3a}
-@media (max-height:500px) and (orientation:landscape){
-  #cam .strip span[data-fl],#cam .strip span[data-m]{white-space:normal; padding:7px 8px; font-size:12px; line-height:1.3}
+@media print{
+  @page{size:A4 portrait; margin:9mm 8mm}
+  body{background:#fff; color:#000; font-size:10pt}
+  #top,#tabs,#detail,.tools,#pv .pnote,#pv .prtools,#paper{border:0!important;background:#fff!important;padding:0!important;margin:0!important}
+  #top,#tabs,.tools,#pv .pnote,#pv .prtools,#detail{display:none!important}
+  .view{display:none!important; padding:0!important}
+  .view#pv{display:block!important}
+  table.pl th{background:#e9ebee!important; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .ah{break-after:avoid; page-break-after:avoid}
+  table.pl{break-inside:auto}
+  tr{break-inside:avoid; page-break-inside:avoid}
+  .brk{break-before:page; page-break-before:always}
+  .brk:first-child{break-before:auto; page-break-before:auto}
 }
-
-#camnat{position:relative; overflow:hidden}
 .offscreen{position:absolute; left:0; top:0; width:1px; height:1px; opacity:0; pointer-events:none}
 </style>
 </head>
 <body>
 
-<div class="sab" id="sab"><span><b>Safariのタブで開いています。</b>このままだと写真がホーム画面のアイコン側とは別に保存され、7日で消えることがあります。ホーム画面のアイコンから開いてください。</span><button id="sabx">閉じる</button></div>
+<div class="sab" id="sab"><span><b>Safariのタブで開いています。</b>このままだと写真やチェックがホーム画面のアイコン側とは別に保存され、7日で消えることがあります。ホーム画面のアイコンから開いてください。</span><button id="sabx">閉じる</button></div>
 <div class="sab upd" id="upd"><span id="updt"></span><button id="updb">今すぐ更新</button></div>
 <div id="top">
-  <div id="crumb"><button id="cbHome" class="cb">‹ 案件</button><b id="ttl">MHポンプ撮影</b></div>
+  <div id="crumb"><button id="cbHome" class="cb">‹ 案件</button><b id="ttl">ストマネ現場チェックリスト</b><span class="sep">›</span><button id="cbFac" class="cb fac"></button></div>
   <div id="subt"></div>
   <div id="stats">
-    <span class="stat"><b id="s1">0</b>/<span id="s1t">0</span> 場所 済</span>
+    <span class="stat"><b id="s1">0</b>/<span id="s1t">0</span> 機器 完了</span>
     <span class="stat">写真 <b id="s2">0</b> 枚</span>
-    <span class="stat">未書き出し <b id="s3">0</b> 枚</span>
+    <span class="stat">デジカメ <b id="s3">0</b> 機器</span>
   </div>
+  <div id="bar"><i id="barf"></i></div>
   <div id="tabs">
-    <button id="t1" aria-selected="true">場所の一覧</button>
+    <button id="t1" aria-selected="true">機器一覧</button>
     <button id="t3" aria-selected="false">書き出し・設定</button>
+    <button id="t2" aria-selected="false" class="tsm">🖨 印刷</button>
   </div>
 </div>
 
@@ -580,68 +553,125 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
     <label class="el">案件を選ぶ</label>
     <div id="hlist"></div>
     <div class="ebtns"><label class="btnlike">＋　案件を追加（取込データのExcelを選ぶ）<input type="file" id="hfile" accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv" hidden></label></div>
-    <p class="ehelp">取込データ（.xlsx または .csv）の列：種別（MP／処理場）・区分（処理区名または処理場名）・名称（フォルダ名に使う）・対象ポンプ（①／②／①②／対象なし）・正式名称（任意）。処理場の行の「名称」は、撮るときに選べる機器名になります。</p>
+    <div class="ebtns"><label class="btnlike sub">⤓　バックアップから戻す（ZIPを選ぶ・分かれている場合はまとめて選ぶ）<input type="file" id="hrest" accept=".zip,application/zip" multiple hidden></label></div>
+    <p class="ehelp">共通様式の「取込データ_○○.xlsx」（または .csv）を選びます。客先から届いたExcelはそのままでは読めないので、先に共通様式へ変換したものを使ってください。iPadでは「ファイル」アプリや会社サーバの中から選べます。</p>
+  </div>
+</section>
+<section class="view" id="fv">
+  <div class="ecard">
+    <label class="el">施設（処理場・ポンプ場）を選ぶ</label>
+    <div id="flist"></div>
+    <p class="ehelp">施設名は ✎ で書き換えられます（この iPad の中だけの表示名で、書き出しのフォルダ名にも使われます）。</p>
   </div>
 </section>
 <div id="imp" class="modal"><div class="mbox"><h4>取り込む内容の確認</h4><div id="impb"></div>
   <div class="ebtns"><button id="impok">この内容で取り込む</button><button id="impx" class="sub">やめる</button></div></div></div>
-
 <section class="view on" id="lv">
-  <div class="chips2">
-    <button class="chip" id="ftodo" aria-pressed="false">まだ済にしていない場所だけ</button>
+  <div class="tools">
+    <span class="qbox" id="qbox">
+      <input type="search" id="q" placeholder="機器名・番号・設置場所で検索（半角/全角どちらでも）" autocomplete="off">
+      <button id="qc" aria-label="検索をクリア">✕</button>
+    </span>
+    <div class="chips" id="chips">
+      <button class="chip" id="fu" aria-pressed="false">未完了</button>
+      <button class="chip" id="fd" aria-pressed="false">完了</button>
+      <span class="sep"></span>
+      <button class="chip" id="fp1" aria-pressed="false">写真あり</button>
+      <button class="chip ph0" id="fp0" aria-pressed="false">写真なし</button>
+      <span class="sep" id="fhzs"></span>
+      <span id="fhz" style="display:contents"></span>
+      <span id="ftn" style="display:contents"></span>
+      <span class="sep" id="fsorts"></span>
+      <button class="chip" id="fsort" aria-pressed="false">並び：リスト順</button>
+    </div>
   </div>
+  <div id="unexp" class="unexp"></div>
   <div id="list"></div>
+</section>
+
+<section class="view" id="pv">
+  <div class="pnote">
+    <b>紙で持っていく人用のリストです。</b><br>
+    ブラウザの印刷（Ctrl+P）でA4縦に出ます。プレビューで「背景のグラフィック」を有効にすると見出しの網掛けが出ます。
+  </div>
+  <div class="tools prtools">
+    <button class="chip" id="po" aria-pressed="false">未完了の機器のみ</button>
+    <button class="chip" id="pb" aria-pressed="false">機器ごとに改ページ</button>
+    <button class="chip" id="pc" aria-pressed="true">選択肢を印刷</button>
+    <button id="go">印刷</button>
+  </div>
+  <div id="paper"></div>
 </section>
 
 <section class="view" id="ev">
   <div class="ecard">
-    <label class="el">書き出す範囲</label>
-    <select id="escope">
-      <option value="all">写真のある場所すべて</option>
-      <option value="new">まだ書き出していない写真がある場所だけ</option>
-    </select>
-    <div id="einfo" class="einfo"></div>
-    <div id="ewarn" class="ewarn"></div>
-    <div class="ebtns"><button id="ego">ZIPを書き出す</button><button id="ephoto" class="sub">写真アプリへ保存</button></div>
-    <div class="ebtns" id="eshareline" style="display:none"><button id="eshare" class="sub">さっきのZIPを共有シートから保存する</button></div>
-    <div id="eprog" class="eprog"><div class="eprogbar"><i id="eprogb"></i></div><div id="eprogt"></div></div>
-    <p class="ehelp">ZIPの中は「MHポンプ／処理区／○○MP_①②」「処理場名／地下1階・1階・その他」のフォルダに分かれ、撮影記録（Excel）が入ります。<br>書き出したあと「保存できましたか？」と聞きます。保存できたことを確かめてから「保存できた」を押してください。押した写真だけが「書き出し済み」になります。大きいときは ZIP を自動で何個かに分けます（すべて同じフォルダに展開してください）。<br>「写真アプリへ保存」は、iPad の写真アプリに30枚ずつ入れます（共有シートで「画像を保存」）。写真アプリにはフォルダ分けが残らないので、納品用は ZIP を使ってください。写真アプリへの保存は「書き出し済み」には数えません。</p>
+    <label class="el">書き出す人の名前（この iPad を使う人）</label>
+    <input type="text" id="euser" class="etext" placeholder="例：河﨑" autocomplete="off">
+    <label class="echk"><input type="checkbox" id="euname"> 写真のファイル名にも名前を入れる（複数人の写真を1つのフォルダにまとめても上書きされません）</label>
+    <p class="ehelp">ZIP と調査記録（Excel）のファイル名に入ります。この iPad の設定で、すべての案件に共通です。</p>
+  </div>
+  <div class="ecard">
+    <label class="el">撮影の画質（iPadに保存される原本。これから撮る写真に適用）</label>
+    <select id="eqty"></select>
+    <div id="eqinfo" class="einfo"></div>
+    <p class="ehelp">iPadに貯まる原本の画質です。原寸で撮っておけば、あとから何度でも別の画質で書き出せます。</p>
   </div>
   <div class="ecard">
     <label class="el">書き出すときの写真の大きさ</label>
     <select id="eex">
       <option value="300">1枚 300KB以内（長辺1600px）</option>
-      <option value="500">1枚 500KB以内（長辺2048px）</option>
-      <option value="800">1枚 800KB以内（長辺2560px）　標準</option>
+      <option value="500">1枚 500KB以内（長辺2048px）　推奨</option>
+      <option value="800">1枚 800KB以内（長辺2560px）</option>
       <option value="0">縮小しない（iPadの原本のまま）</option>
     </select>
     <div id="eeinfo" class="einfo"></div>
-    <p class="ehelp">ZIPに入れる写真だけをこの大きさにします。iPadの中の原本はそのまま残ります。写真には撮影日時（EXIF）が入ります。</p>
+    <p class="ehelp">ZIPに入れる写真だけをこの大きさにします。iPadの中の原本はそのまま残るので、あとで別の大きさで出し直せます。上限を超える写真は、収まるまで自動で品質と寸法を落とします。写真には撮影日時（EXIF）が入ります。</p>
   </div>
   <div class="ecard">
-    <label class="el">撮影の画質（iPadに保存される原本。これから撮る写真に適用）</label>
-    <select id="eqty"></select>
+    <label class="el">書き出す範囲</label>
+    <select id="escope">
+      <option value="all">写真のある機器すべて</option>
+      <option value="new">まだ書き出していない写真がある機器</option>
+      <option value="done">調査完了にした機器だけ</option>
+    </select>
+    <label id="efacl" style="display:none;margin-top:10px;font-size:14px;align-items:center;gap:8px"><input type="checkbox" id="efac" style="width:20px;height:20px"> <span id="efact"></span></label>
+    <div id="einfo" class="einfo"></div>
+    <div id="ewarn" class="ewarn"></div>
+    <div class="ebtns">
+      <button id="ego">ZIPを書き出す</button>
+      <button id="ephoto" class="sub">写真アプリへ保存</button>
+    </div>
+    <div class="ebtns" id="eshareline" style="display:none">
+      <button id="eshare" class="sub">さっきのZIPを共有シートから保存する</button>
+    </div>
+    <div id="eprog" class="eprog"><div class="eprogbar"><i id="eprogb"></i></div><div id="eprogt"></div></div>
+    <p class="ehelp">書き出したあと「保存できましたか？」と聞きます。保存できたことを確かめてから「保存できた」を押してください。押した写真だけが「書き出し済み」になります。<br>大きいときは、ZIPを自動で何個かに分けます（すべて同じフォルダに展開してください）。</p>
   </div>
   <div class="ecard">
-    <label class="el">場所ごとの状況</label>
+    <label class="el">機器ごとの状況</label>
     <div id="elist"></div>
   </div>
   <div class="ecard">
-    <label class="el">この iPad の記号（任意）</label>
-    <input type="text" id="etag" class="etext" placeholder="例：A" autocomplete="off" maxlength="8">
-    <p class="ehelp">2台以上の iPad で撮って1つのフォルダにまとめるときだけ入れてください（例：A、B）。写真のファイル名に「_A」のように入り、上書きされなくなります。空欄なら入りません。</p>
+    <label class="el">別の iPad への引き継ぎ・複数人の作業を1台にまとめる（バックアップ）</label>
+    <div class="ebtns"><button id="ebak" class="sub">この案件をバックアップする（写真の原本ごと）</button></div>
+    <p class="ehelp">写真の原本・チェック・特記事項をまるごとZIPにします。別の iPad の案件一覧で「バックアップから戻す」を選ぶと、続きから作業できます。同じ取込データの案件が入っている iPad に戻すと、写真やチェックを足し合わせて1台にまとめられます。</p>
   </div>
   <div class="ecard">
     <label class="el">文字の大きさ</label>
     <div class="seg" id="efz"><button data-fz="1">標準</button><button data-fz="1.15">大</button><button data-fz="1.3">特大</button></div>
   </div>
   <div class="ecard">
+    <label class="el">チェックのリセット</label>
+    <div class="ebtns"><button id="freset" class="danger">この案件の「完了」「済」をすべて外す</button></div>
+    <p class="ehelp">写真・特記事項・デジカメ記録は消えません。</p>
+  </div>
+  <div class="ecard">
     <label class="el">保存容量</label>
     <div id="eq" class="einfo"></div>
     <div class="ebtns"><button id="epurge" class="danger">書き出し済みの写真の原本を iPad から削除</button></div>
-    <p class="ehelp">「保存できた」を押した写真だけが対象です。削除後も確認用の小さな画像と枚数は残ります。</p>
+    <p class="ehelp">「保存できた」を押した写真だけが対象です。削除後も確認用の小さな画像と枚数は残るので、撮り忘れの確認には影響しません。</p>
   </div>
-  <p class="ehelp" style="text-align:center">アプリの版：<b id="ever"></b>　<span id="eoff"></span></p>
+  <p class="ehelp" style="text-align:center">ツールの版：<b id="ever"></b>　<span id="eoff"></span></p>
 </section>
 
 <div id="detail">
@@ -651,16 +681,18 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
       <div>
         <div id="dtitle"></div>
         <div id="dmeta"></div>
-        <span class="fbadge">✓　済</span>
+        <span class="fbadge">✓　調査完了</span>
       </div>
     </div>
   </div>
   <div id="dbody"></div>
+  <div id="dask"><span>すべての部品が「済」になりました。この機器を完了にしますか？</span><button id="daskok">完了にする</button><button id="daskx" class="sub">あとで</button></div>
   <div id="dfoot">
     <span class="txt" id="dcnt"></span>
-    <button id="fin" aria-pressed="false">済にする</button>
+    <button id="fin" aria-pressed="false">調査完了</button>
   </div>
 </div>
+
 
 <div id="cam">
   <div class="cwrap">
@@ -676,6 +708,7 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
       <div id="camlast"><span id="camn"></span></div>
       <button id="camsh" aria-label="撮影"></button>
       <div class="cbtns">
+        <button id="camnext" class="cbtn">次の項目 ▶</button>
         <button id="camtorch" class="cbtn" aria-pressed="false" hidden>ライト</button>
         <button id="camori" class="cbtn" aria-pressed="true">横長固定</button>
         <label id="camnat" class="cbtn">純正カメラで撮る<input type="file" accept="image/*" capture="environment" id="camfile" class="offscreen"></label>
@@ -686,19 +719,17 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
   </div>
 </div>
 <div id="slate">
-  <div class="s1">デジカメで撮る前に、この画面を1枚撮ってください</div>
+  <div class="s1">STOCK MANAGEMENT ／ デジカメ撮影前にこの画面を1枚</div>
   <div class="s2" id="sl2"></div>
   <div class="s3" id="sl3"></div>
   <div class="s4" id="sl4"></div>
-  <div id="slm"></div>
   <div class="s6" id="slclock"></div>
   <div class="sbtns"><button id="slok">撮った（記録する）</button><button id="slx">閉じる</button></div>
   <div class="s7" id="sl7"></div>
 </div>
-<div id="pv2"><div class="pv2in">
-  <div class="pv2top"><button id="vclose">✕　閉じる</button><span id="pv2n"></span></div>
-  <div class="pv2wrap" id="pv2wrap"><img id="pv2img" alt="" draggable="false"><button class="pvnav" id="vprev" aria-label="前の写真">‹</button><button class="pvnav" id="vnext" aria-label="次の写真">›</button></div>
-  <div class="pv2b" id="pv2b"></div></div></div>
+<div id="gal"><div id="galh"><div class="t"><b id="galt"></b><small id="gals"></small></div>
+  <button id="galopen">この機器を開く</button><button id="galx">✕ 閉じる</button></div><div id="galb"></div></div>
+<div id="pv2"><div class="pv2in"><img id="pv2img" alt=""><div class="pv2b" id="pv2b"></div></div></div>
 <div id="parts" class="modal"><div class="mbox"><h4 id="partt"></h4><div class="ehelp" id="parth" style="margin:0 0 8px"></div><div id="partl"></div>
   <div class="eprog" id="partp"><div class="eprogbar"><i id="partpb"></i></div><div id="partpt" class="eprogt"></div></div>
   <div class="dbtns"><button id="partx" class="sub">閉じる</button></div></div></div>
@@ -707,57 +738,17 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
 <div id="toast"></div>
 
 <script>
-const DATA = {
- "title": "練習用：サンプル町（架空のデータ）",
- "practice": true,
- "mps": [
-  {
-   "g": "サンプル第1処理区",
-   "n": "みどり地区No1MP",
-   "pump": "①②",
-   "full": "みどり地区No.1マンホールポンプ場（練習）"
-  },
-  {
-   "g": "サンプル第1処理区",
-   "n": "みどり地区No2MP",
-   "pump": "②",
-   "full": "みどり地区No.2マンホールポンプ場（練習）"
-  },
-  {
-   "g": "サンプル第1処理区",
-   "n": "あおば地区No1MP",
-   "pump": "対象なし",
-   "full": "あおば地区No.1マンホールポンプ場（練習）"
-  },
-  {
-   "g": "サンプル第2処理区",
-   "n": "さくら橋MP",
-   "pump": "①",
-   "full": "さくら橋マンホールポンプ場（練習）"
-  }
- ],
- "plants": [
-  {
-   "n": "サンプル浄化センター",
-   "machines": [
-    "No.1撹拌機（練習）",
-    "No.2撹拌機（練習）",
-    "No.1送風機（練習）"
-   ]
-  }
- ]
-};          // 練習用の架空案件。初回起動時に1回だけ案件として登録する
-const BUILD='2026-10-02 13:01', BUILDV='2026-10-02_1301';
-const freshST=()=>({photos:{},exported:{},notes:{},noteExp:{},done:{},dc:{},seq:0,cfg:{p:'0',ex:'800'},saved:{},cfgv:2});
+const DATA = {"title": "練習用：サンプル浄化センター（架空のデータ）", "practice": true, "assets": [{"no": "S-001", "name": "No.1汚水ポンプ（練習）", "fac": "サンプル浄化センター", "place": "ポンプ棟_B1F_ポンプ室", "spec": "水中汚水ポンプ φ150 3.7kW（架空の仕様）", "ki": "", "tanto": "", "items": [{"hz": "状態（部品）", "b": "", "bc": "01", "p": "本体ケーシング", "pc": "01", "k": "発錆・腐食", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "本体ケーシング", "pc": "01", "k": "変形・損傷", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "羽根車", "pc": "02", "k": "摩耗", "d1": "点検口から見える範囲（練習用）", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "発錆・腐食", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "振動（がたつき）", "d1": "測定：両振幅50μm以下（練習用の値）", "o1": "5;4;3;2;1", "o2": ""}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "異音", "d1": "", "o1": "5;4;3;2;1", "o2": ""}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "電流値", "d1": "定格電流は操作盤で確認する（練習用）", "o1": "5;4;3;2;1", "o2": ""}]}, {"no": "S-002", "name": "No.2汚水ポンプ（練習）", "fac": "サンプル浄化センター", "place": "ポンプ棟_B1F_ポンプ室", "spec": "水中汚水ポンプ φ150 3.7kW（架空の仕様）", "ki": "", "tanto": "", "items": [{"hz": "状態（部品）", "b": "", "bc": "01", "p": "本体ケーシング", "pc": "01", "k": "発錆・腐食", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "本体ケーシング", "pc": "01", "k": "変形・損傷", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "羽根車", "pc": "02", "k": "摩耗", "d1": "点検口から見える範囲（練習用）", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "発錆・腐食", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "振動（がたつき）", "d1": "測定：両振幅50μm以下（練習用の値）", "o1": "5;4;3;2;1", "o2": ""}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "異音", "d1": "", "o1": "5;4;3;2;1", "o2": ""}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "電流値", "d1": "定格電流は操作盤で確認する（練習用）", "o1": "5;4;3;2;1", "o2": ""}]}, {"no": "S-003", "name": "沈砂池流入ゲート（練習）", "fac": "サンプル浄化センター", "place": "沈砂池棟_1F", "spec": "ステンレス製スライドゲート（架空の仕様）", "ki": "", "tanto": "", "items": [{"hz": "状態（設備）", "b": "部位全部", "bc": "01", "p": "全体", "pc": "01", "k": "発錆・腐食", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（設備）", "b": "部位全部", "bc": "01", "p": "全体", "pc": "01", "k": "変形・損傷", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（設備）", "b": "部位全部", "bc": "01", "p": "全体", "pc": "01", "k": "動作状況", "d1": "", "o1": "5;4;3;2;1", "o2": ""}]}, {"no": "S-004", "name": "1号吐出弁（練習）", "fac": "サンプル浄化センター", "place": "ポンプ棟_B1F_ポンプ室", "spec": "電動バタフライ弁 φ150（架空の仕様）", "ki": "", "tanto": "", "items": [{"hz": "事後", "b": "部位全部", "bc": "01", "p": "全体", "pc": "01", "k": "銘板", "d1": "銘板（型式・製造番号）を撮影", "o1": "", "o2": ""}, {"hz": "事後", "b": "部位全部", "bc": "01", "p": "全体", "pc": "01", "k": "特記箇所", "d1": "錆・損傷など特筆すべき箇所を撮影", "o1": "", "o2": ""}]}, {"no": "S-005", "name": "換気ファン（練習）", "fac": "サンプルポンプ場", "place": "ポンプ場_1F_電気室", "spec": "有圧換気扇 φ300（架空の仕様）", "ki": "", "tanto": "", "items": [{"hz": "事後", "b": "部位全部", "bc": "01", "p": "全体", "pc": "01", "k": "銘板", "d1": "銘板（型式・製造番号）を撮影", "o1": "", "o2": ""}, {"hz": "事後", "b": "部位全部", "bc": "01", "p": "全体", "pc": "01", "k": "特記箇所", "d1": "錆・損傷など特筆すべき箇所を撮影", "o1": "", "o2": ""}]}, {"no": "S-006", "name": "No.1雨水ポンプ（練習）", "fac": "サンプルポンプ場", "place": "ポンプ場_B1F", "spec": "水中汚水ポンプ φ150 3.7kW（架空の仕様）", "ki": "", "tanto": "", "items": [{"hz": "状態（部品）", "b": "", "bc": "01", "p": "本体ケーシング", "pc": "01", "k": "発錆・腐食", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "本体ケーシング", "pc": "01", "k": "変形・損傷", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "羽根車", "pc": "02", "k": "摩耗", "d1": "点検口から見える範囲（練習用）", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "発錆・腐食", "d1": "", "o1": "無;小;中;大", "o2": "無;少;中;多"}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "振動（がたつき）", "d1": "測定：両振幅50μm以下（練習用の値）", "o1": "5;4;3;2;1", "o2": ""}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "異音", "d1": "", "o1": "5;4;3;2;1", "o2": ""}, {"hz": "状態（部品）", "b": "", "bc": "01", "p": "電動機", "pc": "03", "k": "電流値", "d1": "定格電流は操作盤で確認する（練習用）", "o1": "5;4;3;2;1", "o2": ""}]}]};          // 練習用の架空案件。初回起動時に1回だけ案件として登録する
+const BUILD='2026-10-02 18:46', BUILDV='2026-10-02_1846';
+const freshST=()=>({items:{},done:{},notes:{},photos:{},exported:{},saved:{},seq:0,dc:{},noteExp:{},cfg:{p:'0',ex:'500'},cfgv:3});
 /* この iPad の設定（案件をまたいで共通） */
-let DEV={tag:'', fz:1, camLand:true};
+let DEV={user:'', nameInFiles:true, fz:1, camLand:true};
 async function loadDev(){ try{ DEV=Object.assign(DEV, (await get('meta','dev'))||{}); }catch(e){} applyFz(); }
 function saveDev(){ if(DB) put('meta','dev',DEV).catch(()=>{}); }
 function applyFz(){ document.documentElement.style.setProperty('--fz', String(DEV.fz||1)); }
-/* 階（処理場）：コード＝ファイル名の頭、名前＝フォルダ名 */
-const FL=[{c:'B1F',n:'地下1階'},{c:'1F',n:'1階'},{c:'その他',n:'その他'}];
-let P=null, S=[], SI={}, ST=freshST(), ONLYTODO=false;
-/* ---------- 保存層：IndexedDB「mhp」（既存アプリ stmn とは別） ---------- */
+let P=null, A=[], TOT=0, FAC='*';
+let ST=freshST();
+/* ---------- 保存層：IndexedDB「stmn」に 案件・メタ・写真 を持つ ---------- */
 let DB=null, SAVEWARN=false, saveT=null;
 function openDB(name){
   return new Promise((ok,ng)=>{
@@ -788,38 +779,154 @@ async function saveNow(){ if(!P) return; clearTimeout(saveT); try{ await put('me
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const BAD=/[\\\/:;*?"<>|~,\s　]/g;
-const safe=s=>String(s==null?'':s).replace(BAD,'_').replace(/_+/g,'_').replace(/^_|_$/g,'');
-const stamp=t=>{const d=new Date(t);const z=n=>String(n).padStart(2,'0');
-  return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds());};
-
-/* ---------- 案件 → 場所の一覧（MP＝1か所1件、処理場＝階ごとに1件） ---------- */
-function initProject(p){
-  P=p; S=[]; SI={};
-  (p.mps||[]).forEach((m,i)=>S.push({id:'m'+i, t:'mp', g:m.g||'', n:m.n, pump:m.pump, full:m.full||''}));
-  (p.plants||[]).forEach((pl,j)=>FL.forEach(f=>S.push({id:'f'+j+'-'+f.c, t:'pl', g:pl.n, fl:f.c, n:f.n, pj:j, machines:pl.machines||[]})));
-  S.forEach((s,i)=>{ s._i=i; SI[s.id]=s; });
+const st=k=>ST.items[k]?1:0;              // 部品の「済」（確認項目ごとには表示しない）
+function groupsOf(a){
+  if(a._g) return a._g;
+  const m=new Map();
+  a.items.forEach(it=>{ const k=it.b+'\u0001'+it.p;
+    if(!m.has(k)) m.set(k,{b:it.b,p:it.p,items:[]}); m.get(k).items.push(it); });
+  const gs=[...m.values()], cnt={};
+  gs.forEach(g=>cnt[g.p]=(cnt[g.p]||0)+1);
+  gs.forEach((g,i)=>{ g.i=i; g.label=cnt[g.p]>1? g.p+'（'+g.b+'）' : g.p; g.keys=g.items.map(x=>x._k); });
+  return a._g=gs;
 }
-const floorsOf=s=>S.filter(x=>x.t==='pl' && x.pj===s.pj);
-const siteTitle=s=> s.t==='mp' ? s.n : s.g+'　'+s.n;
-const siteSub=s=> s.t==='mp' ? [s.g, s.full].filter(Boolean).join('　／　') : '処理場';
-const pumpLabel=p=> p==='対象なし' ? 'ポンプ対象なし' : 'ポンプ'+p;
-const badge=s=> s.t==='mp' ? `<span class="pbdg ${s.pump==='対象なし'?'none':''}">${esc(pumpLabel(s.pump))}</span>` : `<span class="pbdg fl">${esc(s.fl)}</span>`;
-/* フォルダ名とファイル名（書き出しのときに決まる） */
-function siteFolder(s){ return s.t==='mp' ? 'MHポンプ/'+(s.g? safe(s.g)+'/' : '')+safe(s.n)+'_'+s.pump : safe(s.g)+'/'+s.n; }
-function baseName(s,p){ const tg=safe(DEV.tag||''); const b = s.t==='mp' ? safe(s.n) : s.fl+(p.m? '_'+safe(p.m) : ''); return b+(tg?'_'+tg:''); }
-function photoLabel(s,p){ return s.t==='mp' ? [s.g, s.n, pumpLabel(s.pump)].filter(Boolean).join(' / ') : [s.g, s.n, p.m].filter(Boolean).join(' / '); }
+const partDone=g=>g.keys.every(k=>ST.items[k]);
+const partPhotos=(ai,g)=>{ const ks=new Set([...g.keys, ai+'-P'+g.i]);
+  return Object.values(ST.photos).filter(p=>p.a===ai && (p.k||[]).some(k=>ks.has(k))).length; };
+const dcOf=ai=>(ST.dc&&ST.dc[ai])||[];
+
+/* ---------- 集計 ---------- */
+function stats(){
+  const V=AV(), set=new Set(V.map(a=>a._i));
+  const d=V.filter(a=>ST.done[a._i]).length;
+  $('#s1').textContent=d; $('#s1t').textContent=V.length;
+  $('#s2').textContent=Object.values(ST.photos).filter(p=>set.has(p.a)).length;
+  $('#s3').textContent=V.filter(a=>dcOf(a._i).length).length;
+  $('#barf').style.width=(V.length?d/V.length*100:0)+'%';
+}
+
+/* ---------- 機器一覧 ---------- */
+/* 検索用の正規化：半角ｶﾅ⇔全角カナ、全角英数⇔半角英数、ひらがな⇔カタカナ を吸収 */
+const norm = s => String(s==null?'':s)
+  .normalize('NFKC')
+  .replace(/[ぁ-ゖ]/g, c=>String.fromCharCode(c.charCodeAt(0)+0x60))
+  .replace(/[ー‐-―ｰ]/g,'ー')
+  .replace(/\s+/g,'')
+  .toLowerCase();
+
+/* ---------- 案件と施設 ---------- */
+const facName=k=>(P&&P.facNames&&P.facNames[k]) || k || '（施設名なし）';
+function facList(){
+  const m=new Map();
+  A.forEach(a=>{ if(!m.has(a.fac)) m.set(a.fac,[]); m.get(a.fac).push(a); });
+  return [...m.entries()].map(([k,v])=>({k, name:facName(k), assets:v}));
+}
+const AV=()=> FAC==='*' ? A : A.filter(a=>a.fac===FAC);
+function initProject(p){
+  P=p; A=p.assets;
+  A.forEach((a,i)=>{
+    a._i=i; delete a._g;
+    a.items.forEach((it,j)=>{ it._k=i+'-'+j; });
+    a.fac = a.fac!=null ? a.fac : (a.sc||'');
+    const h=[...new Set(a.items.map(x=>x.hz).filter(Boolean))];
+    a._hz = h.join('・') || '—';                                       // 保全区分（混在時は並べて表示）
+    a._flat = a.items.every(x=>x.b==='部位全部' && x.p==='全体');        // 部位が分かれていない＝一覧だけで判断できる
+    a._q = norm([a.name,a.no,a.ki,a.sc,facName(a.fac),a.place].join(' '));
+  });
+  TOT=A.reduce((n,a)=>n+a.items.length,0);
+  /* 保全区分の絞り込みボタンは案件ごとに作る */
+  const hz=[...new Set(A.map(a=>a._hz))].filter(x=>x&&x!=='—').slice(0,5);
+  $('#fhz').innerHTML = hz.map(h=>`<button class="chip" data-hz="${esc(h)}" aria-pressed="false">${esc(h)}</button>`).join('');
+  /* 担当者：取込データに担当者が入っているときだけ絞り込みを出す（入っていなければ何も出さない） */
+  const tn=[...new Set(A.map(a=>a.tanto).filter(Boolean))].slice(0,10);
+  $('#ftn').innerHTML = tn.map(t=>`<button class="chip" data-tn="${esc(t)}" aria-pressed="false">担当：${esc(t)}</button>`).join('');
+  $('#fhzs').style.display = (hz.length||tn.length) ? '' : 'none';
+  const hasPl=A.some(a=>a.place); $('#fsort').style.display=hasPl?'':'none'; $('#fsorts').style.display=hasPl?'':'none';
+}
+
+function list(){
+  const q=norm($('#q').value);
+  $('#qbox').classList.toggle('has', $('#q').value.length>0);
+  const on=id=>$('#'+id).getAttribute('aria-pressed')==='true';
+  const fu=on('fu'), fd=on('fd'), p1=on('fp1'), p0=on('fp0');
+  const hz=[...document.querySelectorAll('#fhz [aria-pressed="true"]')].map(b=>b.dataset.hz);
+  const tn=[...document.querySelectorAll('#ftn [aria-pressed="true"]')].map(b=>b.dataset.tn);
+  const NP={}; for(const id in ST.photos){ const a=ST.photos[id].a; NP[a]=(NP[a]||0)+1; }
+  let rows=AV().filter(a=>{
+    if(p1&&!p0&&!NP[a._i])return false;
+    if(p0&&!p1&&NP[a._i])return false;
+    if(fu&&!fd&&ST.done[a._i])return false;
+    if(fd&&!fu&&!ST.done[a._i])return false;
+    if(hz.length && !hz.includes(a._hz))return false;
+    if(tn.length && !tn.includes(a.tanto))return false;
+    if(!q)return true;
+    return a._q.includes(q);
+  });
+  const byPlace=ST.sort==='place', PL=a=>a.place||'（設置場所なし）';
+  if(byPlace) rows=rows.slice().sort((x,y)=>(x.place?0:1)-(y.place?0:1) || PL(x).localeCompare(PL(y),'ja',{numeric:true}) || x._i-y._i);
+  const cnt={}; if(byPlace) rows.forEach(a=>cnt[PL(a)]=(cnt[PL(a)]||0)+1);
+  let html='', last=null;
+  for(const a of rows){
+    if(byPlace && PL(a)!==last){ last=PL(a); html+=`<div class="lgrp">${esc(last)}<i>${cnt[last]}台</i></div>`; }
+    html+=card(a, NP[a._i]||0);
+  }
+  $('#list').innerHTML = rows.length? html : '<p class="empty">該当する機器がありません</p>';
+  unexpBanner();
+  stats();
+}
+function card(a, n){
+  const d=!!ST.done[a._i], dc=dcOf(a._i).length;
+  const any=n||dc||a.items.some(i=>st(i._k));
+  const cls=d?'done':(any?'part':'');
+  const pill=d?'<span class="pill d">完了</span>':(any?'<span class="pill p">途中</span>':'<span class="pill n">未着手</span>');
+  const hasB=a.items.some(i=>i.b && i.b!=='部位全部');
+  const nb=new Set(a.items.map(i=>i.b)).size, np=new Set(a.items.map(i=>i.b+'/'+i.p)).size;
+  const hzc=/状態/.test(a._hz)?'jk':'jg';
+  const body = a._flat
+    ? `<span class="kl">${a.items.map(i=>`<span>${esc(i.k)}</span>`).join('')}</span>`
+    : `<span class="mt">${hasB?'部位 '+nb+' ／ ':''}部品 ${np} ／ 確認項目 ${a.items.length}${ST.sort!=='place'&&a.place?'　'+esc(a.place):''}</span>`;
+  return `<div class="card ${cls}">
+    <button class="cmain" data-i="${a._i}">
+      <span class="r1"><span class="no">${esc(a.no)}</span><span class="hzb ${hzc}">${esc(a._hz)}</span>${a.tanto?'<span class="hzb jg">担当 '+esc(a.tanto)+'</span>':''}${noteBadge(a._i)}${dc?'<span class="hzb" style="background:var(--cam-bg);color:var(--cam)">デジカメ</span>':''}</span>
+      <span class="nm">${esc(a.name)}</span>
+      ${body}
+    </button>
+    <span class="cright">
+      ${pill}<button class="cph ${n?'has':(d?'':'zero')}" data-gal="${a._i}" aria-label="写真 ${n} 枚・一覧を見る">📷<b>${n}</b><small>枚</small></button>
+      <button class="cdone" data-done="${a._i}" aria-pressed="${d}">${d?'完了済':'完了'}</button>
+    </span>
+  </div>`;
+}
+/* 前日以前に撮った写真が書き出されていなければ知らせる（写真はこの iPad にしか無いため） */
+let UNEXPX=false;
+function unexpBanner(){
+  const el=$('#unexp'); if(!el) return;
+  const t0=new Date(); t0.setHours(0,0,0,0);
+  let n=0, old=0, oldest=Infinity;
+  for(const id in ST.photos){ const p=ST.photos[id]; if(p.x || ST.exported[id]) continue; n++; if(p.ts<t0.getTime()){ old++; oldest=Math.min(oldest,p.ts); } }
+  if(!old || UNEXPX){ el.classList.remove('on'); return; }
+  const d=new Date(oldest);
+  el.innerHTML=`<span><b>まだ書き出していない写真が ${n} 枚あります</b>（前日以前に撮ったもの ${old} 枚・いちばん古いのは ${d.getMonth()+1}/${d.getDate()}）。写真はこの iPad にしか入っていません。</span><button data-ux="go">書き出しへ</button><button data-ux="x" class="x" aria-label="閉じる">×</button>`;
+  el.classList.add('on');
+}
+function sortChip(){ const b=$('#fsort'); const pl=ST.sort==='place'; b.setAttribute('aria-pressed',String(pl)); b.textContent= pl?'並び：設置場所順':'並び：リスト順'; }
 
 /* ================= 写真 ================= */
 const PRESETS={
-  '2048':{px:2048,q:0.85,n:'2048px / 品質85　軽い'},
-  '3024':{px:3024,q:0.90,n:'3024px / 品質90　高い'},
+  '1600':{px:1600,q:0.80,n:'1600px / 品質80　軽い'},
+  '2048':{px:2048,q:0.85,n:'2048px / 品質85　標準'},
+  '2560':{px:2560,q:0.88,n:'2560px / 品質88　高め'},
+  '3024':{px:3024,q:0.90,n:'3024px / 品質90　かなり高い'},
   '0'   :{px:0,   q:0.92,n:'原寸 / 品質92　最高（容量大）'}
 };
 const cfg=()=>PRESETS[(ST.cfg&&ST.cfg.p)||'0']||PRESETS['0'];
+/* 書き出し用（成果品）の縮小設定。撮影した原本には手を触れない */
+/* 1つの選択で「上限KB」と「長辺px」を連動させる */
 const EXP={'300':[1600,300],'500':[2048,500],'800':[2560,800],'0':[0,0]};
-const exv=()=>EXP[(ST.cfg&&ST.cfg.ex)||'800']||EXP['800'];
+const exv=()=>EXP[(ST.cfg&&ST.cfg.ex)||'500']||EXP['500'];
 const epx=()=>exv()[0], ekb=()=>exv()[1];
+
+/* 目標サイズに収まるまで品質を落として作り直す（原本は残したまま）。{blob,w,h} を返す */
 async function reencode(blob, w0, h0){
   const px=epx(), kb=ekb();
   if(!px && !kb) return {blob,w:w0,h:h0};                       // 原寸のまま出す
@@ -841,11 +948,20 @@ async function reencode(blob, w0, h0){
   } finally { if(bmp.close) bmp.close(); }
   return (out && out.size<blob.size) ? {blob:out,w:ow,h:oh} : {blob,w:w0,h:h0};
 }
-const photosOf=sid=>Object.keys(ST.photos).filter(id=>ST.photos[id].s===sid).sort((x,y)=>ST.photos[x].ts-ST.photos[y].ts);
-const livePhotos=sid=>photosOf(sid).filter(id=>!ST.photos[id].x);
-const nPhotos=sid=>{ let n=0; for(const id in ST.photos) if(ST.photos[id].s===sid) n++; return n; };
-const dcOf=sid=>(ST.dc&&ST.dc[sid])||[];
-const hasNote=sid=>!!(ST.notes[sid] && (ST.notes[sid].t||'').trim());
+const UKEY=a=>a+'-U';                              // 機器の未分類
+const PKEY=(ai,gi)=>ai+'-P'+gi;                     // 部品は分かるが確認項目は未分類
+const isU=k=>/-U$/.test(k), isP=k=>/-P\d+$/.test(k);
+function gOfKey(a,k){ if(isP(k)) return groupsOf(a)[+k.split('-P')[1]]||null;
+  return groupsOf(a).find(g=>g.keys.includes(k))||null; }
+const photosOf=(ai,key)=>Object.keys(ST.photos)
+  .filter(id=>ST.photos[id].a===ai && (key===undefined || (key==='__z'? ST.photos[id].z : (ST.photos[id].k||[]).includes(key))))
+  .sort((x,y)=>ST.photos[x].ts-ST.photos[y].ts);
+/* x:1 ＝ 書き出し済みで iPad から原本を消した写真（確認用の小さな画像と記録は残る） */
+const livePhotos=ai=>photosOf(ai).filter(id=>!ST.photos[id].x);
+const nPhotos=ai=>{ let n=0; for(const id in ST.photos) if(ST.photos[id].a===ai) n++; return n; };
+const totalPhotos=()=>Object.values(ST.photos).filter(p=>!p.x).length;
+const totalBytes=()=>Object.values(ST.photos).filter(p=>!p.x).reduce((n,p)=>n+(p.b||0),0);
+
 /* 写真ファイルを読む。createImageBitmap が使えない・失敗する形式は <img> で読み直す */
 async function decodeImage(blob){
   try{ return await createImageBitmap(blob); }catch(e){}
@@ -854,37 +970,39 @@ async function decodeImage(blob){
   catch(e){ throw new Error('写真を読み込めませんでした（'+(blob.type||'種類不明')+'・'+Math.round((blob.size||0)/1024)+'KB）'); }
   finally{ setTimeout(()=>URL.revokeObjectURL(u),1000); }
 }
+/* 撮影画質（長辺）に合わせてJPEGにする。確認用の小さな画像も一緒に作る */
 async function shrink(src){
   const c=cfg();
-  const own = src instanceof Blob;
+  const own = src instanceof Blob;                 // 自分で作ったものだけ破棄する
   const bmp = own ? await decodeImage(src) : src;
   const w0=bmp.naturalWidth||bmp.width||bmp.videoWidth, h0=bmp.naturalHeight||bmp.height||bmp.videoHeight;
   const s = c.px ? Math.min(1, c.px/Math.max(w0,h0)) : 1;
   const w=Math.round(w0*s), h=Math.round(h0*s);
   let cv;
-  if(!own && s===1 && src.getContext) cv=src;
+  if(!own && s===1 && src.getContext) cv=src;      // カメラの絵をそのまま使う（原寸のときはコピーしない）
   else { cv=document.createElement('canvas'); cv.width=w; cv.height=h; cv.getContext('2d').drawImage(bmp,0,0,w,h); }
   if(own && bmp.close) bmp.close();
   const blob=await new Promise(r=>cv.toBlob(r,'image/jpeg',c.q));
   const thumb=await thumbFromCanvas(cv);
   return {blob,w,h,thumb};
 }
-async function addPhoto(sid, m, src){
+async function addPhoto(ai, keys, src, zenkei){
   const {blob,w,h,thumb}=await shrink(src);
   const id='p'+(++ST.seq)+'-'+Date.now().toString(36);
   await put('blobs',id,blob);
   if(thumb){ try{ await put('blobs','t:'+id,thumb); thumbCache[id]=URL.createObjectURL(thumb); }catch(e){} }
-  ST.photos[id]={s:sid, m:m||'', ts:Date.now(), w, h, b:blob.size};
+  ST.photos[id]={a:ai, k:zenkei?[]:keys.slice(), z:zenkei?1:0, ts:Date.now(), w, h, b:blob.size, u:DEV.user||''};
   save();
   return id;
 }
 async function delPhoto(id){
   await del('blobs',id); try{ await del('blobs','t:'+id); }catch(e){}
   for(const c of [urlCache,thumbCache]) if(c[id]){ URL.revokeObjectURL(c[id]); delete c[id]; }
-  delete ST.photos[id]; delete ST.exported[id];
+  delete ST.photos[id]; delete ST.exported[id]; if(ST.saved) delete ST.saved[id];
   if(CAMLASTID===id) CAMLASTID=null;
   save();
 }
+/* 書き出し済みの原本だけを消す（確認用の小さな画像は先に作って残す） */
 async function purgePhoto(id){
   await ensureThumb(id);
   await del('blobs',id);
@@ -929,18 +1047,19 @@ async function thumbURL(id){
   return thumbCache[id] || (thumbCache[id]=URL.createObjectURL(t));
 }
 
-/* ---------- 写真に撮影日時（EXIF）を入れる ---------- */
+/* ---------- 写真に撮影日時（EXIF）を入れる：書き出し・写真アプリへの保存のときに付ける ---------- */
 const le16=v=>[v&255,(v>>8)&255], le32=v=>[v&255,(v>>>8)&255,(v>>>16)&255,(v>>>24)&255];
 const asc=s=>{ const a=[...String(s)].map(c=>{ const k=c.charCodeAt(0); return k<128?k:63; }); a.push(0); return a; };
 const ucs2=s=>{ const a=[]; const t=String(s); for(let i=0;i<t.length;i++){ const k=t.charCodeAt(i); a.push(k&255,k>>8); } a.push(0,0); return a; };
-function exifSeg(p,label,w,h){
+function exifSeg(p,a,label,w,h){
   const d=new Date(p.ts||Date.now()), z=n=>String(n).padStart(2,'0');
   const dt=d.getFullYear()+':'+z(d.getMonth()+1)+':'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds());
   const o=-d.getTimezoneOffset(), tz=(o>=0?'+':'-')+z(Math.floor(Math.abs(o)/60))+':'+z(Math.abs(o)%60);
-  const title=String(label||'').slice(0,300);
+  const title=[a&&a.no, a&&a.name, label].filter(Boolean).join(' / ').slice(0,300);
   const E=(tag,type,bytes,count)=>({tag,type,bytes,count:count||bytes.length});
-  const i0=[E(0x0112,3,le16(1),1), E(0x0131,2,asc('MHP field photo '+BUILDV)), E(0x0132,2,asc(dt))];
+  const i0=[E(0x0112,3,le16(1),1), E(0x0131,2,asc('STMN field checklist '+BUILDV)), E(0x0132,2,asc(dt))];
   if(title) i0.push(E(0x9C9B,1,ucs2(title)));                 // タイトル（Windowsのプロパティに出る）
+  const au=p.u||DEV.user||''; if(au) i0.push(E(0x9C9D,1,ucs2(au)));   // 作成者（撮影した人）
   const i1=[E(0x9000,7,[48,50,51,50]), E(0x9003,2,asc(dt)), E(0x9004,2,asc(dt)), E(0x9011,2,asc(tz)), E(0xA001,3,le16(1),1)];
   if(w) i1.push(E(0xA002,4,le32(w),1)); if(h) i1.push(E(0xA003,4,le32(h),1));
   const all0=[...i0];
@@ -959,18 +1078,18 @@ function exifSeg(p,label,w,h){
   const L=2+6+b.length;
   return new Uint8Array([0xFF,0xE1,(L>>8)&255,L&255,0x45,0x78,0x69,0x66,0,0,...b]);
 }
-async function withExif(blob,p,label,w,h){
+async function withExif(blob,p,a,label,w,h){
   try{
     const head=new Uint8Array(await blob.slice(0,4096).arrayBuffer());
     if(head[0]!==0xFF || head[1]!==0xD8) return blob;
     let pos=2;
     while(pos+4<head.length && head[pos]===0xFF && (head[pos+1]===0xE0 || head[pos+1]===0xE1)) pos+=2+((head[pos+2]<<8)|head[pos+3]);   // 既存のAPP0/APP1は外す
-    return new Blob([head.subarray(0,2), exifSeg(p,label,w||p.w,h||p.h), blob.slice(pos)], {type:'image/jpeg'});
+    return new Blob([head.subarray(0,2), exifSeg(p,a,label,w||p.w,h||p.h), blob.slice(pos)], {type:'image/jpeg'});
   }catch(e){ return blob; }
 }
 
 /* ================= カメラ ================= */
-let NATIVE=false, CAMSTREAM=null, CURS=null, CAMM='', CAMSHOTS=0, CAMLASTID=null, CAMQ=Promise.resolve(), CAMPEND=0, WL=null, TORCH=false;
+let NATIVE=false, CAMSTREAM=null, CAMKEY=null, CAMZEN=false, CAMSHOTS=0, CAMLASTID=null, CAMQ=Promise.resolve(), CAMPEND=0, WL=null, TORCH=false;
 const camOn=()=>$('#cam').classList.contains('on');
 async function wake(){ try{ if('wakeLock' in navigator && !WL){ WL=await navigator.wakeLock.request('screen'); WL.addEventListener('release',()=>WL=null);} }catch(e){} }
 function unwake(){ try{ if(WL) WL.release(); }catch(e){} WL=null; }
@@ -1009,20 +1128,30 @@ function torchInit(){
 }
 function camOriBtn(){ const b=$('#camori'), on=DEV.camLand!==false; b.setAttribute('aria-pressed',String(on)); b.textContent= on? '横長固定' : '縦横自由'; }
 function camLast(){
-  const ids=photosOf(CURS.id); CAMLASTID=ids.length? ids[ids.length-1] : null;
+  const ids=photosOf(CUR._i); CAMLASTID=ids.length? ids[ids.length-1] : null;
   const el=$('#camlast'); el.style.backgroundImage='none';
   if(CAMLASTID){ const id=CAMLASTID; thumbURL(id).then(u=>{ if(CAMLASTID===id && u) el.style.backgroundImage='url('+u+')'; }); }
 }
-async function camOpen(){
-  CAMM=''; CAMSHOTS=0;                     // 機器名は毎回「選ばない」から始める（前の機器名のまま撮らないように）
+async function camOpen(key, zenkei){
+  if(!DEV.user && !DEV.askedUser){                      // 最初の撮影の前に1回だけ名前を聞く（写真ごとに撮影者を残すため）
+    const v=prompt('この iPad で撮影する人の名前を入れてください。\n書き出したときのファイル名に入り、複数人の写真をまとめても上書きされなくなります（空欄でもかまいません）。','');
+    DEV.askedUser=1; if(v) DEV.user=v.trim(); saveDev(); }
+  const ai=CUR._i, gs=groupsOf(CUR), hasZ=photosOf(ai,'__z').length>0;
+  if(!key && !zenkei){                                   // 「この機器の撮影を始める」
+    if(!hasZ){ CAMZEN=true; CAMKEY=UKEY(ai); }            // 全景がまだなら全景から
+    else if(gs.length===1){ CAMZEN=false; CAMKEY=PKEY(ai,0); }   // 部品が1つだけなら最初から項目を出す
+    else { CAMZEN=false; CAMKEY=UKEY(ai); }
+  } else { CAMKEY=key||UKEY(ai); CAMZEN=!!zenkei; }
+  CAMSHOTS=0;
   $('#cam').classList.add('on'); camOriBtn(); camBars(); camCount(); camLast();
+  $('#camttl').textContent=CUR.no+'　'+CUR.name;
   wake(); await camStart(); fitBox();
 }
 async function camClose(){
   if(CAMSTREAM){ CAMSTREAM.getTracks().forEach(t=>t.stop()); CAMSTREAM=null; }
   $('#camv').srcObject=null; $('#cam').classList.remove('on'); unwake();
-  await CAMQ;
-  if(CURS) open_(CURS.id, true);
+  await CAMQ;                                   // 保存待ちの写真が書き終わるまで待つ
+  if(CUR) open_(CUR._i, true);
 }
 document.addEventListener('visibilitychange',async()=>{
   if(document.visibilityState!=='visible' || !camOn()) return;
@@ -1032,23 +1161,44 @@ document.addEventListener('visibilitychange',async()=>{
   WL=null; wake();
 });
 function camBars(){
-  const s=CURS, B=n=>n?` <i class="bdg">${n}</i>`:'';
-  $('#camttl').textContent=siteTitle(s);
-  if(s.t==='mp'){
-    $('#cbar1').innerHTML='<span class="lb">場所</span><span class="hint">'+esc([s.g, s.full].filter(Boolean).join('　'))+'　／　'+esc(pumpLabel(s.pump))+'</span>';
-    $('#cbar2').style.display='none';
-    $('#camtag').textContent=s.n+'（'+s.pump+'）';
-  } else {
-    $('#cbar1').innerHTML='<span class="lb">階</span>'+floorsOf(s).map(f=>
-      `<span class="${f.id===s.id?'now':(nPhotos(f.id)?'dn':'')}" data-fl="${f.id}">${esc(f.n)}${B(nPhotos(f.id))}</span>`).join('');
-    const cnt=m=>photosOf(s.id).filter(id=>(ST.photos[id].m||'')===m).length;
-    $('#cbar2').style.display='';
-    $('#cbar2').innerHTML='<span class="lb">機器</span>'+
-      `<span class="un ${CAMM===''?'now':''}" data-m="">選ばない${B(cnt(''))}</span>`+
-      s.machines.map((m,i)=>`<span class="${CAMM===m?'now':(cnt(m)?'dn':'')}" data-m="${i}">${esc(m)}${B(cnt(m))}</span>`).join('');
-    $('#camtag').textContent=s.fl+' ／ '+(CAMM||'機器名なし');
+  const gs=groupsOf(CUR);
+  const g = CAMZEN ? '__z' : (isU(CAMKEY) ? '__u' : gOfKey(CUR,CAMKEY));
+  const curIt = CURITEM(CUR,CAMKEY);
+  const B=n=>n?` <i class="bdg">${n}</i>`:'';
+  const nU=photosOf(CUR._i,UKEY(CUR._i)).length, nZ=photosOf(CUR._i,'__z').length;
+  $('#cbar1').innerHTML='<span class="lb">部品</span>'+
+    `<span class="un ${g==='__u'?'now':''}" data-part="__u">未分類${B(nU)}</span>`+
+    `<span class="${g==='__z'?'now':(nZ?'dn':'')}" data-part="__z">全景${B(nZ)}</span>`+
+    gs.map(x=>{ const n=partPhotos(CUR._i,x);
+      return `<span class="${x===g?'now':(n?'dn':'')}" data-part="${x.i}">${esc(x.label)}${B(n)}</span>`;}).join('');
+  if(g && g.items){
+    const pk=PKEY(CUR._i,g.i), nP=photosOf(CUR._i,pk).length;
+    $('#cbar2').innerHTML='<span class="lb">項目</span>'+
+      `<span class="pu ${CAMKEY===pk?'now':''}" data-key="${pk}">未分類${B(nP)}</span>`+
+      g.items.map(it=>{ const n=photosOf(CUR._i,it._k).length;
+        return `<span class="${it._k===CAMKEY?'now':(n?'dn':'')}" data-key="${it._k}">${esc(it.k)}${B(n)}</span>`;}).join('');
+  }else{
+    $('#cbar2').innerHTML='<span class="lb">項目</span><span class="hint">'+
+      (CAMZEN?'全景は確認項目に紐づきません':'機器の未分類です。あとで写真をタップして振り分けられます')+'</span>';
   }
+  $('#camtag').textContent = CAMZEN? '全景' : isU(CAMKEY)? '未分類'
+    : isP(CAMKEY)? (g? g.label:'')+' ／ 項目未分類' : (curIt? curIt.p+' ／ '+curIt.k : '');
+  const it=CAMZEN?null:curIt, ds=$('#camdesc');
+  ds.textContent = it&&it.d1 ? it.k+'：'+it.d1 : ''; ds.classList.toggle('on', !!(it&&it.d1));
   requestAnimationFrame(()=>{ for(const sel of ['#cbar1 .now','#cbar2 .now']){ const n=$(sel); if(n&&n.scrollIntoView) try{ n.scrollIntoView({block:'nearest',inline:'nearest'}); }catch(e){} } });
+}
+/* 「次の項目」：全景 → 部品ごとの確認項目を順に進む */
+function camNext(){
+  const ai=CUR._i, seq=[]; groupsOf(CUR).forEach(g=>g.items.forEach(it=>seq.push(it._k)));
+  const hasZ=photosOf(ai,'__z').length>0;
+  let next=null;
+  if(CAMZEN) next=seq[0]||null;
+  else if(isU(CAMKEY)) next= hasZ ? (seq[0]||null) : '__z';
+  else if(isP(CAMKEY)){ const g=gOfKey(CUR,CAMKEY); next= g&&g.items[0] ? g.items[0]._k : null; }
+  else { const i=seq.indexOf(CAMKEY); next= (i>=0 && i<seq.length-1) ? seq[i+1] : null; }
+  if(!next){ toast('最後の項目です。「完了」で機器の画面に戻ります'); return; }
+  if(next==='__z'){ CAMZEN=true; CAMKEY=UKEY(ai); } else { CAMZEN=false; CAMKEY=next; }
+  camBars();
 }
 function camCount(){ $('#camn').textContent=CAMSHOTS||''; $('#camn').style.display=CAMSHOTS?'block':'none'; }
 function camFeedback(thumbURL){
@@ -1070,63 +1220,26 @@ function camShoot(){
   t.getContext('2d').drawImage(cv,0,0,t.width,t.height);
   camFeedback(t.toDataURL('image/jpeg',0.7));
   CAMSHOTS++; camCount();
-  const sid=CURS.id, m=CURS.t==='pl'? CAMM : '';
+  const ai=CUR._i, key=CAMKEY, zen=CAMZEN;
   CAMPEND++; $('#camlast').classList.add('busy');
   CAMQ=CAMQ.then(async()=>{
-    try{ CAMLASTID=await addPhoto(sid,m,cv); }
+    try{ CAMLASTID=await addPhoto(ai,[key],cv,zen); }
     catch(e){ alert('写真の保存に失敗しました。\n'+(e&&e.message||e)); }
     CAMPEND--; if(!CAMPEND) $('#camlast').classList.remove('busy');
-    if(camOn() && CURS && CURS.id===sid) camBars();
+    if(camOn() && CUR && CUR._i===ai) camBars();
   });
 }
 /* 純正カメラ（ファイル選択）で撮った写真を取り込む。iOS は種類（type）を空で渡すことがあるので拡張子でも判定する */
 const isImg=f=>(f.type||'').startsWith('image/') || (!f.type && /\.(jpe?g|heic|heif|png)$/i.test(f.name||'')) || (!f.type && !f.name);
-async function fromFiles(files){
-  let n=0; const m=CURS.t==='pl'? CAMM : '', bad=[];
+async function fromFiles(files, key, zenkei){
+  let n=0; const bad=[];
   for(const f of files){
     if(!isImg(f)){ bad.push((f.name||'名前なし')+'（'+(f.type||'種類不明')+'）'); continue; }
-    CAMLASTID=await addPhoto(CURS.id, m, f); n++;
+    CAMLASTID=await addPhoto(CUR._i, [key], f, zenkei); n++;
   }
   if(bad.length) alert('写真ではないファイルなので取り込みませんでした：\n'+bad.join('\n'));
   return n;
 }
-$('#camok').addEventListener('click',camClose);
-$('#camori').addEventListener('click',()=>{ DEV.camLand = DEV.camLand===false; saveDev(); camOriBtn(); fitBox(); });
-$('#camtorch').addEventListener('click',async()=>{
-  const tr=CAMSTREAM&&CAMSTREAM.getVideoTracks()[0]; if(!tr) return;
-  TORCH=!TORCH;
-  try{ await tr.applyConstraints({advanced:[{torch:TORCH}]}); }catch(e){ TORCH=false; toast('この端末ではライトを使えません'); }
-  $('#camtorch').setAttribute('aria-pressed',String(TORCH));
-});
-$('#camlast').addEventListener('click',()=>{ if(CAMLASTID) viewPhoto(CAMLASTID); });
-$('#camsh').addEventListener('click',camShoot);
-$('#cbar1').addEventListener('click',e=>{                 // 階を切り替える（機器名の選択はそのまま）
-  const f=e.target.closest('[data-fl]'); if(!f) return;
-  CURS=SI[f.dataset.fl]; camBars(); camLast(); CAMSHOTS=0; camCount();
-});
-$('#cbar2').addEventListener('click',e=>{
-  const s=e.target.closest('[data-m]'); if(!s) return;
-  CAMM = s.dataset.m==='' ? '' : CURS.machines[+s.dataset.m]; camBars();
-});
-/* 「純正カメラで撮る」：ラベルを押すと iOS の撮影画面が1回だけ開く（JSからは開かない＝二重に開かない）。
-   開く前にアプリ内カメラの映像を止めてカメラを空け、戻ってきたら映像を再開する */
-function camPause(){ if(CAMSTREAM){ CAMSTREAM.getTracks().forEach(t=>t.stop()); CAMSTREAM=null; } $('#camv').srcObject=null; }
-async function camResume(){ NATIVE=false; if(camOn() && !CAMSTREAM) await camStart(); }
-$('#camnat').addEventListener('click',()=>{ NATIVE=true; camPause(); });
-$('#camfile').addEventListener('cancel',()=>camResume());
-addEventListener('focus',()=>{ if(NATIVE) setTimeout(()=>{ if(NATIVE) camResume(); },1500); });
-$('#camfile').addEventListener('change',async e=>{
-  const files=[...(e.target.files||[])]; e.target.value='';
-  NATIVE=false;
-  if(!files.length){ toast('写真を受け取れませんでした（ファイルが空でした）'); await camResume(); return; }
-  $('#camlast').classList.add('busy');
-  try{
-    const n=await fromFiles(files);
-    CAMSHOTS+=n; camCount(); camBars(); camLast();
-    if(n) toast('純正カメラの写真を '+n+' 枚取り込みました');
-  }catch(err){ alert('純正カメラの写真を取り込めませんでした。\n'+(err&&err.message||err)); }
-  finally{ $('#camlast').classList.remove('busy'); await camResume(); }
-});
 
 /* ================= ZIP（無圧縮・依存なし） ================= */
 const CRCT=(()=>{const t=new Uint32Array(256);
@@ -1166,186 +1279,365 @@ async function makeZip(entries, onProg){
     ...u16(central.length),...u16(central.length),...u32(cdLen),...u32(off),...u16(0)]);
   return new Blob([...parts,...cd,eocd],{type:'application/zip'});
 }
+/* バックアップのZIPを読む（ファイル全体を読み込まず、必要な部分だけ切り出す） */
+async function zipIndexBlob(file){
+  const tl=Math.min(file.size, 65557);
+  const tail=new Uint8Array(await file.slice(file.size-tl).arrayBuffer());
+  let p=tail.length-22; while(p>=0 && !(tail[p]===0x50&&tail[p+1]===0x4b&&tail[p+2]===0x05&&tail[p+3]===0x06)) p--;
+  if(p<0) throw new Error((file.name||'ファイル')+'：ZIPとして読めません。');
+  const ev=new DataView(tail.buffer, p, 22);
+  const cnt=ev.getUint16(10,true), cdSize=ev.getUint32(12,true), cdOff=ev.getUint32(16,true);
+  const cd=new Uint8Array(await file.slice(cdOff, cdOff+cdSize).arrayBuffer()), dv=new DataView(cd.buffer);
+  const m=new Map(); let o=0;
+  for(let i=0;i<cnt;i++){
+    if(dv.getUint32(o,true)!==0x02014b50) throw new Error((file.name||'ファイル')+'：ZIPの目次が壊れています。');
+    const method=dv.getUint16(o+10,true), cs=dv.getUint32(o+20,true), nl=dv.getUint16(o+28,true), el=dv.getUint16(o+30,true), cl=dv.getUint16(o+32,true), lo=dv.getUint32(o+42,true);
+    m.set(new TextDecoder().decode(cd.subarray(o+46,o+46+nl)), {method,cs,lo});
+    o+=46+nl+el+cl;
+  }
+  return {file, m};
+}
+async function zipEntry(z,name,type){
+  const e=z.m.get(name); if(!e) return null;
+  if(e.method!==0) throw new Error('圧縮し直されたZIPは読めません。解凍や再圧縮をせず、書き出したZIPをそのまま選んでください。');
+  const lh=new DataView(await z.file.slice(e.lo,e.lo+30).arrayBuffer());
+  if(lh.getUint32(0,true)!==0x04034b50) throw new Error('ZIPの中身の位置がずれています。');
+  const st=e.lo+30+lh.getUint16(26,true)+lh.getUint16(28,true);
+  return z.file.slice(st, st+e.cs, type||'');
+}
 
-/* ---------- 一覧 ---------- */
-function stats(){
-  const nd=S.filter(s=>ST.done[s.id]).length, ps=Object.values(ST.photos);
-  $('#s1').textContent=nd; $('#s1t').textContent=S.length;
-  $('#s2').textContent=ps.length;
-  $('#s3').textContent=Object.keys(ST.photos).filter(id=>!ST.exported[id]).length;
+/* ---------- 特記事項（キーボード＋手書き） ---------- */
+const LW=1000, LH=560;                     // 手書きの論理座標系（端末に依存しない）
+const NOTE_HTML=`<div class="note">
+  <div class="nhead"><span class="t">特記事項</span>
+    <span class="nstate" id="nst"></span>
+    <button class="nt" id="nk" aria-pressed="true">キーボード<i class="ndot" id="nkd"></i></button>
+    <button class="nt" id="np" aria-pressed="false">手書き<i class="ndot" id="npd"></i></button></div>
+  <textarea id="ntxt" placeholder="故障・異常・気づいた点・次回への申し送りなど"></textarea>
+  <div id="npen">
+    <div class="ptools">
+      <button id="tpen" aria-pressed="true">ペン</button>
+      <button id="tera" aria-pressed="false">消しゴム</button>
+      <button id="tundo">ひとつ戻す</button>
+      <button id="tclr">全部消す</button>
+    </div>
+    <canvas id="pcv"></canvas>
+    <div class="nfoot" id="nfoot"></div>
+  </div></div>`;
+let STK=[], MODE='pen', drawing=null, NDIRTY=false;
+const note=()=>ST.notes&&ST.notes[CUR._i] || {t:'',s:[]};
+const hasNote=i=>{const n=ST.notes&&ST.notes[i]; return !!(n&&((n.t||'').trim()||(n.s||[]).length));};
+function noteBadge(i){
+  const n=ST.notes&&ST.notes[i]; if(!n) return '';
+  const t=!!(n.t||'').trim(), h=!!(n.s||[]).length; if(!t&&!h) return '';
+  return '<span class="hzb" style="background:var(--warn-bg);color:var(--warn)">特記：'+(t&&h?'文字・手書き':(t?'文字':'手書き'))+'</span>';
 }
-function card(s){
-  const n=nPhotos(s.id), dc=dcOf(s.id).length;
-  const sub = s.t==='mp' ? [s.full].filter(Boolean).join('') : (s.machines.length? '機器 '+s.machines.length+' 件から選べます' : '');
-  return `<div class="card ${ST.done[s.id]?'done':''}">
-    <button class="cmain" data-s="${s.id}"><span class="nm">${esc(s.t==='mp'?s.n:s.n)}</span>
-      ${sub?`<span class="mt">${esc(sub)}</span>`:''}
-      <span class="r1">${badge(s)}${hasNote(s.id)?'<span class="mk memo">メモあり</span>':''}${dc?`<span class="mk">デジカメ ${dc} 回</span>`:''}</span></button>
-    <span class="cright"><button class="cph ${n?'has':'zero'}" data-s="${s.id}"><b>${n}</b><small>枚</small></button>
-      <button class="togo" data-done="${s.id}">${ST.done[s.id]?'✓ 済':'済にする'}</button></span></div>`;
+function noteDots(){
+  const t=!!($('#ntxt')&&$('#ntxt').value.trim()), h=STK.length>0;
+  if($('#nkd')) $('#nkd').classList.toggle('on',t);
+  if($('#npd')) $('#npd').classList.toggle('on',h);
+  if($('#nst')) $('#nst').textContent = (t||h)? '記入あり：'+(t&&h?'文字・手書き':(t?'文字':'手書き')) : '';
 }
-function list(){
-  stats();
-  const show=s=>!ONLYTODO || !ST.done[s.id];
-  let h=''; const mps=S.filter(s=>s.t==='mp');
-  if(mps.length){
-    h+=`<h3 class="sec">MHポンプ <i>${mps.length} か所</i></h3>`;
-    const gs=[...new Set(mps.map(s=>s.g))];
-    for(const g of gs){ const ss=mps.filter(s=>s.g===g&&show(s));
-      if(!ss.length) continue;
-      h+=`<div class="lgrp">${esc(g||'（区分なし）')}<i>${mps.filter(s=>s.g===g).length} か所</i></div>`+ss.map(card).join(''); }
-  }
-  for(const g of [...new Set(S.filter(s=>s.t==='pl').map(s=>s.g))]){
-    const ss=S.filter(s=>s.t==='pl'&&s.g===g&&show(s));
-    h+=`<h3 class="sec">${esc(g)} <i>処理場</i></h3>`+(ss.map(card).join('')||'<p class="ehelp">すべて済です。</p>');
-  }
-  $('#list').innerHTML=h||'<p class="empty">表示する場所がありません。</p>';
-}
-$('#list').addEventListener('click',e=>{
-  const d=e.target.closest('[data-done]'); if(d){ const id=d.dataset.done; if(ST.done[id]) delete ST.done[id]; else ST.done[id]=Date.now(); save(); list(); return; }
-  const o=e.target.closest('[data-s]'); if(o) open_(o.dataset.s);
-});
-$('#ftodo').addEventListener('click',()=>{ ONLYTODO=!ONLYTODO; $('#ftodo').setAttribute('aria-pressed',String(ONLYTODO)); list(); });
 
-/* ---------- 場所の画面 ---------- */
-function open_(sid, keep){
-  CURS=SI[sid]; if(!CURS) return; const s=CURS;
-  const y=keep? $('#detail').scrollTop : 0;
-  $('#dtitle').textContent=siteTitle(s);
-  $('#dmeta').innerHTML=badge(s)+'　'+esc(siteSub(s));
-  const ids=photosOf(s.id), dcs=dcOf(s.id);
-  let ph='';
-  const tiles=arr=>'<div class="ggrid">'+arr.map(id=>`<button class="gtile" data-open="${id}"><img alt="" data-th="${id}"><span>${esc(stamp(ST.photos[id].ts).slice(5,16))}</span>${ST.exported[id]?'<i class="ex">済</i>':''}</button>`).join('')+'</div>';
-  if(!ids.length) ph='<p class="ehelp">まだ写真がありません。</p>';
-  else if(s.t==='mp') ph=tiles(ids);
-  else { const ms=[...s.machines, '']; /* 並び順は viewOrder() と同じ */
-    for(const m of ms){ const a=ids.filter(id=>(ST.photos[id].m||'')===m); if(!a.length) continue;
-      ph+=`<div class="mgrp">${esc(m||'機器名なし')}<i>${a.length} 枚</i></div>`+tiles(a); }
-    const other=ids.filter(id=>{ const m=ST.photos[id].m||''; return m && !s.machines.includes(m); });
-    if(other.length) ph+='<div class="mgrp">一覧にない機器名<i>'+other.length+' 枚</i></div>'+tiles(other);
-  }
-  const n=ST.notes[s.id]||{t:''};
-  $('#dbody').innerHTML=`
-    <div class="camrow"><button id="startcam">📷　撮影する</button><button id="dslate">カチンコ<small>デジカメで撮る前に</small></button></div>
-    ${dcs.length?`<div class="dcinfo">デジカメ記録 ${dcs.length} 回（最終 ${stamp(dcs[dcs.length-1].ts).slice(5,16)}）</div>`:''}
-    <div class="note"><div class="nhead"><span class="t">メモ（特記事項）</span></div>
-      <textarea id="ntxt" placeholder="気づいたことを書いておくと、撮影記録（Excel）に出ます">${esc(n.t||'')}</textarea></div>
-    <div class="mgrp" style="margin-top:4px">写真<i>${ids.length} 枚</i></div>${ph}`;
-  $('#dcnt').textContent='写真 '+ids.length+' 枚';
-  dfoot();
-  $('#detail').classList.add('on'); document.body.style.overflow='hidden';
-  $('#detail').scrollTop=y;
-  fillThumbs();
+function noteInit(){
+  const n=note();
+  STK=JSON.parse(JSON.stringify(n.s||[]));
+  $('#ntxt').value=n.t||'';
+  $('#nk').setAttribute('aria-pressed','true'); $('#np').setAttribute('aria-pressed','false');
+  $('#ntxt').style.display='block'; $('#npen').style.display='none';
+  MODE='pen'; $('#tpen').setAttribute('aria-pressed','true'); $('#tera').setAttribute('aria-pressed','false');
+  $('#nk').onclick=()=>toggleNote(false);
+  $('#np').onclick=()=>toggleNote(true);
+  $('#ntxt').oninput=()=>{ NDIRTY=true; noteSave(); };
+  $('#tpen').onclick=()=>setMode('pen'); $('#tera').onclick=()=>setMode('era');
+  $('#tundo').onclick=()=>{ STK.pop(); redraw(); NDIRTY=true; noteSave(); };
+  $('#tclr').onclick=()=>{ if(!STK.length||confirm('手書きを全部消します。よろしいですか？')){ STK=[]; redraw(); NDIRTY=true; noteSave(); } };
+  bindPen();
+  NDIRTY=false; noteDots();
+  if(!(n.t||'').trim() && (n.s||[]).length) toggleNote(true);   // 手書きだけの機器は手書き面を開いておく
 }
-function dfoot(){ const d=!!ST.done[CURS.id]; $('#fin').setAttribute('aria-pressed',String(d)); $('#fin').textContent=d?'✓ 済（外す）':'済にする';
-  $('#dhead').classList.toggle('fin',d); }
-async function fillThumbs(){
-  for(const im of document.querySelectorAll('#dbody img[data-th]')){ const u=await thumbURL(im.dataset.th); if(u) im.src=u; }
+function toggleNote(pen){
+  $('#nk').setAttribute('aria-pressed', pen?'false':'true');
+  $('#np').setAttribute('aria-pressed', pen?'true':'false');
+  $('#ntxt').style.display = pen?'none':'block';
+  $('#npen').style.display = pen?'block':'none';
+  if(pen) sizeCanvas();
 }
+function setMode(m){ MODE=m;
+  $('#tpen').setAttribute('aria-pressed', m==='pen'?'true':'false');
+  $('#tera').setAttribute('aria-pressed', m==='era'?'true':'false'); }
 function noteSave(){
-  const el=$('#ntxt'); if(!el||!CURS) return;
-  const t=el.value, o=ST.notes[CURS.id];
-  if((o&&o.t||'')===t) return;
-  if(t.trim()) ST.notes[CURS.id]={t, ts:Date.now()}; else delete ST.notes[CURS.id];
-  save();
+  if(!CUR) return;
+  ST.notes=ST.notes||{};
+  const t=$('#ntxt')?$('#ntxt').value:'';
+  const prev=ST.notes[CUR._i];
+  if(!t.trim() && !STK.length) delete ST.notes[CUR._i];
+  else ST.notes[CUR._i]={t:t, s:STK, ts: NDIRTY ? Date.now() : ((prev&&prev.ts)||Date.now())};
+  NDIRTY=false;
+  save(); noteDots();
+  const f=$('#nfoot'); if(f) f.textContent = STK.length? STK.length+' ストローク':'Apple Pencil でも指でも書けます';
 }
-function close_(){ noteSave(); $('#detail').classList.remove('on'); document.body.style.overflow=''; list(); applyPending(); }
-$('#back').addEventListener('click',close_);
-$('#fin').addEventListener('click',()=>{ if(ST.done[CURS.id]) delete ST.done[CURS.id]; else ST.done[CURS.id]=Date.now(); save(); dfoot(); });
-$('#dbody').addEventListener('input',e=>{ if(e.target.id==='ntxt'){ clearTimeout(noteSave.t); noteSave.t=setTimeout(noteSave,600); } });
-$('#dbody').addEventListener('click',e=>{
-  if(e.target.closest('#startcam')){ noteSave(); camOpen(); return; }
-  if(e.target.closest('#dslate')){ noteSave(); slateOpen(); return; }
-  const op=e.target.closest('[data-open]'); if(op) viewPhoto(op.dataset.open);
-});
+function sizeCanvas(){
+  const cv=$('#pcv'); if(!cv) return;
+  const w=cv.clientWidth||600, dpr=Math.min(window.devicePixelRatio||1, 2);
+  cv.width=Math.round(w*dpr); cv.height=Math.round(w*LH/LW*dpr);
+  cv.style.height=Math.round(w*LH/LW)+'px';
+  redraw();
+}
+function redraw(){
+  const cv=$('#pcv'); if(!cv) return;
+  const x=cv.getContext('2d'), k=cv.width/LW;
+  x.clearRect(0,0,cv.width,cv.height);
+  x.lineCap='round'; x.lineJoin='round'; x.strokeStyle='#14213d';
+  STK.forEach(s=>{
+    x.lineWidth=(s.w||3)*k; x.beginPath();
+    for(let i=0;i<s.p.length;i+=2){ const px=s.p[i]*k, py=s.p[i+1]*k;
+      if(i===0) x.moveTo(px,py); else x.lineTo(px,py); }
+    if(s.p.length===2) x.lineTo(s.p[0]*k+0.1, s.p[1]*k+0.1);
+    x.stroke();
+  });
+}
+function bindPen(){
+  const cv=$('#pcv'); if(!cv) return;
+  const pos=e=>{ const r=cv.getBoundingClientRect();
+    return [Math.round((e.clientX-r.left)/r.width*LW), Math.round((e.clientY-r.top)/r.width*LW)]; };
+  cv.onpointerdown=e=>{
+    e.preventDefault(); try{ cv.setPointerCapture(e.pointerId); }catch(err){}
+    const [x,y]=pos(e);
+    if(MODE==='era'){ drawing='era'; erase(x,y); return; }
+    drawing={w: e.pointerType==='pen' ? 2+ (e.pressure||0.5)*3 : 3, p:[x,y]};
+    STK.push(drawing); redraw();
+  };
+  cv.onpointermove=e=>{
+    if(!drawing) return; e.preventDefault();
+    const [x,y]=pos(e);
+    if(drawing==='era'){ erase(x,y); return; }
+    const p=drawing.p, n=p.length;
+    if(n>=2 && Math.abs(p[n-2]-x)<2 && Math.abs(p[n-1]-y)<2) return;
+    p.push(x,y); redraw();
+  };
+  const end=()=>{ if(drawing){ drawing=null; NDIRTY=true; noteSave(); } };
+  cv.onpointerup=end; cv.onpointercancel=end; cv.onpointerleave=end;
+  sizeCanvas();
+}
+function erase(x,y){
+  const R=22, before=STK.length;
+  STK=STK.filter(s=>{ for(let i=0;i<s.p.length;i+=2){
+      if(Math.hypot(s.p[i]-x, s.p[i+1]-y)<R) return false; } return true; });
+  if(STK.length!==before){ redraw(); NDIRTY=true; }
+}
+window.addEventListener('resize',()=>{ if($('#pcv')&&$('#npen').style.display==='block') sizeCanvas(); });
 
-/* ---------- カチンコ（デジカメ用） ---------- */
-let SLT=null, SLM='';
-function slateDraw(){
-  const s=CURS;
-  $('#sl2').textContent= s.t==='mp' ? s.n : s.n;
-  $('#sl3').textContent= s.t==='mp' ? pumpLabel(s.pump) : (SLM||'（機器名なし）');
-  $('#sl4').textContent=[s.t==='mp'?s.full:'', s.g, P.title].filter(Boolean).join('　／　');
-  $('#slm').innerHTML= s.t==='pl' ? [`<button data-sm="" aria-pressed="${SLM===''}">機器名なし</button>`,
-    ...s.machines.map((m,i)=>`<button data-sm="${i}" aria-pressed="${SLM===m}">${esc(m)}</button>`)].join('') : '';
-  const d=dcOf(s.id); $('#sl7').textContent = d.length? 'ここのデジカメ記録 '+d.length+' 回（最終 '+stamp(d[d.length-1].ts).slice(11)+'）' : 'まだ記録はありません';
+/* ---------- 機器詳細 ---------- */
+let CUR=null;
+function open_(i, keepScroll){
+  CUR=A[i];
+  $('#dtitle').textContent=CUR.no+'　'+CUR.name;
+  $('#dmeta').textContent=[CUR.ki?'機番 '+CUR.ki:'', CUR.sc?'施設コード '+CUR.sc:facName(CUR.fac), CUR.place||''].filter(Boolean).join('　／　');
+  const gs=groupsOf(CUR);
+  const nd=dcOf(CUR._i).length;
+  const ZEN=`<div class="zen">
+      <span class="ph" data-ph="__z"></span>
+      <span class="zt"><b>全景写真</b><small>機器の索引用。部位の位置をあとで思い出せます</small></span>
+      <button class="shot" data-shot="__z">📷</button></div>
+    <div class="camrow">
+      <button id="startcam">📷　この機器の撮影を始める</button>
+      <button id="dslate">📸 デジカメ<small id="dcinfo">${nd?'記録 '+nd+'回':'カチンコを出す'}</small></button>
+    </div>`;
+  let html='', lastB=null;
+  gs.forEach(g=>{
+    if(g.b!==lastB){ if(lastB!==null) html+='</div>'; html+=`<div class="bui"><h3>${esc(g.b||'部品')}</h3>`; lastB=g.b; }
+    const done=partDone(g);
+    html+=`<div class="buhin ${done?'pdone':''}">
+      <div class="bh"><span class="t">${esc(g.label)}</span><span class="c" data-pc="${g.i}">写真 ${partPhotos(CUR._i,g)}枚</span>
+        <span class="ph" data-ph="${PKEY(CUR._i,g.i)}"></span><button class="shot" data-shot="${PKEY(CUR._i,g.i)}">📷</button>
+        <button class="all" data-all="${g.i}" aria-pressed="${done}">${done?'済 ✓':'済にする'}</button></div>`+
+      g.items.map(it=>{
+        const o=[...(it.o1?it.o1.split(';'):[]),...(it.o2?it.o2.split(';'):[])].filter(x=>x&&x!=='-');
+        return `<div class="item" data-k="${it._k}">
+          <div class="hit"><span style="min-width:0">
+            <span class="knm">${esc(it.k)}</span>
+            ${it.d1?`<span class="kdesc">${esc(it.d1)}</span>`:''}
+            ${o.length?`<span class="opts">${o.map(x=>`<span class="opt">${esc(x)}</span>`).join('')}</span>`:''}
+          </span></div>
+          <span class="ph" data-ph="${it._k}"></span>
+          <button class="shot" data-shot="${it._k}">📷</button>
+        </div>`;}).join('')+`</div>`;
+  });
+  if(lastB!==null) html+='</div>';
+  $('#dbody').innerHTML=NOTE_HTML+ZEN+html;
+  noteInit();
+  dfoot();
+  fillThumbs();
+  $('#detail').classList.add('on');
+  document.body.style.overflow='hidden';
+  if(!keepScroll) $('#detail').scrollTop=0;
 }
+/* サムネイルは描画後に非同期で流し込む */
+async function fillThumbs(){
+  for(const el of $('#dbody').querySelectorAll('[data-ph]')){
+    const k=el.dataset.ph;
+    const ids=photosOf(CUR._i, k==='__z'?'__z':k);
+    el.innerHTML = ids.slice(0,3).map(id=>`<i data-open="${id}"></i>`).join('') +
+                   (ids.length>3?`<b>+${ids.length-3}</b>`:'');
+    ids.slice(0,3).forEach(async id=>{
+      const u=await thumbURL(id); const n=el.querySelector('[data-open="'+id+'"]');
+      if(n) n.style.backgroundImage='url('+u+')';
+    });
+  }
+}
+function dfoot(){
+  const gs=groupsOf(CUR);
+  $('#dcnt').textContent='部品の済 '+gs.filter(partDone).length+' / '+gs.length+'　　写真 '+nPhotos(CUR._i)+' 枚';
+  const d=!!ST.done[CUR._i];
+  $('#fin').setAttribute('aria-pressed', d?'true':'false');
+  $('#fin').textContent = d?'完了を取り消す':'調査完了';
+  $('#dhead').classList.toggle('fin', d);
+}
+function close_(){ noteSave(); $('#dask').classList.remove('on'); $('#detail').classList.remove('on'); document.body.style.overflow=''; list(); applyPending(); }
+
+/* 「済」の反映は画面を作り直さず、その部品だけ塗り替える（スクロール位置が飛ばない） */
+function paintParts(){
+  const gs=groupsOf(CUR);
+  $('#dbody').querySelectorAll('[data-all]').forEach(b=>{
+    const g=gs[+b.dataset.all], d=partDone(g);
+    b.setAttribute('aria-pressed', d); b.textContent=d?'済 ✓':'済にする';
+    b.closest('.buhin').classList.toggle('pdone', d);
+  });
+  dfoot();
+}
+$('#dbody').addEventListener('click',e=>{
+  const all=e.target.closest('[data-all]');
+  if(all){
+    const g=groupsOf(CUR)[+all.dataset.all], to=!partDone(g);
+    g.keys.forEach(k=>{ if(to) ST.items[k]=1; else delete ST.items[k]; });
+    save(); paintParts();
+    $('#dask').classList.toggle('on', to && groupsOf(CUR).every(partDone) && !ST.done[CUR._i]);   // 全部済になったら完了を聞く
+    return;
+  }
+  if(e.target.closest('#dslate')){ slateOpen(); return; }
+});
+$('#fin').addEventListener('click',()=>{ if(ST.done[CUR._i])delete ST.done[CUR._i]; else ST.done[CUR._i]=1; save(); dfoot(); $('#dask').classList.remove('on'); });
+$('#daskok').addEventListener('click',()=>{ ST.done[CUR._i]=1; save(); dfoot(); $('#dask').classList.remove('on'); toast('この機器を完了にしました'); });
+$('#daskx').addEventListener('click',()=>$('#dask').classList.remove('on'));
+$('#back').addEventListener('click',close_);
+$('#list').addEventListener('click',e=>{
+  const gl=e.target.closest('[data-gal]');
+  if(gl){ galOpen(+gl.dataset.gal); return; }
+  const dn=e.target.closest('[data-done]');
+  if(dn){ const i=+dn.dataset.done; if(ST.done[i])delete ST.done[i]; else ST.done[i]=1; save(); list(); return; }
+  const c=e.target.closest('[data-i]'); if(c)open_(+c.dataset.i);
+});
+$('#q').addEventListener('input',list);
+$('#qc').addEventListener('click',()=>{ $('#q').value=''; list(); $('#q').focus(); });
+$('#q').addEventListener('keydown',e=>{ if(e.key==='Escape'){ $('#q').value=''; list(); } });
+['fu','fd','fp1','fp0'].forEach(id=>$('#'+id).addEventListener('click',e=>{
+  const b=e.currentTarget; b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true'); list();
+}));
+$('#fhz').addEventListener('click',e=>{ const b=e.target.closest('[data-hz]'); if(!b) return;
+  b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true'); list(); });
+$('#ftn').addEventListener('click',e=>{ const b=e.target.closest('[data-tn]'); if(!b) return;
+  b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true'); list(); });
+$('#fsort').addEventListener('click',()=>{ ST.sort = ST.sort==='place' ? '' : 'place'; save(); sortChip(); list(); });
+$('#unexp').addEventListener('click',e=>{ const b=e.target.closest('[data-ux]'); if(!b) return;
+  if(b.dataset.ux==='go') tab(3); else { UNEXPX=true; $('#unexp').classList.remove('on'); } });
+
+/* ---------- カチンコ（デジカメで撮る前に1枚） ---------- */
+let SLT=null;
 function slateOpen(){
-  SLM=''; slateDraw();
+  $('#sl2').textContent=CUR.no; $('#sl3').textContent=CUR.name;
+  $('#sl4').textContent=[CUR._hz, CUR.ki?'機番 '+CUR.ki:'', facName(CUR.fac), P.title].filter(Boolean).join('　／　');
   const tick=()=>{ $('#slclock').textContent=stamp(Date.now()); }; tick(); SLT=setInterval(tick,1000);
+  const d=dcOf(CUR._i); $('#sl7').textContent = d.length? 'この機器のデジカメ記録 '+d.length+' 回（最終 '+stamp(d[d.length-1]).slice(11)+'）' : 'まだ記録はありません';
   $('#slate').classList.add('on'); wake();
 }
-function slateClose(){ clearInterval(SLT); $('#slate').classList.remove('on'); unwake(); open_(CURS.id,true); }
-$('#slm').addEventListener('click',e=>{ const b=e.target.closest('[data-sm]'); if(!b) return; SLM= b.dataset.sm===''? '' : CURS.machines[+b.dataset.sm]; slateDraw(); });
-$('#slok').addEventListener('click',()=>{ (ST.dc[CURS.id]=ST.dc[CURS.id]||[]).push({ts:Date.now(), m:SLM}); save(); slateClose(); });
+function slateClose(){ clearInterval(SLT); $('#slate').classList.remove('on'); unwake(); open_(CUR._i,true); }
+$('#slok').addEventListener('click',()=>{
+  ST.dc=ST.dc||{}; (ST.dc[CUR._i]=ST.dc[CUR._i]||[]).push(Date.now()); save(); slateClose(); });
 $('#slx').addEventListener('click',slateClose);
 
-/* ---------- 写真ビューア：左右にめくる、機器名・場所の付け替え、削除 ---------- */
-let VIEW=null, VTOK=0;
-/* 場所の画面に並んでいる順（処理場は機器ごと → 機器名なし → 一覧にない機器名） */
-function viewOrder(s){
-  const ids=photosOf(s.id); if(s.t==='mp') return ids;
-  const out=[]; for(const m of [...s.machines,'']) ids.forEach(id=>{ if((ST.photos[id].m||'')===m) out.push(id); });
-  ids.forEach(id=>{ if(!out.includes(id)) out.push(id); });
-  return out;
-}
-function viewStep(d){
-  const p=VIEW&&ST.photos[VIEW]; if(!p) return;
-  const L=viewOrder(SI[p.s]), i=L.indexOf(VIEW), j=i+d;
-  if(j<0||j>=L.length){ toast(d>0?'最後の写真です':'最初の写真です',1500); return; }
-  viewPhoto(L[j]);
-}
-async function viewPhoto(id){
-  VIEW=id; const p=ST.photos[id]; if(!p) return; const s=SI[p.s], tok=++VTOK;
-  const L=viewOrder(s), i=L.indexOf(id);
-  $('#pv2n').textContent=(i+1)+' / '+L.length+'　'+(s.t==='mp'?s.n:s.n+(p.m?'　'+p.m:''));
-  $('#vprev').hidden= i<=0; $('#vnext').hidden= i>=L.length-1;
-  $('#pv2').classList.add('on');
-  const u= p.x ? await thumbURL(id) : await photoURL(id);
-  if(tok!==VTOK) return;                                   // 速くめくったときに古い写真で上書きしない
-  $('#pv2img').src=u;
-  const mch = s.t==='pl' ? `<div class="vl">機器名</div><div class="vchips">${[`<button data-vm="" aria-pressed="${!p.m}">選ばない</button>`,
-      ...s.machines.map((m,i)=>`<button data-vm="${i}" aria-pressed="${p.m===m}">${esc(m)}</button>`)].join('')}</div>` : '';
-  $('#pv2b').innerHTML=`<h4>${esc(photoLabel(s,p))}</h4>
-    <div class="m">${stamp(p.ts)}　${p.w}×${p.h}　${(p.b/1024).toFixed(0)} KB${ST.exported[id]?'　／　書き出し済':''}${p.x?'<br>原本は iPad から削除済みです（確認用の小さな画像を表示しています）':''}</div>
-    ${mch}
-    <div class="vl">撮った場所を直す</div>
-    <select id="vsite">${S.map(x=>`<option value="${x.id}" ${x.id===s.id?'selected':''}>${esc(x.t==='mp'? (x.g?x.g+'　':'')+x.n+'（'+x.pump+'）' : x.g+'　'+x.n)}</option>`).join('')}</select>
-    <button class="rm" id="vdel">🗑　この写真を削除する</button>`;
-}
-function afterView(){ $('#pv2').classList.remove('on'); VIEW=null;
-  if(camOn()){ camBars(); camLast(); } else if(CURS) open_(CURS.id,true); }
-$('#pv2b').addEventListener('click',async e=>{
-  const p=VIEW&&ST.photos[VIEW]; if(!p) return;
-  const vm=e.target.closest('[data-vm]');
-  if(vm){ const s=SI[p.s]; p.m= vm.dataset.vm==='' ? '' : s.machines[+vm.dataset.vm]; save(); viewPhoto(VIEW); return; }
-  if(e.target.closest('#vdel')){ if(!confirm('この写真を削除します。元に戻せません。')) return;
-    const L=viewOrder(SI[p.s]), i=L.indexOf(VIEW), nx=L[i+1]||L[i-1];
-    await delPhoto(VIEW); if(nx) viewPhoto(nx); else afterView(); return; }
-});
-$('#vclose').addEventListener('click',afterView);
-$('#vprev').addEventListener('click',()=>viewStep(-1));
-$('#vnext').addEventListener('click',()=>viewStep(1));
-addEventListener('keydown',e=>{ if(!$('#pv2').classList.contains('on')) return;
-  if(e.key==='ArrowLeft') viewStep(-1); else if(e.key==='ArrowRight') viewStep(1); else if(e.key==='Escape') afterView(); });
-/* 指で左右にめくる（横に50px以上、かつ縦より横に大きく動いたとき） */
-(function(){
-  const w=$('#pv2wrap'), im=$('#pv2img'); let x0=null, y0=0, dx=0, horiz=null;
-  w.addEventListener('touchstart',e=>{ if(e.touches.length!==1){ x0=null; return; } x0=e.touches[0].clientX; y0=e.touches[0].clientY; dx=0; horiz=null; im.classList.remove('sw'); },{passive:true});
-  w.addEventListener('touchmove',e=>{ if(x0==null) return; dx=e.touches[0].clientX-x0; const dy=e.touches[0].clientY-y0;
-    if(horiz===null && (Math.abs(dx)>8||Math.abs(dy)>8)) horiz=Math.abs(dx)>Math.abs(dy);
-    if(horiz) im.style.transform='translateX('+dx+'px)'; },{passive:true});
-  const end=()=>{ if(x0==null) return; im.classList.add('sw'); im.style.transform='';
-    if(horiz && Math.abs(dx)>50) viewStep(dx<0?1:-1); x0=null; };
-  w.addEventListener('touchend',end); w.addEventListener('touchcancel',()=>{ x0=null; im.classList.add('sw'); im.style.transform=''; });
-})();
-$('#pv2b').addEventListener('change',e=>{
-  if(e.target.id!=='vsite') return; const p=VIEW&&ST.photos[VIEW]; if(!p) return;
-  const to=SI[e.target.value]; p.s=to.id; p.m=(to.t==='pl' && to.machines.includes(p.m)) ? p.m : '';
-  save(); toast('「'+(to.t==='mp'?to.n:to.g+' '+to.n)+'」に移しました'); viewPhoto(VIEW);
+/* ---------- 一覧：チェックを全部外す ---------- */
+$('#freset').addEventListener('click',()=>{
+  const nd=Object.keys(ST.done).length, ni=Object.keys(ST.items).length;
+  if(!nd && !ni){ alert('外すチェックはありません。'); return; }
+  if(!confirm('次のチェックをすべて外します。\n・機器の「完了」 '+nd+' 件\n・部品の「済」\n\n写真・特記事項・デジカメ記録は消えません。')) return;
+  ST.done={}; ST.items={}; save(); list(); toast('チェックをすべて外しました');
 });
 
-/* ---------- Excel（xlsx を自作） ---------- */
+/* ---------- 印刷用リスト ---------- */
+function paper(){
+  const only=$('#po').getAttribute('aria-pressed')==='true';
+  const brk=$('#pb').getAttribute('aria-pressed')==='true';
+  const sel=$('#pc').getAttribute('aria-pressed')==='true';
+  const rows=AV().filter(a=>!(only&&ST.done[a._i]));
+  $('#paper').innerHTML = rows.length? rows.map(a=>`
+    <div class="${brk?'brk':''}">
+      <div class="ah">
+        <div class="slate">
+          <div class="l1">${esc(a.no)}　${esc(a.name)}</div>
+          <div class="l2">${[esc(a._hz), a.ki?'機番 '+esc(a.ki):'', esc(facName(a.fac)), a.place?esc(a.place):'', '確認項目 '+a.items.length].filter(Boolean).join('　／　')}</div>
+        </div>
+        <div class="cue">この枠を<br>デジカメで1枚<br>撮ってから開始</div>
+      </div>
+      <table class="pl"><thead><tr>
+        <th style="width:14%">部位</th><th style="width:14%">部品</th><th style="width:14%">確認項目</th>
+        <th style="width:16%">測定内容</th>${sel?'<th style="width:20%">点検結果（○で囲む）</th>':''}
+        <th style="width:6%">枚数</th><th style="width:${sel?16:36}%">備考</th></tr></thead><tbody>
+      ${a.items.map((it,ix,ar)=>{
+        const o1=(it.o1||'').split(';').filter(Boolean), o2=(it.o2||'').split(';').filter(x=>x&&x!=='-');
+        const oc=[...o1.map(x=>`<span>${esc(x)}</span>`), ...(o2.length?['<br>']:[]), ...o2.map(x=>`<span>${esc(x)}</span>`)].join('');
+        const span=(f,cls)=>{ if(ix&&ar[ix-1][f]===it[f]&&(f==='b'||ar[ix-1].b===it.b)) return '';
+          let n=1; while(ix+n<ar.length && ar[ix+n][f]===it[f] && (f==='b'||ar[ix+n].b===it.b)) n++;
+          return `<td rowspan="${n}" class="${cls}">${esc(f==='b'&&it[f]==='部位全部'?'':it[f])}</td>`; };
+        return `<tr>
+          ${span('b','gb')}${span('p','gp')}<td>${esc(it.k)}</td>
+          <td>${esc(it.d1||'')}${it.d2?'<br>'+esc(it.d2):''}</td>
+          ${sel?`<td class="oc">${oc||'<span class="wline"></span>'}</td>`:''}
+          <td style="text-align:center"><span class="numbox"></span></td>
+          <td><span class="wline" style="min-width:100%"></span></td></tr>`;
+      }).join('')}
+      </tbody></table></div>`).join('') : '<p class="empty">対象の機器がありません</p>';
+}
+['po','pb','pc'].forEach(id=>$('#'+id).addEventListener('click',e=>{
+  const b=e.currentTarget; b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true'); paper();
+}));
+$('#go').addEventListener('click',()=>window.print());
+
+/* ================= 書き出し ================= */
+const BAD=/[\\\/:;*?"<>|~,\s　]/g;
+const safe=s=>String(s==null?'':s).replace(BAD,'_').replace(/_+/g,'_').replace(/^_|_$/g,'');
+const folder=a=>safe(a.no)+'_'+safe(a.name);
+const stamp=t=>{const d=new Date(t);const z=n=>String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds());};
+const csv=rows=>'﻿'+rows.map(r=>r.map(v=>{
+  const s=String(v==null?'':v); return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }).join(',')).join('\r\n');
+
+function photoName(a, p){
+  if(p.z) return '_全景';
+  const ks=(p.k||[]).filter(k=>!isU(k));
+  const its=ks.map(k=>CURITEM(a,k)).filter(Boolean);
+  if(its.length){ const f=its[0], ps=[...new Set(its.map(i=>safe(i.p)))];
+    return safe(a.no)+'_'+safe(f.bc||'00')+'-'+safe(f.pc||'00')+'_'+ps.join('・')+'_'+[...new Set(its.map(i=>safe(i.k)))].join('+'); }
+  const pk=ks.find(isP), g=pk&&gOfKey(a,pk);
+  if(g){ const f=g.items[0]; return safe(a.no)+'_'+safe(f.bc||'00')+'-'+safe(f.pc||'00')+'_'+safe(f.p)+'_未分類'; }
+  return '_未分類';
+}
+const CURITEM=(a,k)=>{ const t=String(k).split('-')[1]; if(!/^\d+$/.test(t)) return null; return a.items[+t]||null; };
+
+function noteCanvas(s){
+  const cv=document.createElement('canvas'); cv.width=LW*1.6; cv.height=LH*1.6;
+  const x=cv.getContext('2d'), k=cv.width/LW;
+  x.fillStyle='#fff'; x.fillRect(0,0,cv.width,cv.height);
+  x.lineCap='round'; x.lineJoin='round'; x.strokeStyle='#14213d';
+  s.forEach(t=>{ x.lineWidth=(t.w||3)*k; x.beginPath();
+    for(let i=0;i<t.p.length;i+=2){ const px=t.p[i]*k, py=t.p[i+1]*k; if(i===0)x.moveTo(px,py); else x.lineTo(px,py); }
+    if(t.p.length===2) x.lineTo(t.p[0]*k+.1,t.p[1]*k+.1); x.stroke(); });
+  return new Promise(r=>cv.toBlob(r,'image/png'));
+}
+
+let EXFAC='*';
+
+/* ---------- 書き出し用の Excel（.xlsx）：見出し色・列幅・先頭行固定・フィルタ・写真へのリンク ---------- */
 const xesc=v=>String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g,'');
 const colL=i=>{ let s=''; i++; while(i){ const m=(i-1)%26; s=String.fromCharCode(65+m)+s; i=(i-1-m)/26; } return s; };
 const wlen=v=>[...String(v)].reduce((n,c)=>{ const k=c.charCodeAt(0); return n+((k>0xff && !(k>=0xff61&&k<=0xff9f))?2:1); },0);
@@ -1407,57 +1699,69 @@ async function makeXlsx(sheets){
   return new Blob([z],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 }
 /* ---------- 書き出しの計画：ファイル名を先に決めてから、容量でZIPを分ける ---------- */
-
-/* ---------- 書き出しの計画：ファイル名を先に決めてから、容量でZIPを分ける ---------- */
 const MB=1048576;
 const mb=n=>n>=1073741824? (n/1073741824).toFixed(2)+' GB' : (n/MB).toFixed(n<10*MB?1:0)+' MB';
+const who=()=>safe(DEV.user||'');
 let PARTMB=null;            // ZIP 1個の上限（MB）。通常は自動（縮小あり250MB／縮小なし800MB）
 function tsName(d){ const z=n=>String(n).padStart(2,'0'); return d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'_'+z(d.getHours())+z(d.getMinutes()); }
-const where=s=> s.t==='mp' ? s.pump : s.n;
-/* 写真ごとのファイル名（ZIPと写真アプリで同じ名前にする）。番号は場所ごと・名前ごとに撮影順 */
-function fileNames(){
-  const m={};
-  for(const s of S){ const f=siteFolder(s), seq={};
-    for(const id of photosOf(s.id)){ const p=ST.photos[id]; if(p.x) continue;
-      const base=baseName(s,p); seq[base]=(seq[base]||0)+1; m[id]=f+'/'+base+'_'+String(seq[base]).padStart(3,'0')+'.jpg'; } }
-  return m;
-}
 function exportPlan(targets){
-  const FN=fileNames();
-  const rec=[['区分','場所','対象ポンプ／階','機器名','ファイル名','撮影日時','種別']];
+  const multi = EXFAC==='*' && facList().length>1;          // 施設が複数なら施設フォルダを1段かませる
+  const F=a=> multi? [facName(a.fac)] : [];
+  const H=h=> multi? ['施設',...h] : h;
+  const U=who(), tagName=DEV.nameInFiles!==false, bb=b=>b==='部位全部'?'':b;
+  const rec=[H(['機器No','機器名称','部位名称','部品名称','確認項目','ファイル名','撮影日時','撮影者','種別'])];
+  const un=[H(['機器No','機器名称','部位名称','部品名称','ファイル名','撮影日時','撮影者'])];
+  const notes=[H(['機器No','機器名称','特記事項（文字入力）','手書き'])];
+  const mis=[H(['機器No','機器名称','保全区分','部位名称','部品名称','写真枚数','状態'])];
   const kb=ekb(), groups=[]; let nPhoto=0, nSkip=0;
-  for(const s of targets){
-    const f=siteFolder(s), g={s, ents:[], est:0};
-    for(const id of photosOf(s.id)){
+  for(const a of targets){
+    const f=(multi? safe(facName(a.fac))+'/' : '')+folder(a), seq={}, fc=F(a), g={a, ents:[], est:0};
+    for(const id of photosOf(a._i)){
       const p=ST.photos[id]; if(p.x){ nSkip++; continue; }
-      const fn=FN[id], est=kb? Math.min(p.b||0, kb*1024) : (p.b||0);
+      const by=p.u||DEV.user||'', pu=safe(by), base=photoName(a,p)+(tagName&&pu?'_'+pu:'');
+      seq[base]=(seq[base]||0)+1;
+      const fn=f+'/'+base+'_'+seq[base]+'.jpg', est=kb? Math.min(p.b||0, kb*1024) : (p.b||0);
       g.ents.push({k:'ph', id, name:fn, est}); g.est+=est; nPhoto++;
-      rec.push([s.g, s.t==='mp'?s.n:s.n, where(s), p.m||'', fn, stamp(p.ts), 'iPad']);
+      const ks=(p.k||[]).filter(k=>!isU(k)), its=ks.map(k=>CURITEM(a,k)).filter(Boolean);
+      const pg=!its.length && ks.find(isP) ? gOfKey(a,ks.find(isP)) : null;
+      if(p.z) rec.push([...fc,a.no,a.name,'','','',fn,stamp(p.ts),by,'全景']);
+      else if(its.length) its.forEach(i=>rec.push([...fc,a.no,a.name,bb(i.b),i.p,i.k,fn,stamp(p.ts),by,'詳細']));
+      else if(pg){ rec.push([...fc,a.no,a.name,bb(pg.b),pg.p,'',fn,stamp(p.ts),by,'部品のみ（項目未分類）']); un.push([...fc,a.no,a.name,bb(pg.b),pg.p,fn,stamp(p.ts),by]); }
+      else { rec.push([...fc,a.no,a.name,'','','',fn,stamp(p.ts),by,'未分類']); un.push([...fc,a.no,a.name,'','',fn,stamp(p.ts),by]); }
     }
-    dcOf(s.id).forEach(d=>rec.push([s.g, s.n, where(s), d.m||'', '（デジカメ側の写真）', stamp(d.ts), 'デジカメ（カチンコ）']));
-    if(hasNote(s.id)){ const nm=f+'/_メモ'+(DEV.tag?'_'+safe(DEV.tag):'')+'.txt'; g.ents.push({k:'txt', sid:s.id, name:nm, est:4096}); g.est+=4096; }
+    const n=ST.notes&&ST.notes[a._i];
+    if(n && ((n.t||'').trim() || (n.s||[]).length)){
+      const nb=f+'/_特記事項'+(U?'_'+U:'');
+      notes.push([...fc,a.no,a.name,(n.t||'').replace(/\r\n?/g,'\n'), (n.s||[]).length?'あり（'+nb+'.png）':'']);
+      if((n.s||[]).length){ g.ents.push({k:'png', ai:a._i, name:nb+'.png', est:120*1024}); g.est+=120*1024; }
+      if((n.t||'').trim()){ g.ents.push({k:'txt', ai:a._i, name:nb+'.txt', est:4096}); g.est+=4096; }
+    }
+    dcOf(a._i).forEach(t=>rec.push([...fc,a.no,a.name,'','','','（デジカメ側の写真）',stamp(t),'','デジカメ（カチンコ表示）']));
+    groupsOf(a).forEach(x=>{ if(!partDone(x)) mis.push([...fc,a.no,a.name,a._hz,bb(x.b),x.p,partPhotos(a._i,x),'部品が未済']); });
+    if(!ST.done[a._i]) mis.push([...fc,a.no,a.name,a._hz,'','',nPhotos(a._i),'機器が未完了']);
     if(g.ents.length) groups.push(g);
   }
-  const lst=[['区分','場所','正式名称','対象ポンプ／階','写真枚数','デジカメ記録','済','メモ','フォルダ']];
-  for(const s of S) lst.push([s.g, s.n, s.t==='mp'?s.full:'', where(s), nPhotos(s.id), dcOf(s.id).length||'', ST.done[s.id]?'済':'',
-    (ST.notes[s.id]&&ST.notes[s.id].t||'').replace(/\r\n?/g,'\n'), siteFolder(s)]);
-  const LIMIT=(PARTMB || (kb? 250 : 800))*MB, parts=[]; let cur={ents:[], est:0, ss:new Set()};
-  const flush=()=>{ if(cur.ents.length) parts.push(cur); cur={ents:[], est:0, ss:new Set()}; };
+  /* 容量でZIPを分ける。機器のフォルダは分けない（1台で上限を超えるときだけ写真単位で分ける） */
+  const LIMIT=(PARTMB || (kb? 250 : 800))*MB, parts=[]; let cur={ents:[], est:0, ais:new Set()};
+  const flush=()=>{ if(cur.ents.length) parts.push(cur); cur={ents:[], est:0, ais:new Set()}; };
   for(const g of groups){
     if(cur.est && cur.est+g.est>LIMIT) flush();
-    if(g.est>LIMIT){ for(const e of g.ents){ if(cur.est && cur.est+e.est>LIMIT) flush(); cur.ents.push(e); cur.est+=e.est; cur.ss.add(g.s.id); } }
-    else { for(const e of g.ents) cur.ents.push(e); cur.est+=g.est; cur.ss.add(g.s.id); }
+    if(g.est>LIMIT){ for(const e of g.ents){ if(cur.est && cur.est+e.est>LIMIT) flush(); cur.ents.push(e); cur.est+=e.est; cur.ais.add(g.a._i); } }
+    else { for(const e of g.ents) cur.ents.push(e); cur.est+=g.est; cur.ais.add(g.a._i); }
   }
   flush();
-  if(!parts.length) parts.push({ents:[], est:0, ss:new Set()});
-  const tg=safe(DEV.tag||'');
-  const sum=[['項目','内容'],['案件名',P.title],['書き出し日時',stamp(Date.now())],['この iPad の記号',DEV.tag||'（なし）'],
-    ['場所の数',S.length+'（済 '+S.filter(s=>ST.done[s.id]).length+'）'],['写真がない場所',S.filter(s=>!nPhotos(s.id)).length],
-    ['この ZIP の写真枚数',nPhoto],['ZIPの数',parts.length>1? parts.length+' 個（すべて同じフォルダに展開してください）' : '1 個'],['アプリの版',BUILD]];
+  if(!parts.length) parts.push({ents:[], est:0, ais:new Set()});        // 写真が無くても一覧（Excel）は出せる
+  const fi=r=>r[0].indexOf('ファイル名');
+  const sum=[['項目','内容'],['案件名',P.title],['対象',EXFAC==='*'?'案件全体':facName(EXFAC)],['書き出した人',DEV.user||'（未設定）'],
+    ['書き出し日時',stamp(Date.now())],['機器数',targets.length],['写真枚数',nPhoto],['未完了の機器',targets.filter(a=>!ST.done[a._i]).length],
+    ['未分類の写真',un.length-1],['特記事項のある機器',notes.length-1],
+    ['ZIPの数',parts.length>1? parts.length+' 個（すべて同じフォルダに展開してください）' : '1 個'],['アプリの版',BUILD]];
   if(nSkip) sum.push(['含めなかった写真', nSkip+' 枚（以前に書き出して、iPadから原本を削除済み）']);
-  const SH=[{name:'概要',rows:sum,kv:true},{name:'撮影記録',rows:rec,link:4},{name:'場所一覧',rows:lst,wrap:[7]}];
-  const base='MHポンプ撮影_'+safe(P.title).slice(0,24)+(tg?'_'+tg:'')+'_'+tsName(new Date());
-  return {parts, SH, xname:'_撮影記録'+(tg?'_'+tg:'')+'.xlsx', base, nPhoto, nSkip};
+  const SH=[{name:'概要',rows:sum,kv:true},{name:'撮影記録',rows:rec,link:fi(rec)},{name:'未完了一覧',rows:mis}];
+  if(un.length>1) SH.push({name:'未分類一覧',rows:un,link:fi(un)});
+  if(notes.length>1) SH.push({name:'特記事項',rows:notes,wrap:[notes[0].indexOf('特記事項（文字入力）')]});
+  const base='ストマネ_'+safe(P.title).slice(0,24)+(EXFAC!=='*'?'_'+safe(facName(EXFAC)).slice(0,16):'')+(U?'_'+U:'')+'_'+tsName(new Date());
+  return {parts, SH, xname:'_調査記録'+(U?'_'+U:'')+'.xlsx', base, nPhoto, nSkip};
 }
 async function buildPart(plan, i, onProg){
   const part=plan.parts[i], E=[], EB=[]; let k=0;
@@ -1466,34 +1770,45 @@ async function buildPart(plan, i, onProg){
     if(e.k==='ph'){
       const p=ST.photos[e.id]; if(!p) continue;
       const b0=await get('blobs',e.id); if(!b0) continue;
-      const r=await reencode(b0, p.w, p.h);
-      E.push({name:e.name, data:await withExif(r.blob, p, photoLabel(SI[p.s],p), r.w, r.h), t:p.ts}); EB.push(r.blob.size);
-    } else { const n=ST.notes[e.sid]; if(n) E.push({name:e.name, data:'﻿'+n.t, t:n.ts}); }
+      const r=await reencode(b0, p.w, p.h), a=A[p.a];
+      E.push({name:e.name, data:await withExif(r.blob, p, a, photoLabel(a,p), r.w, r.h), t:p.ts}); EB.push(r.blob.size);
+    } else {
+      const n=ST.notes&&ST.notes[e.ai]; if(!n) continue;
+      if(e.k==='png') E.push({name:e.name, data:await noteCanvas(n.s), t:n.ts});
+      else E.push({name:e.name, data:'﻿'+n.t, t:n.ts});
+    }
   }
   if(!plan.xlsx) plan.xlsx=await makeXlsx(plan.SH);
   E.push({name:plan.xname, data:plan.xlsx});
   return {E, EB};
 }
 function markPart(plan,i){
-  const now=Date.now();
-  plan.parts[i].ents.forEach(e=>{ if(e.k==='ph') ST.exported[e.id]=now; else if(e.sid) ST.noteExp[e.sid]=now; });
+  const now=Date.now(), part=plan.parts[i]; ST.noteExp=ST.noteExp||{};
+  part.ents.forEach(e=>{ if(e.k==='ph') ST.exported[e.id]=now; else if(e.ai!=null) ST.noteExp[e.ai]=now; });
+}
+function exBase(){
+  EXFAC = (FAC!=='*' && $('#efac').checked) ? FAC : '*';
+  return EXFAC==='*' ? A : A.filter(a=>a.fac===EXFAC);
 }
 function expTargets(){
   const m=$('#escope').value;
-  return S.filter(s=>{
-    const live=livePhotos(s.id), n=hasNote(s.id);
-    if(!live.length && !n && !dcOf(s.id).length) return false;
-    if(m==='new') return live.some(id=>!ST.exported[id]) || (n && !(ST.noteExp[s.id]>=(ST.notes[s.id].ts||0)));
+  return exBase().filter(a=>{
+    const n=ST.notes&&ST.notes[a._i], live=livePhotos(a._i);
+    if(!live.length && !n && !dcOf(a._i).length) return false;
+    if(m==='done') return !!ST.done[a._i];
+    if(m==='new')  return live.some(id=>!ST.exported[id]) || (n && !((ST.noteExp||{})[a._i]>=(n.ts||0)));
     return true;
   });
 }
 function expInfo(){
   const t=expTargets();
-  const ids=t.flatMap(s=>livePhotos(s.id)), n=ids.length, b=ids.reduce((x,id)=>x+(ST.photos[id].b||0),0);
-  $('#einfo').textContent=`${t.length} か所 ／ 写真 ${n} 枚 ／ 約 ${mb(b)}`;
+  const ids=t.flatMap(a=>livePhotos(a._i)), n=ids.length, b=ids.reduce((x,id)=>x+(ST.photos[id].b||0),0);
+  $('#einfo').textContent=`${t.length} 機器 ／ 写真 ${n} 枚 ／ 約 ${mb(b)}`;
   const px=epx(), kb=ekb();
   const est = kb? ids.reduce((x,id)=>x+Math.min(ST.photos[id].b||0, kb*1024),0) : b;
   $('#eeinfo').textContent = (!px&&!kb) ? '原本をそのまま入れます　→　ZIP推定 約 '+mb(b) : `写真${n}枚 × 最大${kb}KB　→　ZIP推定 約 ${mb(est)}`;
+  const fl=$('#efacl'); fl.style.display = FAC!=='*' ? 'flex':'none';
+  $('#efact').textContent = '「'+facName(FAC)+'」だけを書き出す（外すと案件全体）';
   const lim=(PARTMB || (kb? 250 : 800))*MB, np=Math.max(1,Math.ceil(est/lim));
   const w=$('#ewarn'); w.style.display = np>1 ? 'block':'none';
   w.textContent = np>1 ? `大きいので、ZIPを約 ${np} 個に分けて書き出します（1個 ${mb(lim)} まで）。すべて同じフォルダに展開してください。` : '';
@@ -1501,6 +1816,7 @@ function expInfo(){
   photoBtn();
   return t;
 }
+/* ---------- 保存の確認（「保存できた」を押すまで書き出し済みにしない） ---------- */
 let EXPORTING=false, LAST=null;
 function dl(blob,name){
   const u=URL.createObjectURL(blob); const a=document.createElement('a');
@@ -1531,7 +1847,7 @@ async function shareLast(){
   if(!LAST){ alert('先に「ZIPを書き出す」を押してください。'); return; }
   if(await shareFile(LAST.blob, LAST.name)){ if(LAST.onSaved) await LAST.onSaved(); toast('共有シートで保存しました'); }
 }
-$('#eshare').addEventListener('click',shareLast);
+/* ---------- ZIPを何個かに分けるときの進め方（書き出し・バックアップ共通） ---------- */
 let PJOB=null;
 function partsProg(t,f){ const el=PJOB&&PJOB.multi? $('#partp') : $('#eprog'); el.style.display=t?'block':'none';
   (PJOB&&PJOB.multi? $('#partpt') : $('#eprogt')).textContent=t||''; (PJOB&&PJOB.multi? $('#partpb') : $('#eprogb')).style.width=((f||0)*100)+'%'; }
@@ -1562,68 +1878,26 @@ $('#partl').addEventListener('click',e=>{ const b=e.target.closest('[data-pi]');
 $('#partx').addEventListener('click',()=>{ if(EXPORTING) return; $('#parts').classList.remove('on'); applyPending(); });
 async function doExport(){
   if(EXPORTING) return;
-  noteSave();
   const t=expTargets();
   if(!t.length){ alert('書き出す対象がありません。'); return; }
+  if(!DEV.user && !DEV.askedUser){
+    const v=prompt('書き出す人の名前を入れてください。\nZIPや調査記録のファイル名に入ります（空欄でもかまいません）。','');
+    if(v===null) return; DEV.user=v.trim(); DEV.askedUser=1; saveDev(); $('#euser').value=DEV.user; }
   const plan=exportPlan(t);
   await startJob({kind:'export', plan, title:'書き出し：ZIP '+plan.parts.length+' 個に分けます',
-    help:'上から順に「作って保存」を押してください。すべて同じフォルダに展開すると、撮影記録（Excel）のリンクから写真が開けます。',
-    label:i=>{ const p=plan.parts[i], np=p.ents.filter(e=>e.k==='ph').length; return `${i+1}/${plan.parts.length}　${p.ss.size} か所・写真 ${np}枚・約 ${mb(p.est)}`; },
+    help:'上から順に「作って保存」を押してください。すべて同じフォルダに展開すると、調査記録（Excel）のリンクから写真が開けます。',
+    label:i=>{ const p=plan.parts[i], np=p.ents.filter(e=>e.k==='ph').length; return `${i+1}/${plan.parts.length}　機器 ${p.ais.size}台・写真 ${np}枚・約 ${mb(p.est)}`; },
     build:async(i,prog)=>{
-      const {E,EB}=await buildPart(plan,i,(a,b)=>prog(a,b,'写真を変換しています'));
+      const {E,EB}=await buildPart(plan,i,(a,b)=>prog(a,b,'成果品サイズに変換しています'));
       const zip=await makeZip(E,(a,b)=>prog(a,b,'ZIPを作成しています'));
       prog(1,1,'検証しています'); const v=await verifyZip(zip,E); if(!v.ok) throw new Error(v.msg);
       const avg=EB.length? EB.reduce((x,y)=>x+y,0)/EB.length/1024 : 0;
       return {zip, name:plan.base+(plan.parts.length>1?'_'+(i+1)+'of'+plan.parts.length:'')+'.zip',
         info:E.length+' ファイル／'+mb(zip.size)+(EB.length?'（写真 '+EB.length+' 枚・1枚平均 '+avg.toFixed(0)+' KB）':'')}; },
-    saved:async i=>{ markPart(plan,i); await saveNow(); expInfo(); elist(); stats(); },
+    saved:async i=>{ markPart(plan,i); await saveNow(); expInfo(); elist(); list(); },
     okmsg:i=>'書き出し済みにしました'+(plan.parts.length>1?'（'+(i+1)+'/'+plan.parts.length+'）':'')});
 }
-$('#ego').addEventListener('click',doExport);
-/* ---------- 写真アプリへ保存：30枚ずつ。保存した写真は覚えておき、押すたびに続きを保存する ---------- */
-const PBATCH=30; let PREP=null;
-function photoTargets(){ const r=[]; for(const s of expTargets()) for(const id of livePhotos(s.id)) r.push([s,id]); return r; }
-function photoBtn(){
-  const b=$('#ephoto'); if(!b) return;
-  if(PREP){ b.textContent='▶ '+PREP.files.length+' 枚を写真アプリへ保存（共有シートで「画像を保存」）'; return; }
-  const all=photoTargets(), rest=all.filter(([s,id])=>!ST.saved[id]).length;
-  b.textContent= !all.length ? '写真アプリへ保存' : rest ? `写真アプリへ保存（未保存 ${rest} 枚・${PBATCH}枚ずつ）` : '写真アプリへ保存（すべて保存済み）';
-}
-async function sharePrep(){
-  const job=PREP;
-  try{
-    await navigator.share({files:job.files});
-    const now=Date.now(); job.ids.forEach(id=>ST.saved[id]=now); save(); PREP=null; photoBtn();
-    const rest=photoTargets().filter(([s,id])=>!ST.saved[id]).length;
-    toast(job.ids.length+' 枚を保存しました'+(rest? '。続きはもう一度押してください（残り '+rest+' 枚）' : '。すべて保存しました'),4500);
-  }catch(e){
-    if(e && e.name==='NotAllowedError'){ photoBtn(); toast('準備ができました。もう一度ボタンを押してください',4000); }
-    else if(e && e.name==='AbortError'){ photoBtn(); toast('キャンセルしました。もう一度押すと同じ写真を保存します',4000); }
-    else { PREP=null; photoBtn(); alert('保存できませんでした。\n'+(e&&e.message||e)); }
-  }
-}
-async function toPhotos(){
-  if(PREP){ await sharePrep(); return; }
-  noteSave();
-  const all=photoTargets(); if(!all.length){ alert('保存する写真がありません。'); return; }
-  let rest=all.filter(([s,id])=>!ST.saved[id]);
-  if(!rest.length){
-    if(!confirm('この範囲の写真はすべて写真アプリへ保存済みです。\nもう一度最初から保存しますか？')) return;
-    all.forEach(([s,id])=>delete ST.saved[id]); save(); rest=all; }
-  const batch=rest.slice(0,PBATCH), files=[], ids=[], b=$('#ephoto'), FN=fileNames();
-  b.disabled=true; b.textContent='準備しています…';
-  try{
-    for(const [s,id] of batch){
-      const p=ST.photos[id], bl=await get('blobs',id); if(!bl) continue;
-      const bx=await withExif(bl,p,photoLabel(s,p));
-      files.push(new File([bx], (FN[id]||id+'.jpg').split('/').pop(), {type:'image/jpeg', lastModified:p.ts})); ids.push(id);
-    }
-  } finally { b.disabled=false; }
-  if(!files.length){ photoBtn(); alert('保存する写真がありません。'); return; }
-  if(!navigator.canShare || !navigator.canShare({files})){ photoBtn(); alert('この端末では写真アプリへの保存（共有シート）が使えません。ZIP書き出しをお使いください。'); return; }
-  PREP={files, ids}; await sharePrep();
-}
-$('#ephoto').addEventListener('click',toPhotos);
+/* 作ったZIPを読み直して、ファイル数とCRCが合っているか確かめる */
 async function verifyZip(zip, E){
   const rd=async(o,l)=>new Uint8Array(await zip.slice(o,o+l).arrayBuffer());
   try{
@@ -1651,105 +1925,294 @@ async function verifyZip(zip, E){
     return {ok:true};
   }catch(e){ return {ok:false,msg:String(e&&e.message||e)}; }
 }
-function elist(){
-  $('#elist').innerHTML=S.map(s=>{
-    const all=photosOf(s.id), live=all.filter(id=>!ST.photos[id].x), nx=live.filter(id=>!ST.exported[id]).length;
-    return `<div class="erow"><span class="en">${badge(s)}　${esc(s.t==='mp'?s.n:s.g+' '+s.n)}</span>
-      <span class="ec">${all.length} 枚</span>${all.length? (nx? `<span class="eb w">未書き出し ${nx}</span>` : '<span class="eb o">書き出し済</span>') : '<span class="eb w">写真なし</span>'}</div>`;
-  }).join('');
+/* ---------- 写真アプリへ保存：30枚ずつ。保存した写真は覚えておき、押すたびに続きを保存する ---------- */
+const PBATCH=30; let PREP=null;
+function photoTargets(){ const r=[]; for(const a of expTargets()) for(const id of livePhotos(a._i)) r.push([a,id]); return r; }
+function photoBtn(){
+  const b=$('#ephoto'); if(!b) return;
+  if(PREP){ b.textContent='▶ '+PREP.files.length+' 枚を写真アプリへ保存（共有シートで「画像を保存」）'; return; }
+  const all=photoTargets(), rest=all.filter(([a,id])=>!(ST.saved&&ST.saved[id])).length;
+  b.textContent= !all.length ? '写真アプリへ保存' : rest ? `写真アプリへ保存（未保存 ${rest} 枚・${PBATCH}枚ずつ）` : '写真アプリへ保存（すべて保存済み）';
 }
-$('#escope').addEventListener('change',expInfo);
-$('#eex').addEventListener('change',()=>{ ST.cfg.ex=$('#eex').value; save(); expInfo(); });
-$('#eqty').innerHTML=Object.entries(PRESETS).map(([k,v])=>`<option value="${k}">${esc(v.n)}</option>`).join('');
-$('#eqty').addEventListener('change',()=>{ ST.cfg.p=$('#eqty').value; save(); });
-$('#etag').addEventListener('change',()=>{ DEV.tag=safe($('#etag').value.trim()).slice(0,8); $('#etag').value=DEV.tag; saveDev(); });
-$('#efz').addEventListener('click',e=>{ const b=e.target.closest('[data-fz]'); if(!b) return; DEV.fz=+b.dataset.fz; saveDev(); applyFz(); fzSeg(); });
-function fzSeg(){ $('#efz').querySelectorAll('[data-fz]').forEach(b=>b.setAttribute('aria-pressed', String(Math.abs(+b.dataset.fz-(DEV.fz||1))<0.01))); }
-$('#epurge').addEventListener('click',async()=>{
-  const ids=Object.keys(ST.photos).filter(id=>ST.exported[id] && !ST.photos[id].x);
-  if(!ids.length){ alert('削除できる写真（書き出し済みで原本が残っているもの）はありません。'); return; }
-  const b=ids.reduce((n,id)=>n+(ST.photos[id].b||0),0);
-  if(!confirm(`書き出し済みの写真 ${ids.length} 枚（約 ${mb(b)}）の原本を iPad から削除します。\n書き出したZIPが保存できていることを確かめてから実行してください。元に戻せません。`)) return;
-  busy('原本を削除しています',0); let k=0;
-  try{ for(const id of ids){ await purgePhoto(id); busy('原本を削除しています',++k/ids.length); } } finally{ busy(false); }
-  await saveNow(); quota(); expInfo(); elist(); toast(ids.length+' 枚の原本を削除しました');
-});
-async function quota(){
-  const all=Object.values(ST.photos), live=all.filter(p=>!p.x), bytes=live.reduce((n,p)=>n+(p.b||0),0);
-  let s=`この案件の写真 ${live.length} 枚・約 ${mb(bytes)}${all.length>live.length?'（ほかに原本削除済み '+(all.length-live.length)+' 枚）':''}`;
-  try{ const e=await navigator.storage.estimate(); s+=`　／　このアプリ全体の使用量 約 ${mb(e.usage)}（上限の目安 ${mb(e.quota)}。同じサイトの他のアプリと共有です）`; }catch(err){}
-  $('#eq').textContent=s;
+async function sharePrep(){
+  const job=PREP;
+  try{
+    await navigator.share({files:job.files});
+    ST.saved=ST.saved||{}; const now=Date.now(); job.ids.forEach(id=>ST.saved[id]=now); save(); PREP=null; photoBtn();
+    const rest=photoTargets().filter(([a,id])=>!ST.saved[id]).length;
+    toast(job.ids.length+' 枚を保存しました'+(rest? '。続きはもう一度押してください（残り '+rest+' 枚）' : '。すべて保存しました'),4500);
+  }catch(e){
+    if(e && e.name==='NotAllowedError'){ photoBtn(); toast('準備ができました。もう一度ボタンを押してください',4000); }
+    else if(e && e.name==='AbortError'){ photoBtn(); toast('キャンセルしました。もう一度押すと同じ写真を保存します',4000); }
+    else { PREP=null; photoBtn(); alert('保存できませんでした。\n'+(e&&e.message||e)); }
+  }
+}
+async function toPhotos(){
+  if(PREP){ await sharePrep(); return; }
+  const all=photoTargets(); if(!all.length){ alert('保存する写真がありません。'); return; }
+  let rest=all.filter(([a,id])=>!(ST.saved&&ST.saved[id]));
+  if(!rest.length){
+    if(!confirm('この範囲の写真はすべて写真アプリへ保存済みです。\nもう一度最初から保存しますか？')) return;
+    all.forEach(([a,id])=>{ if(ST.saved) delete ST.saved[id]; }); save(); rest=all; }
+  const batch=rest.slice(0,PBATCH), files=[], ids=[], b=$('#ephoto');
+  b.disabled=true; b.textContent='準備しています…';
+  try{
+    for(const [a,id] of batch){
+      const p=ST.photos[id], bl=await get('blobs',id); if(!bl) continue;
+      const bx=await withExif(bl,p,a,photoLabel(a,p));
+      files.push(new File([bx], photoName(a,p)+'_'+id+'.jpg', {type:'image/jpeg', lastModified:p.ts})); ids.push(id);
+    }
+  } finally { b.disabled=false; }
+  if(!files.length){ photoBtn(); alert('保存する写真がありません。'); return; }
+  if(!navigator.canShare || !navigator.canShare({files})){ photoBtn(); alert('この端末では写真アプリへの保存（共有シート）が使えません。ZIP書き出しをお使いください。'); return; }
+  PREP={files, ids}; await sharePrep();
+}
+function elist(){
+  const rows=exBase().filter(a=>nPhotos(a._i)||ST.notes&&ST.notes[a._i]||dcOf(a._i).length);
+  $('#elist').innerHTML = rows.length? rows.map(a=>{
+    const all=photosOf(a._i), live=all.filter(id=>!ST.photos[id].x), nx=live.filter(id=>!ST.exported[id]).length, np=all.length-live.length;
+    const nt=ST.notes&&ST.notes[a._i], nn= nt && !((ST.noteExp||{})[a._i]>=(nt.ts||0));
+    return `<div class="erow"><span class="en">${esc(a.no)}　${esc(a.name)}</span>
+      <span class="ec">${all.length}枚${np?'（原本削除済 '+np+'）':''}</span>
+      <span class="eb ${(nx||nn)?'w':'o'}">${nx? nx+'枚 未書き出し' : (nn?'特記 未書き出し':'書き出し済')}</span></div>`;}).join('')
+    : '<p class="empty">まだ写真がありません</p>';
+}
+/* ================= バックアップ（別の iPad への引き継ぎ・複数人の作業の統合） ================= */
+/* 取込データが同じなら、どの iPad でも同じ値になる目印 */
+function fpOf(p){
+  const s=JSON.stringify((p.assets||[]).map(a=>[a.no,a.name,a.fac,(a.items||[]).map(i=>[i.b,i.p,i.k])]));
+  let h1=0x811c9dc5, h2=7;
+  for(let i=0;i<s.length;i++){ const c=s.charCodeAt(i); h1^=c; h1=Math.imul(h1,16777619)>>>0; h2=(Math.imul(h2,31)+c)>>>0; }
+  return h1.toString(16)+'-'+h2.toString(16)+'-'+s.length;
+}
+async function doBackup(){
+  if(!P || EXPORTING) return;
+  const ents=[];
+  for(const id of Object.keys(ST.photos)){ const p=ST.photos[id];
+    if(!p.x) ents.push({k:'o', id, name:'photos/'+id+'.jpg', est:p.b||0});
+    ents.push({k:'t', id, name:'thumbs/'+id+'.jpg', est:24*1024}); }
+  const LIMIT=(PARTMB||800)*MB, parts=[]; let cur={ents:[],est:0};
+  for(const e of ents){ if(cur.est && cur.est+e.est>LIMIT){ parts.push(cur); cur={ents:[],est:0}; } cur.ents.push(e); cur.est+=e.est; }
+  parts.push(cur);
+  const bid='b'+Date.now().toString(36)+Math.random().toString(36).slice(2,7), U=who();
+  const base='ストマネ_バックアップ_'+safe(P.title).slice(0,24)+(U?'_'+U:'')+'_'+tsName(new Date());
+  const proj=stripP(P); proj.fp=P.fp||fpOf(P);
+  const stc=JSON.parse(JSON.stringify(ST)); for(const p of Object.values(stc.photos)) if(!p.u && DEV.user) p.u=DEV.user;   // 撮影者が空の写真は、この iPad の人の写真として渡す
+  const meta=i=>JSON.stringify({format:'stmn-backup', v:1, bid, created:Date.now(), app:BUILD, user:DEV.user||'', parts:parts.length, part:i+1, project:proj, st:stc});
+  await startJob({kind:'backup', plan:{parts}, title:'バックアップ：ZIP '+parts.length+' 個に分けます',
+    help:'上から順に「作って保存」を押してください。戻すときは、分かれたZIPをすべて一緒に選びます。',
+    label:i=>`${i+1}/${parts.length}　写真 ${parts[i].ents.filter(e=>e.k==='o').length}枚・約 ${mb(parts[i].est)}`,
+    build:async(i,prog)=>{
+      const E=[{name:'stmn-backup.json', data:meta(i)}]; let k=0;
+      for(const e of parts[i].ents){ k++; prog(k,parts[i].ents.length,'まとめています');
+        const p=ST.photos[e.id]; if(!p) continue;
+        const b= e.k==='o' ? await get('blobs',e.id) : await ensureThumb(e.id);
+        if(b) E.push({name:e.name, data:b, t:p.ts}); }
+      const zip=await makeZip(E,(a,b)=>prog(a,b,'ZIPを作成しています'));
+      prog(1,1,'検証しています'); const v=await verifyZip(zip,E); if(!v.ok) throw new Error(v.msg);
+      return {zip, name:base+(parts.length>1?'_'+(i+1)+'of'+parts.length:'')+'.zip', info:E.length+' ファイル／'+mb(zip.size)}; },
+    okmsg:i=>'バックアップを保存しました'+(parts.length>1?'（'+(i+1)+'/'+parts.length+'）':'')});
 }
 function busy(t,f){ const el=$('#busy'); if(t===false){ el.classList.remove('on'); return; } $('#busyt').textContent=t; $('#busyb').style.width=((f||0)*100)+'%'; el.classList.add('on'); }
-
-/* ---------- 画面の切り替え ---------- */
-function setViews(id){ ['hv','lv','ev'].forEach(v=>$('#'+v).classList.toggle('on', v===id)); }
-function tab(n){
-  [1,3].forEach(i=>$('#t'+i).setAttribute('aria-selected',n===i?'true':'false'));
-  setViews(n===1?'lv':'ev');
-  if(n===3){ $('#etag').value=DEV.tag||''; fzSeg(); expInfo(); elist(); quota(); }
-  else list();
+async function restoreFiles(files){
+  const zs=[];
+  for(const f of files){
+    const z=await zipIndexBlob(f), jb=await zipEntry(z,'stmn-backup.json');
+    if(!jb) throw new Error((f.name||'ファイル')+' はこのツールのバックアップではありません。');
+    z.meta=JSON.parse(await jb.text()); if(z.meta.format!=='stmn-backup') throw new Error((f.name||'ファイル')+' はこのツールのバックアップではありません。');
+    zs.push(z);
+  }
+  const M=zs[0].meta;
+  if(zs.some(z=>z.meta.bid!==M.bid)) throw new Error('別々のときに作ったバックアップが混ざっています。1回分のバックアップのZIPだけを選んでください。');
+  const have=new Set(zs.map(z=>z.meta.part)), miss=[]; for(let i=1;i<=M.parts;i++) if(!have.has(i)) miss.push(i+'/'+M.parts);
+  const loc=new Map(); zs.forEach(z=>z.m.forEach((v,k)=>{ if(k!=='stmn-backup.json') loc.set(k,z); }));
+  const proj=M.project, st=M.st, fp=proj.fp||fpOf(proj);
+  const locals=await all('projects'), cur=P&&P.pid;
+  const matches=locals.filter(p=>(p.fp||fpOf(p))===fp).sort((a,b)=>(b.pid===cur)-(a.pid===cur) || (b.used||b.created||0)-(a.used||a.created||0)).slice(0,3);
+  const match=matches[0]||null, md=p=>{ const d=new Date(p.used||p.created||0); return (d.getMonth()+1)+'/'+d.getDate(); };
+  const np=Object.keys(st.photos||{}).length, d=new Date(M.created);
+  const html=`<table>
+    <tr><td>案件名</td><td>${esc(proj.title)}</td></tr>
+    <tr><td>作った人・日時</td><td>${esc(M.user||'（未設定）')}　${stamp(M.created)}</td></tr>
+    <tr><td>中身</td><td>機器 ${(proj.assets||[]).length} 台・写真 ${np} 枚・完了 ${Object.keys(st.done||{}).length} 台</td></tr>
+    <tr><td>ZIP</td><td>${M.parts} 個のうち ${have.size} 個を選択</td></tr></table>`+
+    (miss.length? `<div class="err">足りないZIP：${miss.join('、')}。その分の写真は戻りません。</div>` : '')+
+    (match? `<p class="ehelp">この iPad には同じ取込データの案件「${esc(match.title)}」があります。統合すると、写真・チェック・特記事項を足し合わせます（同じ写真は2重になりません）。</p>` : '');
+  const btn=matches.map((m,i)=>({id:'m'+i, label:'「'+m.title+'」に統合する'+(matches.length>1?'（最後に開いた日 '+md(m)+'）':''), cls:i?'sub':''}));
+  btn.push({id:'new',label:'新しい案件として追加する',cls:match?'sub':''}); btn.push({id:'x',label:'やめる',cls:'sub'});
+  const r=await dlg('バックアップから戻す', html, btn);
+  if(r==='x') return;
+  await restoreInto(r[0]==='m'? matches[+r.slice(1)] : null, proj, st, loc, fp);
 }
-[1,3].forEach(i=>$('#t'+i).addEventListener('click',()=>tab(i)));
-function go(mode){
+async function restoreInto(target, proj, st, loc, fp){
+  let pid, tST;
+  if(target){ pid=target.pid; if(P&&P.pid===pid) await saveNow(); tST=Object.assign(freshST(), (await get('meta','ST:'+pid))||{}); }
+  else {
+    pid='p'+Date.now().toString(36);
+    const np=JSON.parse(JSON.stringify(proj)); np.pid=pid; np.created=Date.now(); np.fp=fp; delete np.sample; delete np.used;
+    await put('projects',pid,np);
+    tST=freshST(); tST.cfg=Object.assign(tST.cfg, st.cfg||{}); tST.cfgv=3; if(st.sort) tST.sort=st.sort; if(st.fac) tST.fac=st.fac;
+  }
+  tST.saved=tST.saved||{};
+  const keysNow=new Set(await keys('blobs'));
+  const seen=new Set(); Object.entries(tST.photos).forEach(([id,p])=>{ seen.add(id); if(p.oid) seen.add(p.oid); });
+  const ents=Object.entries(st.photos||{}); let add=0, skip=0, lost=0, k=0;
+  busy('写真を戻しています',0);
+  try{
+    for(const [id,p] of ents){
+      k++; if(k%5===0||k===ents.length) busy('写真を戻しています '+k+' / '+ents.length, k/ents.length);
+      const oid=p.oid||id; if(seen.has(oid)){ skip++; continue; }
+      const oz=loc.get('photos/'+id+'.jpg'), tz=loc.get('thumbs/'+id+'.jpg');
+      if(!oz && !tz){ lost++; continue; }
+      let nid=id; if(keysNow.has(nid) || keysNow.has('t:'+nid) || tST.photos[nid]) nid='r'+(++tST.seq)+'-'+Date.now().toString(36)+k;
+      if(oz) await put('blobs',nid, await zipEntry(oz,'photos/'+id+'.jpg','image/jpeg'));
+      if(tz) await put('blobs','t:'+nid, await zipEntry(tz,'thumbs/'+id+'.jpg','image/jpeg'));
+      const q=Object.assign({},p,{oid}); if(!oz) q.x=1; else delete q.x;
+      tST.photos[nid]=q;
+      if(st.exported&&st.exported[id]) tST.exported[nid]=st.exported[id];
+      if(st.saved&&st.saved[id]) tST.saved[nid]=st.saved[id];
+      keysNow.add(nid); seen.add(oid); add++;
+    }
+  } finally { busy(false); }
+  Object.assign(tST.items, st.items||{}); Object.assign(tST.done, st.done||{});
+  let both=0;
+  for(const [ai,nt] of Object.entries(st.notes||{})){
+    const cur=tST.notes[ai]; if(!cur){ tST.notes[ai]=nt; continue; }
+    if(JSON.stringify(cur)===JSON.stringify(nt)) continue;
+    const t1=(cur.t||'').trim(), t2=(nt.t||'').trim();
+    cur.t = (t1&&t2&&t1!==t2) ? t1+'\n――――\n'+t2 : (t1||t2);
+    if((cur.s||[]).length && (nt.s||[]).length) both++;
+    cur.s=[...(cur.s||[]), ...(nt.s||[])]; cur.ts=Math.max(cur.ts||0, nt.ts||0);
+  }
+  for(const [ai,arr] of Object.entries(st.dc||{})) tST.dc[ai]=[...new Set([...(tST.dc[ai]||[]), ...arr])].sort((x,y)=>x-y);
+  for(const [ai,t] of Object.entries(st.noteExp||{})) if(!tST.noteExp[ai] && !target) tST.noteExp[ai]=t;
+  tST.seq=Math.max(tST.seq||0, st.seq||0);
+  await put('meta','ST:'+pid, JSON.parse(JSON.stringify(tST)));
+  if(P && P.pid===pid) ST=tST;            // 開いている案件に統合したときは、画面側の状態も入れ替える（古い状態で上書きしない）
+  await dlg('戻しました', `<p>写真 ${add} 枚を戻しました。${skip?'（すでに入っている同じ写真 '+skip+' 枚は飛ばしました）':''}${lost?'<br>足りないZIPにあった写真 '+lost+' 枚は戻せませんでした。':''}${both?'<br>手書きの特記事項が両方にあった機器が '+both+' 台あり、重ねて表示しています。':''}</p>`, [{id:'ok',label:'案件を開く'}]);
+  await openProject(pid);
+}
+
+/* ---------- 画面の切り替え（案件 → 施設 → 機器一覧） ---------- */
+function setViews(id){ ['hv','fv','lv','pv','ev'].forEach(v=>$('#'+v).classList.toggle('on', v===id)); }
+function tab(n){
+  [1,2,3].forEach(i=>$('#t'+i).setAttribute('aria-selected',n===i?'true':'false'));
+  setViews(n===1?'lv':n===2?'pv':'ev');
+  if(n===3){ settingsInit(); expInfo(); elist(); quota(); }
+  if(n===2)paper();
+}
+[1,2,3].forEach(i=>$('#t'+i).addEventListener('click',()=>tab(i)));
+function crumb(mode){
   document.body.classList.toggle('m-home', mode==='home');
-  $('#ttl').textContent = mode==='home' ? 'MHポンプ撮影' : P.title;
-  if(mode==='home'){ $('#subt').textContent='この iPad に入っている案件'; setViews('hv'); renderHome(); }
-  else { const nm=S.filter(s=>s.t==='mp').length, npl=new Set(S.filter(s=>s.t==='pl').map(s=>s.g)).size;
-    $('#subt').textContent=[nm?'MHポンプ '+nm+' か所':'', npl?'処理場 '+npl+' か所':''].filter(Boolean).join('　／　'); tab(1); }
+  document.body.classList.toggle('m-fac', mode==='fac');
+  $('#ttl').textContent = mode==='home' ? 'ストマネ現場チェックリスト' : P.title;
+  const many = P && facList().length>1;
+  $('#cbFac').style.display = (mode==='main' && many) ? '' : 'none';
+  $('#cbFac').textContent = (FAC==='*' ? 'すべての施設' : facName(FAC))+' ▾';
+  if(mode==='home') $('#subt').textContent='この iPad に入っている案件';
+  else if(mode==='fac') $('#subt').textContent='施設を選んでください　／　'+A.length+'機器　'+TOT+'項目';
+  else { const V=AV(); $('#subt').textContent=(many?(FAC==='*'?'全施設':facName(FAC))+'　／　':'')+V.length+'機器　'+V.reduce((n,a)=>n+a.items.length,0)+'項目'; }
+}
+function go(mode){
+  if(mode==='home'){ crumb('home'); setViews('hv'); renderHome(); }
+  else if(mode==='fac'){ crumb('fac'); setViews('fv'); renderFac(); }
+  else { crumb('main'); tab(1); list(); }
   window.scrollTo(0,0); applyPending();
 }
 $('#cbHome').addEventListener('click',async()=>{ await saveNow(); go('home'); });
+$('#cbFac').addEventListener('click',()=>go('fac'));
 
 /* ---------- 案件一覧 ---------- */
 async function renderHome(){
   const ps=(await all('projects')).sort((a,b)=>(b.used||b.created||0)-(a.used||a.created||0));
-  const cur=await get('meta','cur'); const rows=[];
+  const cur=await get('meta','cur');
+  const rows=[];
   for(const p of ps){
     const st=(p.pid===(P&&P.pid)) ? ST : (await get('meta','ST:'+p.pid)) || {};
     const ph=Object.keys(st.photos||{}), ux=ph.filter(id=>!(st.exported||{})[id]).length;
+    const nf=new Set(p.assets.map(a=>a.fac!=null?a.fac:(a.sc||''))).size;
+    const dn=Object.keys(st.done||{}).length;
     rows.push(`<div class="pcard ${p.pid===cur?'cur':''}">
-      <button class="pmain" data-open-p="${p.pid}"><b>${esc(p.title)}${p.sample?'　<span class="hzb jg">練習用</span>':''}</b>
-        <small>MHポンプ ${(p.mps||[]).length} か所 ／ 処理場 ${(p.plants||[]).length} か所　　写真 ${ph.length} 枚${ux?'（未書き出し '+ux+' 枚）':''}</small></button>
+      <button class="pmain" data-open-p="${p.pid}"><b>${esc(p.title)}${p.sample?'　<span class="hzb jg">'+(p.pid==='p-practice'?'練習用':'同梱サンプル')+'</span>':''}</b>
+        <small>機器 ${p.assets.length} ／ 施設 ${nf} ／ 完了 ${dn}　　写真 ${ph.length} 枚${ux?'（未書き出し '+ux+' 枚）':''}</small></button>
       <span class="pside"><button class="rm" data-del-p="${p.pid}">削除</button></span></div>`);
   }
   $('#hlist').innerHTML = rows.join('') || '<p class="empty">まだ案件がありません。下のボタンから取込データを追加してください。</p>';
 }
 $('#hlist').addEventListener('click',async e=>{
   const o=e.target.closest('[data-open-p]'); if(o){ await openProject(o.dataset.openP); return; }
-  const d=e.target.closest('[data-del-p]'); if(d) await delProject(d.dataset.delP);
+  const d=e.target.closest('[data-del-p]'); if(d){ await delProject(d.dataset.delP); }
 });
-async function openProject(pid){ if(P) await saveNow(); await put('meta','cur',pid); await loadProject(pid); }
+async function openProject(pid){
+  if(P) await saveNow();
+  await put('meta','cur',pid);
+  await loadProject(pid, true);
+}
 async function delProject(pid){
   const p=await get('projects',pid); if(!p) return;
   const st=(P&&P.pid===pid)? ST : (await get('meta','ST:'+pid)) || {};
   const ids=Object.keys(st.photos||{}), ux=ids.filter(id=>!(st.exported||{})[id]).length;
-  if(!confirm('案件「'+p.title+'」を削除します。\n写真 '+ids.length+' 枚（うち未書き出し '+ux+' 枚）・メモもすべて消えます。\n元に戻せません。')) return;
+  if(!confirm('案件「'+p.title+'」を削除します。\n写真 '+ids.length+' 枚（うち未書き出し '+ux+' 枚）・チェック・特記事項もすべて消えます。\n元に戻せません。')) return;
   if(ux && !confirm('まだ書き出していない写真が '+ux+' 枚あります。\n本当に削除してよいですか？')) return;
   for(const id of ids){ await del('blobs',id); try{ await del('blobs','t:'+id); }catch(e){} for(const c of [urlCache,thumbCache]) if(c[id]){ URL.revokeObjectURL(c[id]); delete c[id]; } }
   await del('meta','ST:'+pid); await del('projects',pid);
   if((await get('meta','cur'))===pid) await del('meta','cur');
-  if(P&&P.pid===pid){ P=null; S=[]; SI={}; ST=freshST(); }
+  if(P&&P.pid===pid){ P=null; A=[]; ST=freshST(); }
   renderHome();
 }
-async function loadProject(pid){
+
+/* ---------- 施設の選択 ---------- */
+function renderFac(){
+  const fl=facList();
+  const card=(k,name,as,sub)=>{
+    const set=new Set(as.map(a=>a._i)), d=as.filter(a=>ST.done[a._i]).length;
+    const n=Object.values(ST.photos).filter(p=>set.has(p.a)).length;
+    return `<div class="fwrap ${k==='*'?'all':''}"><button class="fcard" data-fac="${esc(k)}"><b>${esc(name)}</b>
+      <small>${sub?esc(sub)+'　':''}機器 ${as.length} ／ 完了 ${d} ／ 写真 ${n} 枚</small>
+      <div class="fbar"><i style="width:${as.length?d/as.length*100:0}%"></i></div></button>
+      ${k==='*'?'':`<span class="pside"><button data-ren="${esc(k)}">✎</button></span>`}</div>`;
+  };
+  $('#flist').innerHTML = fl.map(f=>card(f.k,f.name,f.assets,(P.facNames&&P.facNames[f.k]&&f.k)?f.k:'')).join('')
+    + card('*','すべての施設',A,'');
+}
+$('#flist').addEventListener('click',async e=>{
+  const r=e.target.closest('[data-ren]');
+  if(r){ const k=r.dataset.ren, v=prompt('施設の表示名\n（書き出しのフォルダ名にも使われます。複数人で作業するときは全員同じ名前にしてください。取込データの施設名を直すのが確実です）', facName(k)); if(v==null) return;
+    P.facNames=P.facNames||{}; if(v.trim()) P.facNames[k]=v.trim(); else delete P.facNames[k];
+    await put('projects',P.pid,stripP(P)); A.forEach(a=>{ if(a.fac===k) a._q=norm([a.name,a.no,a.ki,a.sc,facName(a.fac),a.place].join(' ')); });
+    renderFac(); return; }
+  const c=e.target.closest('[data-fac]'); if(!c) return;
+  FAC=c.dataset.fac; ST.fac=FAC; save(); go('main');
+});
+/* 保存用に、画面用の一時項目（_で始まる）を落とした案件データを作る */
+function stripP(p){ return JSON.parse(JSON.stringify(p,(k,v)=> (k[0]==='_' ? undefined : v))); }
+
+/* ---------- 案件の読み込み ---------- */
+async function loadProject(pid, interactive){
   const p=await get('projects',pid);
   if(!p){ await del('meta','cur'); go('home'); return; }
   p.used=Date.now(); put('projects',pid,p).catch(()=>{});
   initProject(p);
   const saved=await get('meta','ST:'+pid);
   ST=Object.assign(freshST(), saved||{});
-  ST.cfg=Object.assign({p:'0',ex:'800'}, ST.cfg||{}); ST.saved=ST.saved||{};
-  if(((saved&&saved.cfgv)||0)<2){ if(ST.cfg.ex==='500') ST.cfg.ex='800'; ST.cfgv=2; }   // 標準を800KBに変えた版：前の標準（500）のままの案件は1回だけ800に切り替える
-  const have=new Set(await keys('blobs'));                       // 実体を失った写真の記録を掃除
+  ST.cfg=Object.assign({p:'0',ex:'500'}, ST.cfg||{});
+  for(const k of Object.keys(ST.items)) if(ST.items[k]) ST.items[k]=1;       // 旧版の「デジカメ(2)」は「済」扱い
+  if(((saved&&saved.cfgv)||0)<3){                                       // freshST の cfgv に紛れないよう保存値で判定                                                       // 旧版の設定を引き継ぐ
+    if(ST.cfg.p==='2048' || !ST.cfg.p) ST.cfg.p='0';                        // 撮影は原寸スタート
+    if(ST.cfg.ekb!=null) ST.cfg.ex=String(ST.cfg.ekb);
+    delete ST.cfg.ep; delete ST.cfg.ekb; ST.cfgv=3;
+  }
+  const have=new Set(await keys('blobs'));                                   // 実体を失った写真メタを掃除（1回でまとめて確認）
   for(const id of Object.keys(ST.photos)){ if(have.has(id)) continue; if(have.has('t:'+id)) ST.photos[id].x=1; else delete ST.photos[id]; }
-  for(const id of Object.keys(ST.photos)) if(!SI[ST.photos[id].s]) ST.photos[id].s=S[0]&&S[0].id;   // 念のため
-  LAST=null; PREP=null; $('#eshareline').style.display='none';
+  ST.saved=ST.saved||{}; sortChip(); PREP=null; LAST=null; $('#eshareline').style.display='none';
   $('#eqty').value=ST.cfg.p; $('#eex').value=ST.cfg.ex;
-  save(); go('main');
+  const fl=facList();
+  FAC = fl.length<=1 ? '*' : (ST.fac && (ST.fac==='*' || fl.some(f=>f.k===ST.fac)) ? ST.fac : null);
+  save();
+  if(FAC===null){ FAC='*'; go('fac'); } else go('main');
 }
 
-/* ---------- 取込データ（.xlsx / .csv）の読み込み ---------- */
+/* ---------- 取込データ（共通様式 .xlsx / .csv）の読み込み ---------- */
 const XNS='*';
 async function unzipMap(u8){
   const dv=new DataView(u8.buffer,u8.byteOffset,u8.byteLength);
@@ -1817,59 +2280,56 @@ function readCsv(buf){
   return rows;
 }
 const hkey=s=>String(s||'').replace(/[\s　]/g,'').replace(/（.*?）|\(.*?\)/g,'');
-function normPump(v){
-  const t=String(v==null?'':v).replace(/[\s　]/g,'').replace(/No\.?|NO\.?|№|Ｎｏ．?|号機?/g,'');
-  const h1=/①|1|１/.test(t), h2=/②|2|２/.test(t);
-  if(h1&&h2) return '①②'; if(h1) return '①'; if(h2) return '②';
-  if(/なし|無し|無|対象外|^[-－ー―]$/.test(t)) return '対象なし';
-  return null;
-}
 function parseImport(rows, fname){
   const errors=[], warns=[];
-  const hr=rows.findIndex(r=>r && r.some(c=>hkey(c)==='種別') && r.some(c=>hkey(c)==='名称'));
-  if(hr<0) return {errors:['見出し行（「種別」「名称」を含む行）が見つかりません。MHポンプ撮影用の取込データか確認してください。']};
+  const hr=rows.findIndex(r=>r && r.some(c=>hkey(c)==='機器No') && r.some(c=>hkey(c)==='確認項目'));
+  if(hr<0) return {errors:['見出し行（「機器No」「確認項目」を含む行）が見つかりません。共通様式の取込データか確認してください。']};
   const H={}; rows[hr].forEach((c,i)=>{ const k=hkey(c); if(k && H[k]==null) H[k]=i; });
-  if(H['区分']==null) errors.push('必須の列「区分」がありません。');
+  for(const k of ['機器No','機器名称','部品名称','確認項目']) if(H[k]==null) errors.push('必須の列「'+k+'」がありません。');
   if(errors.length) return {errors};
   const g=(r,k)=> H[k]==null ? '' : String(r[H[k]]==null?'':r[H[k]]).trim();
-  const mps=[], plants=new Map(), seen=new Set(); let ex=0;
+  const map=new Map(); let ex=0, n=0;
   for(let i=hr+1;i<rows.length;i++){
     const r=rows[i]; if(!r) continue;
-    const kind=g(r,'種別'), grp=g(r,'区分'), nm=g(r,'名称');
-    if(!kind && !grp && !nm) continue;
+    const no=g(r,'機器No'), nm=g(r,'機器名称'), k=g(r,'確認項目');
+    if(!no && !nm && !k) continue;
     if(g(r,'備考').includes('記入例')){ ex++; continue; }
-    const row=(i+1)+'行目：';
-    if(/処理場|浄化|センター/.test(kind)){
-      if(!grp){ errors.push(row+'処理場の「区分」（処理場名）が空です。'); continue; }
-      if(!plants.has(grp)) plants.set(grp,[]);
-      const ms=plants.get(grp);
-      if(nm){ if(ms.includes(nm)) warns.push(row+'機器名「'+nm+'」が重なっているので1つにしました。'); else ms.push(nm); }
-    } else if(/MP|ＭＰ|マンホール|ポンプ/.test(kind)){
-      if(!nm){ errors.push(row+'MPの「名称」が空です。'); continue; }
-      const pump=normPump(g(r,'対象ポンプ'));
-      if(!pump){ errors.push(row+'「'+nm+'」の対象ポンプ「'+g(r,'対象ポンプ')+'」が読めません（①／②／①②／対象なし のどれかにしてください）。'); continue; }
-      const key=grp+'\u0001'+nm;
-      if(seen.has(key)){ warns.push(row+'「'+nm+'」が重なっているので飛ばしました。'); continue; }
-      seen.add(key); mps.push({g:grp, n:nm, pump, full:g(r,'正式名称')});
-    } else warns.push(row+'種別「'+kind+'」が分からないので飛ばしました（MP か 処理場）。');
+    if(!no || !k){ warns.push((i+1)+'行目：機器No か 確認項目 が空なので飛ばしました。'); continue; }
+    const tani=g(r,'調査単位');
+    const key=no+'\u0001'+nm;
+    if(!map.has(key)) map.set(key,{no, name:nm, ki:g(r,'機番'), sc:'', fac:g(r,'施設名'), place:g(r,'設置場所'), spec:g(r,'形式・仕様'), tanto:g(r,'担当者'), items:[]});
+    map.get(key).items.push({
+      hz: g(r,'保全区分') || (tani==='設備'?'設備単位':tani==='部品'?'部品単位':tani),
+      b: g(r,'部位名称') || (tani==='設備'?'部位全部':''), bc:g(r,'部位コード'),
+      p: g(r,'部品名称') || (tani==='設備'?'全体':''), pc:g(r,'部品コード'),
+      k, d1:g(r,'測定内容'), d2:'', o1:g(r,'選択肢1'), o2:g(r,'選択肢2')
+    }); n++;
   }
   if(ex) warns.push('記入例の行を '+ex+' 行飛ばしました。');
-  const pl=[...plants].map(([n,machines])=>({n, machines}));
-  if(!mps.length && !pl.length) errors.push('取り込める行がありませんでした。');
+  const assets=[...map.values()];
+  for(const a of assets){                                   // 部位コード・部品コードが空欄なら、機器ごとに 01, 02… を振る
+    const bm=new Map(), pm=new Map();
+    for(const it of a.items){
+      if(!it.bc){ if(!bm.has(it.b)) bm.set(it.b, String(bm.size+1).padStart(2,'0')); it.bc=bm.get(it.b); }
+      if(!it.pc){ const k=it.b+'\u0001'+it.p; if(!pm.has(k)) pm.set(k, String(pm.size+1).padStart(2,'0')); it.pc=pm.get(k); }
+    }
+  }
+  if(!assets.length) errors.push('取り込める行がありませんでした。');
   const title=String(fname||'').replace(/\.(xlsx|csv)$/i,'').replace(/^取込データ[_＿]?/,'') || '新しい案件';
-  return {errors, warns, mps, plants:pl, title};
+  return {errors, warns, assets, nItems:n, title};
 }
 let IMP=null;
 function showImport(r){
   IMP=r;
-  if(r.errors && r.errors.length && !r.mps){ $('#impb').innerHTML='<div class="err">'+r.errors.map(esc).join('<br>')+'</div>'; $('#impok').disabled=true; $('#imp').classList.add('on'); return; }
-  const pc={}; r.mps.forEach(m=>pc[m.pump]=(pc[m.pump]||0)+1);
-  const gc={}; r.mps.forEach(m=>gc[m.g||'（区分なし）']=(gc[m.g||'（区分なし）']||0)+1);
+  if(r.errors && r.errors.length && !r.assets){ $('#impb').innerHTML='<div class="err">'+r.errors.map(esc).join('<br>')+'</div>'; $('#impok').disabled=true; $('#imp').classList.add('on'); return; }
+  const fc={}; r.assets.forEach(a=>fc[a.fac||'（施設名なし）']=(fc[a.fac||'（施設名なし）']||0)+1);
+  const hz={}; r.assets.forEach(a=>a.items.forEach(i=>{ if(i.hz) hz[i.hz]=1; }));
   $('#impb').innerHTML=`<table>
     <tr><td>案件名</td><td><input type="text" id="impt" value="${esc(r.title)}"></td></tr>
-    <tr><td>MHポンプ</td><td><b>${r.mps.length}</b> か所　（${['①②','①','②','対象なし'].filter(k=>pc[k]).map(k=>esc(k)+' '+pc[k]).join('、')||'—'}）<br>${Object.entries(gc).map(([k,v])=>esc(k)+'（'+v+'）').join('<br>')}</td></tr>
-    <tr><td>処理場</td><td>${r.plants.map(p=>'<b>'+esc(p.n)+'</b>　機器 '+p.machines.length+' 件'+(p.machines.length?'<br><small>'+p.machines.map(esc).join('、')+'</small>':'')).join('<br>')||'—'}</td></tr>
-    <tr><td>例</td><td>${r.mps.slice(0,3).map(m=>esc('MHポンプ/'+(m.g?m.g+'/':'')+m.n+'_'+m.pump)).join('<br>')}</td></tr></table>`+
+    <tr><td>機器</td><td><b>${r.assets.length}</b> 台　／　確認項目 <b>${r.nItems}</b></td></tr>
+    <tr><td>施設</td><td>${Object.entries(fc).map(([k,v])=>esc(k)+'（'+v+'）').join('<br>')}</td></tr>
+    <tr><td>保全区分</td><td>${Object.keys(hz).map(esc).join('、')||'—'}</td></tr>
+    <tr><td>機器の例</td><td>${r.assets.slice(0,3).map(a=>esc(a.no+'　'+a.name)).join('<br>')}</td></tr></table>`+
     (r.errors.length? '<div class="err">'+r.errors.map(esc).join('<br>')+'</div>':'')+
     (r.warns.length? '<div class="err" style="border-color:var(--line);background:var(--bg)">'+r.warns.slice(0,8).map(esc).join('<br>')+(r.warns.length>8?'<br>…ほか '+(r.warns.length-8)+' 件':'')+'</div>':'');
   $('#impok').disabled=!!r.errors.length;
@@ -1885,22 +2345,204 @@ $('#hfile').addEventListener('change',async e=>{
 });
 $('#impx').addEventListener('click',()=>$('#imp').classList.remove('on'));
 $('#impok').addEventListener('click',async()=>{
-  if(!IMP || !IMP.mps) return;
+  if(!IMP || !IMP.assets) return;
   const title=($('#impt').value||'').trim()||IMP.title;
   const same=(await all('projects')).some(p=>p.title===title);
   if(same && !confirm('同じ名前の案件がすでにあります。別の案件として追加しますか？')) return;
   const pid='p'+Date.now().toString(36);
-  await put('projects',pid,{pid,title,created:Date.now(),mps:IMP.mps,plants:IMP.plants});
+  const np={pid,title,created:Date.now(),assets:IMP.assets,facNames:{}}; np.fp=fpOf(np);
+  await put('projects',pid,np);
   $('#imp').classList.remove('on'); IMP=null;
   await openProject(pid);
 });
+
+/* ---------- 練習用の架空案件を1回だけ入れる ---------- */
 async function addPractice(){
   if(!DATA || await get('meta','practice')) return;
   const pid='p-practice';
-  if(!(await get('projects',pid))) await put('projects',pid,{pid, title:DATA.title, created:Date.now(), sample:true, mps:DATA.mps, plants:DATA.plants});
+  if(!(await get('projects',pid))){
+    const p={pid, title:DATA.title, created:Date.now(), sample:true, assets:JSON.parse(JSON.stringify(DATA.assets)), facNames:{}};
+    p.fp=fpOf(p); await put('projects',pid,p);
+  }
   await put('meta','practice',1);
 }
+$('#hrest').addEventListener('change',async e=>{
+  const files=[...e.target.files]; e.target.value=''; if(!files.length) return;
+  try{ await restoreFiles(files); }catch(err){ busy(false); alert('バックアップを読み込めませんでした。\n'+(err&&err.message||err)); }
+});
 
+/* ---------- 撮影まわりの操作 ---------- */
+$('#dbody').addEventListener('click',async e=>{
+  if(e.target.closest('#startcam')){ camOpen(null,false); return; }
+  const sh=e.target.closest('[data-shot]');
+  if(sh){ const k=sh.dataset.shot; camOpen(k==='__z'?UKEY(CUR._i):k, k==='__z'); return; }
+  const op=e.target.closest('[data-open]');
+  if(op){ viewPhoto(op.dataset.open); return; }
+});
+$('#camok').addEventListener('click',camClose);
+$('#camnext').addEventListener('click',camNext);
+$('#camori').addEventListener('click',()=>{ DEV.camLand = DEV.camLand===false; saveDev(); camOriBtn(); fitBox(); });
+$('#camtorch').addEventListener('click',async()=>{
+  const tr=CAMSTREAM&&CAMSTREAM.getVideoTracks()[0]; if(!tr) return;
+  TORCH=!TORCH;
+  try{ await tr.applyConstraints({advanced:[{torch:TORCH}]}); }catch(e){ TORCH=false; toast('この端末ではライトを使えません'); }
+  $('#camtorch').setAttribute('aria-pressed',String(TORCH));
+});
+$('#camlast').addEventListener('click',()=>{ if(CAMLASTID) viewPhoto(CAMLASTID); });
+$('#camsh').addEventListener('click',camShoot);
+$('#cbar1').addEventListener('click',e=>{
+  const s=e.target.closest('[data-part]'); if(!s) return;
+  const p=s.dataset.part;
+  if(p==='__z'){ CAMZEN=true; CAMKEY=UKEY(CUR._i); }
+  else if(p==='__u'){ CAMZEN=false; CAMKEY=UKEY(CUR._i); }
+  else { CAMZEN=false; CAMKEY=PKEY(CUR._i,+p); }        // 部品を選んだら「未分類」から始める
+  camBars();
+});
+$('#cbar2').addEventListener('click',e=>{
+  const s=e.target.closest('[data-key]'); if(!s) return;
+  CAMZEN=false; CAMKEY=s.dataset.key; camBars();
+});
+/* 「純正カメラで撮る」：ラベルを押すと iOS の撮影画面が1回だけ開く（JSからは開かない＝二重に開かない）。
+   開く前にアプリ内カメラの映像を止めてカメラを空け、戻ってきたら映像を再開する */
+function camPause(){ if(CAMSTREAM){ CAMSTREAM.getTracks().forEach(t=>t.stop()); CAMSTREAM=null; } $('#camv').srcObject=null; }
+async function camResume(){ NATIVE=false; if(camOn() && !CAMSTREAM) await camStart(); }
+$('#camnat').addEventListener('click',()=>{ NATIVE=true; camPause(); });
+$('#camfile').addEventListener('cancel',()=>camResume());
+addEventListener('focus',()=>{ if(NATIVE) setTimeout(()=>{ if(NATIVE) camResume(); },1500); });
+$('#camfile').addEventListener('change',async e=>{
+  const files=[...(e.target.files||[])]; e.target.value='';
+  NATIVE=false;
+  if(!files.length){ toast('写真を受け取れませんでした（ファイルが空でした）'); await camResume(); return; }
+  const key=CAMKEY, zen=CAMZEN;
+  $('#camlast').classList.add('busy');
+  try{
+    const n=await fromFiles(files, key, zen);
+    CAMSHOTS+=n; camCount(); camBars(); camLast();
+    if(n) toast('純正カメラの写真を '+n+' 枚取り込みました');
+  }catch(err){ alert('純正カメラの写真を取り込めませんでした。\n'+(err&&err.message||err)); }
+  finally{ $('#camlast').classList.remove('busy'); await camResume(); }
+});
+
+/* ---------- 写真ビューア ---------- */
+let VIEW=null;
+async function viewPhoto(id){
+  VIEW=id; const p=ST.photos[id]; if(!p) return;
+  $('#pv2img').src= p.x ? await thumbURL(id) : await photoURL(id);
+  const ks=(p.k||[]).filter(k=>!isU(k)), its=ks.map(k=>CURITEM(CUR,k)).filter(Boolean);
+  const pg=!its.length && ks.find(isP) ? gOfKey(CUR,ks.find(isP)) : null;
+  const label = p.z?'全景写真' : its.length? its.map(i=>i.p+' ／ '+i.k).join('、') : pg? pg.label+' ／ 項目未分類' : '未分類';
+  $('#pv2b').innerHTML=`<h4>${esc(label)}</h4>
+    <div class="m">${stamp(p.ts)}　${p.w}×${p.h}　${(p.b/1024).toFixed(0)} KB${ST.exported[id]?'　／　書き出し済':''}${p.u?'　／　撮影 '+esc(p.u):''}${p.x?'<br>原本は iPad から削除済みです（確認用の小さな画像を表示しています）':''}</div>
+    ${p.z?'':'<button id="vlink">🔗　この写真を紐づける項目を選ぶ</button>'}
+    <button class="rm" id="vdel">🗑　この写真を削除する</button>
+    <button id="vclose">✕　閉じる</button>`;
+  $('#pv2').classList.add('on');
+}
+function afterView(){ $('#pv2').classList.remove('on');
+  if($('#gal').classList.contains('on')){ galRender(); list(); return; }
+  open_(CUR._i,true); if(camOn()){ camBars(); camLast(); } }
+/* ---------- 機器ごとの写真一覧（機器一覧の枚数から開く） ---------- */
+let GALPREV=null;
+function photoLabel(a,p){
+  if(p.z) return '全景';
+  const ks=(p.k||[]).filter(k=>!isU(k)), its=ks.map(k=>CURITEM(a,k)).filter(Boolean);
+  if(its.length){ const g=gOfKey(a,ks.find(k=>!isP(k))); return (g?g.label:its[0].p)+' ／ '+its.map(i=>i.k).join('+'); }
+  const pk=ks.find(isP); if(pk){ const g=gOfKey(a,pk); return (g?g.label:'')+' ／ 項目未分類'; }
+  return '未分類';
+}
+function galOpen(ai){
+  GALPREV=CUR; CUR=A[ai];
+  $('#gal').classList.add('on'); document.body.style.overflow='hidden'; galRender();
+}
+async function galRender(){
+  const a=CUR, ids=photosOf(a._i);
+  $('#galt').textContent=a.no+'　'+a.name;
+  const ux=ids.filter(id=>!ST.exported[id]).length;
+  $('#gals').textContent='写真 '+ids.length+' 枚'+(ux&&ids.length?'（未書き出し '+ux+'）':'')+(ST.done[a._i]?'　／　完了':'');
+  const order=[], G={};
+  const gs=groupsOf(a);
+  for(const id of ids){ const L=photoLabel(a,ST.photos[id]); if(!G[L]){ G[L]=[]; order.push(L); } G[L].push(id); }
+  const rank=L=> L==='全景'?-2 : L==='未分類'?9999 : (()=>{ const i=gs.findIndex(g=>L.startsWith(g.label+' ／')); return i<0?9000:i; })();
+  order.sort((x,y)=>rank(x)-rank(y));
+  if(!ids.length){ $('#galb').innerHTML='<p class="empty">この機器の写真はまだありません。<br>「この機器を開く」から撮影できます。</p>'; return; }
+  $('#galb').innerHTML=order.map(L=>`<h5>${esc(L)}<i>${G[L].length}枚</i></h5><div class="ggrid">${G[L].map(id=>
+    `<button class="gtile" data-gv="${id}"><img data-src="${id}" alt="" decoding="async"><span>${stamp(ST.photos[id].ts)}</span>${ST.exported[id]?'<span class="ex">済</span>':''}${ST.photos[id].x?'<span class="px">原本削除済</span>':''}</button>`).join('')}</div>`).join('');
+  for(const im of $('#galb').querySelectorAll('img[data-src]')){ const u=await thumbURL(im.dataset.src); if(u) im.src=u; }
+}
+function galClose(){ $('#gal').classList.remove('on'); document.body.style.overflow=''; if(GALPREV!==undefined){ CUR=GALPREV; } list(); applyPending(); }
+$('#galx').addEventListener('click',galClose);
+$('#galopen').addEventListener('click',()=>{ const i=CUR._i; $('#gal').classList.remove('on'); open_(i); });
+$('#galb').addEventListener('click',e=>{ const t=e.target.closest('[data-gv]'); if(t) viewPhoto(t.dataset.gv); });
+$('#pv2b').addEventListener('click',async e=>{
+  if(e.target.closest('#vclose')){ $('#pv2').classList.remove('on'); return; }
+  if(e.target.closest('#vdel')){
+    if(!confirm('この写真を削除します。よろしいですか？')) return;
+    await delPhoto(VIEW); afterView(); return; }
+  if(e.target.closest('#vlink')){ linkUI(); return; }
+  if(e.target.closest('#vsave')){
+    const ks=[...$('#pv2b').querySelectorAll('.lkbox input:checked')].map(x=>x.value);
+    ST.photos[VIEW].k = ks.length?ks:[UKEY(CUR._i)];
+    save(); afterView(); }
+});
+function linkUI(){
+  const p=ST.photos[VIEW], cur=new Set(p.k||[]);
+  $('#pv2b').innerHTML=`<h4>紐づける確認項目</h4>
+    <div class="m">複数選べます。同じ1枚が複数の項目に使われます（ファイルは1つ、名前に項目名を並べます）</div>
+    <div class="lkbox">${groupsOf(CUR).map(g=>{ const pk=PKEY(CUR._i,g.i);
+      return `<label style="background:var(--line2)"><input type="checkbox" value="${pk}" ${cur.has(pk)?'checked':''}>
+        <span><b>${esc(g.label)}</b>　／　項目未分類</span></label>`+
+      g.items.map(it=>`<label><input type="checkbox" value="${it._k}" ${cur.has(it._k)?'checked':''}>
+        <span>${esc(it.p)}　／　${esc(it.k)}</span></label>`).join(''); }).join('')}</div>
+    <button id="vsave" style="border-color:var(--accent);color:var(--accent);font-weight:700">保存する</button>
+    <button id="vclose">✕　やめる</button>`;
+}
+
+/* ---------- 書き出し・設定 ---------- */
+$('#eqty').innerHTML=Object.keys(PRESETS).map(k=>`<option value="${k}">${PRESETS[k].n}</option>`).join('');
+$('#eqty').addEventListener('change',e=>{ ST.cfg=Object.assign(ST.cfg||{},{p:e.target.value}); save(); avgInfo(); });
+$('#eex').addEventListener('change',e=>{ ST.cfg=Object.assign(ST.cfg||{},{ex:e.target.value}); save(); expInfo(); });
+$('#efac').addEventListener('change',()=>{ PREP=null; expInfo(); elist(); });
+$('#escope').addEventListener('change',()=>{ PREP=null; expInfo(); });
+$('#ego').addEventListener('click',doExport);
+$('#ephoto').addEventListener('click',toPhotos);
+$('#eshare').addEventListener('click',shareLast);
+$('#ebak').addEventListener('click',doBackup);
+$('#euser').addEventListener('change',e=>{ DEV.user=e.target.value.trim(); DEV.askedUser=1; saveDev(); });
+$('#euname').addEventListener('change',e=>{ DEV.nameInFiles=e.target.checked; saveDev(); });
+$('#efz').addEventListener('click',e=>{ const b=e.target.closest('[data-fz]'); if(!b) return; DEV.fz=+b.dataset.fz; saveDev(); applyFz(); fzSeg(); });
+function fzSeg(){ $('#efz').querySelectorAll('[data-fz]').forEach(b=>b.setAttribute('aria-pressed', String(Math.abs(+b.dataset.fz-(DEV.fz||1))<0.01))); }
+function settingsInit(){ $('#euser').value=DEV.user||''; $('#euname').checked=DEV.nameInFiles!==false; fzSeg(); }
+$('#epurge').addEventListener('click',async()=>{
+  const ids=Object.keys(ST.photos).filter(id=>ST.exported[id] && !ST.photos[id].x);
+  if(!ids.length){ alert('原本を削除できる写真はありません。\n（書き出したあと「保存できた」を押した写真だけが対象です）'); return; }
+  const r=await dlg('書き出し済みの写真の原本を削除',
+    `<p>${ids.length} 枚の原本をこの iPad から削除します。</p><p class="ehelp">対象は、書き出したあと「保存できた」を押した写真だけです。PCやサーバでZIPの中身が開けることを確かめてから削除してください。<br>削除後も確認用の小さな画像と枚数は残ります。原本は元に戻せません。</p>`,
+    [{id:'ok',label:ids.length+' 枚の原本を削除する',cls:'warn'},{id:'x',label:'やめる',cls:'sub'}]);
+  if(r!=='ok') return;
+  let k=0; busy('原本を削除しています',0);
+  try{ for(const id of ids){ await purgePhoto(id); k++; if(k%5===0||k===ids.length) busy('原本を削除しています '+k+' / '+ids.length, k/ids.length); } }
+  finally{ busy(false); }
+  CAMLASTID=null; $('#camlast').style.backgroundImage='none';
+  await saveNow(); expInfo(); elist(); quota(); list(); toast(k+' 枚の原本を削除しました（確認用の画像は残っています）',4500);
+});
+function avgInfo(){
+  const ps=Object.values(ST.photos).filter(p=>!p.x);
+  const c=cfg();
+  const el=$('#eqinfo'); if(!el) return;
+  if(!ps.length){ el.textContent='現在の設定：'+c.n+'　／　まだ実測値がありません'; return; }
+  const avg=ps.reduce((n,p)=>n+(p.b||0),0)/ps.length;
+  const px=ps[ps.length-1];
+  el.textContent=`実測 1枚あたり 約 ${(avg/1024).toFixed(0)} KB（直近 ${px.w}×${px.h}）　→　この案件の確認項目 ${TOT} 件を1枚ずつ撮ると約 ${(avg*TOT/1073741824).toFixed(2)} GB`;
+}
+async function quota(){
+  avgInfo();
+  const all=Object.values(ST.photos), live=all.filter(p=>!p.x), bytes=live.reduce((n,p)=>n+(p.b||0),0);
+  let s=`この案件の写真 ${live.length} 枚・約 ${mb(bytes)}${all.length>live.length?'（ほかに原本削除済み '+(all.length-live.length)+' 枚）':''}`;
+  try{ const e=await navigator.storage.estimate(); s+=`　／　このツール全体の使用量 約 ${mb(e.usage)}（保存できる上限の目安 ${mb(e.quota)}。上限より先に iPad の空き容量が尽きることがあります）`; }catch(err){}
+  try{ if(navigator.storage.persisted){ const ps=await navigator.storage.persisted();
+    s+= ps ? '　／　保存領域：保護あり（容量が足りなくなっても自動では消されません）' : '　／　保存領域：保護なし（容量が足りなくなると消される可能性があります。ホーム画面のアイコンから起動してください）'; } }catch(err){}
+  $('#eq').textContent=s;
+}
 /* ---------- 共通：お知らせと確認 ---------- */
 let TT=null;
 function toast(m,ms){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(TT); TT=setTimeout(()=>t.classList.remove('on'), ms||3200); }
@@ -1912,10 +2554,10 @@ function dlg(title, html, buttons){
     $('#dlgx').onclick=e=>{ const b=e.target.closest('[data-r]'); if(!b) return; $('#dlg').classList.remove('on'); res(b.dataset.r); };
   });
 }
-/* ---------- 新しい版の自動更新 ---------- */
+/* ---------- 新しい版の自動更新（1回の起動で切り替える） ---------- */
 let HADCTRL=false, UPDPEND=false, UPDLAST=0;
 function safeToReload(){ return !camOn() && !$('#detail').classList.contains('on') && !$('#slate').classList.contains('on') && !$('#pv2').classList.contains('on')
-  && !EXPORTING && !document.querySelector('.modal.on'); }
+  && !$('#gal').classList.contains('on') && !EXPORTING && !document.querySelector('.modal.on'); }
 async function applyUpdate(){
   if(safeToReload()){ await saveNow(); location.reload(); return; }
   UPDPEND=true; $('#updt').textContent='新しい版の準備ができました。撮影や入力が終わったところで自動で切り替わります。'; $('#upd').classList.add('on');
@@ -1928,16 +2570,19 @@ async function checkUpdate(force){
   try{
     const r=await fetch('./sw.js?t='+Date.now(),{cache:'no-store'}); if(!r.ok) return;
     const m=(await r.text()).match(/VERSION\s*=\s*'([^']+)'/); if(!m || m[1]===BUILDV) return;
-    let tried=null; try{ tried=sessionStorage.getItem('mhp-upd'); }catch(e){}
+    let tried=null; try{ tried=sessionStorage.getItem('stmn-upd'); }catch(e){}
     if(tried===m[1]) return;                                  // 一度試した版は、次に起動するまで繰り返さない
-    try{ sessionStorage.setItem('mhp-upd', m[1]); }catch(e){}
+    try{ sessionStorage.setItem('stmn-upd', m[1]); }catch(e){}
     await navigator.serviceWorker.register('./sw.js?v='+encodeURIComponent(m[1]));
   }catch(e){}
 }
 
 /* ---------- 起動 ---------- */
+/* 固定ヘッダの高さを測って、検索・絞り込みバーをその下に固定する */
+(function(){ const t=$('#top'); const f=()=>document.documentElement.style.setProperty('--toph',(getComputedStyle(t).position==='sticky'?t.offsetHeight:0)+'px');
+  f(); try{ new ResizeObserver(f).observe(t); }catch(e){ addEventListener('resize',f); } })();
 (async function boot(){
-  try{ DB=await openDB('mhp'); await loadDev(); await addPractice(); }
+  try{ DB=await openDB('stmn'); await loadDev(); await addPractice(); }
   catch(e){ alert('保存領域を開けませんでした。プライベートブラウズを解除して、ホーム画面のアイコンから起動してください。\n'+(e&&e.message||e)); return; }
   try{ if(navigator.storage && navigator.storage.persist) await navigator.storage.persist(); }catch(e){}
   if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){

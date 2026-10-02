@@ -1,8 +1,8 @@
-/* MHポンプ撮影：オフライン起動と自動更新。
+/* ストマネ現場チェックリスト：オフライン起動と自動更新。
    起動はいつも iPad の中の保存分からすぐ行う（電波の弱い場所でも待たない）。
    新しい版はアプリ側が見つけて、この sw.js を入れ替える → 入れ替わったら画面が自動で切り替わる。 */
-const VERSION='2026-10-02_1301';
-const CACHE='mhp-'+VERSION;
+const VERSION='2026-10-02_1846';
+const CACHE='stmn-'+VERSION;
 const ASSETS=['./index.html','./manifest.webmanifest','./apple-touch-icon.png','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>{
   e.waitUntil((async()=>{
@@ -18,7 +18,7 @@ self.addEventListener('install',e=>{
 });
 self.addEventListener('activate',e=>{
   e.waitUntil((async()=>{
-    for(const k of await caches.keys()) if(k.startsWith('mhp-') && k!==CACHE) await caches.delete(k);
+    for(const k of await caches.keys()) if(k.startsWith('stmn-') && k!==CACHE) await caches.delete(k);
     await self.clients.claim();
   })());
 });
