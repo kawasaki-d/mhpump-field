@@ -455,7 +455,16 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
 #pv2{position:fixed; inset:0; z-index:300; background:rgba(0,0,0,.93); display:none; overflow-y:auto}
 #pv2.on{display:block}
 .pv2in{min-height:100%; display:flex; flex-direction:column}
-#pv2img{width:100%; max-height:62vh; object-fit:contain; background:#000; flex:none}
+#pv2img{width:100%; height:100%; object-fit:contain; display:block; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none}
+.pv2top{position:sticky; top:0; z-index:3; display:flex; align-items:center; gap:12px; background:#111; color:#ddd;
+  padding:calc(8px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right)) 8px max(12px,env(safe-area-inset-left))}
+.pv2top button{min-height:42px; padding:0 16px; border-radius:9px; border:0; background:#fff; color:#111; font-weight:800; font-size:calc(14px*var(--fz,1))}
+#pv2n{font-size:calc(13px*var(--fz,1)); font-variant-numeric:tabular-nums; color:#bbb}
+.pv2wrap{position:relative; height:62vh; background:#000; flex:none; overflow:hidden; touch-action:pan-y}
+#pv2img.sw{transition:transform .18s ease-out}
+.pvnav{position:absolute; top:50%; transform:translateY(-50%); width:48px; height:72px; border:0; border-radius:10px; background:rgba(0,0,0,.45); color:#fff; font-size:34px; line-height:1}
+#vprev{left:8px} #vnext{right:8px}
+.pvnav[hidden]{display:none}
 .pv2b{background:var(--panel); padding:13px; flex:1}
 .pv2b h4{margin:0 0 4px; font-size:calc(14px*var(--fz,1))}
 .pv2b .m{font-size:calc(11px*var(--fz,1)); color:var(--muted); margin-bottom:11px}
@@ -686,7 +695,10 @@ table.pl td.gb,table.pl td.gp{font-weight:600; background:#f6f7f9}
   <div class="sbtns"><button id="slok">撮った（記録する）</button><button id="slx">閉じる</button></div>
   <div class="s7" id="sl7"></div>
 </div>
-<div id="pv2"><div class="pv2in"><img id="pv2img" alt=""><div class="pv2b" id="pv2b"></div></div></div>
+<div id="pv2"><div class="pv2in">
+  <div class="pv2top"><button id="vclose">✕　閉じる</button><span id="pv2n"></span></div>
+  <div class="pv2wrap" id="pv2wrap"><img id="pv2img" alt="" draggable="false"><button class="pvnav" id="vprev" aria-label="前の写真">‹</button><button class="pvnav" id="vnext" aria-label="次の写真">›</button></div>
+  <div class="pv2b" id="pv2b"></div></div></div>
 <div id="parts" class="modal"><div class="mbox"><h4 id="partt"></h4><div class="ehelp" id="parth" style="margin:0 0 8px"></div><div id="partl"></div>
   <div class="eprog" id="partp"><div class="eprogbar"><i id="partpb"></i></div><div id="partpt" class="eprogt"></div></div>
   <div class="dbtns"><button id="partx" class="sub">閉じる</button></div></div></div>
@@ -735,7 +747,7 @@ const DATA = {
   }
  ]
 };          // 練習用の架空案件。初回起動時に1回だけ案件として登録する
-const BUILD='2026-10-02 12:52', BUILDV='2026-10-02_1252';
+const BUILD='2026-10-02 13:01', BUILDV='2026-10-02_1301';
 const freshST=()=>({photos:{},exported:{},notes:{},noteExp:{},done:{},dc:{},seq:0,cfg:{p:'0',ex:'800'},saved:{},cfgv:2});
 /* この iPad の設定（案件をまたいで共通） */
 let DEV={tag:'', fz:1, camLand:true};
@@ -1206,7 +1218,7 @@ function open_(sid, keep){
   const tiles=arr=>'<div class="ggrid">'+arr.map(id=>`<button class="gtile" data-open="${id}"><img alt="" data-th="${id}"><span>${esc(stamp(ST.photos[id].ts).slice(5,16))}</span>${ST.exported[id]?'<i class="ex">済</i>':''}</button>`).join('')+'</div>';
   if(!ids.length) ph='<p class="ehelp">まだ写真がありません。</p>';
   else if(s.t==='mp') ph=tiles(ids);
-  else { const ms=[...s.machines, ''];
+  else { const ms=[...s.machines, '']; /* 並び順は viewOrder() と同じ */
     for(const m of ms){ const a=ids.filter(id=>(ST.photos[id].m||'')===m); if(!a.length) continue;
       ph+=`<div class="mgrp">${esc(m||'機器名なし')}<i>${a.length} 枚</i></div>`+tiles(a); }
     const other=ids.filter(id=>{ const m=ST.photos[id].m||''; return m && !s.machines.includes(m); });
@@ -1268,11 +1280,30 @@ $('#slm').addEventListener('click',e=>{ const b=e.target.closest('[data-sm]'); i
 $('#slok').addEventListener('click',()=>{ (ST.dc[CURS.id]=ST.dc[CURS.id]||[]).push({ts:Date.now(), m:SLM}); save(); slateClose(); });
 $('#slx').addEventListener('click',slateClose);
 
-/* ---------- 写真ビューア：機器名・場所の付け替え、削除 ---------- */
-let VIEW=null;
+/* ---------- 写真ビューア：左右にめくる、機器名・場所の付け替え、削除 ---------- */
+let VIEW=null, VTOK=0;
+/* 場所の画面に並んでいる順（処理場は機器ごと → 機器名なし → 一覧にない機器名） */
+function viewOrder(s){
+  const ids=photosOf(s.id); if(s.t==='mp') return ids;
+  const out=[]; for(const m of [...s.machines,'']) ids.forEach(id=>{ if((ST.photos[id].m||'')===m) out.push(id); });
+  ids.forEach(id=>{ if(!out.includes(id)) out.push(id); });
+  return out;
+}
+function viewStep(d){
+  const p=VIEW&&ST.photos[VIEW]; if(!p) return;
+  const L=viewOrder(SI[p.s]), i=L.indexOf(VIEW), j=i+d;
+  if(j<0||j>=L.length){ toast(d>0?'最後の写真です':'最初の写真です',1500); return; }
+  viewPhoto(L[j]);
+}
 async function viewPhoto(id){
-  VIEW=id; const p=ST.photos[id]; if(!p) return; const s=SI[p.s];
-  $('#pv2img').src= p.x ? await thumbURL(id) : await photoURL(id);
+  VIEW=id; const p=ST.photos[id]; if(!p) return; const s=SI[p.s], tok=++VTOK;
+  const L=viewOrder(s), i=L.indexOf(id);
+  $('#pv2n').textContent=(i+1)+' / '+L.length+'　'+(s.t==='mp'?s.n:s.n+(p.m?'　'+p.m:''));
+  $('#vprev').hidden= i<=0; $('#vnext').hidden= i>=L.length-1;
+  $('#pv2').classList.add('on');
+  const u= p.x ? await thumbURL(id) : await photoURL(id);
+  if(tok!==VTOK) return;                                   // 速くめくったときに古い写真で上書きしない
+  $('#pv2img').src=u;
   const mch = s.t==='pl' ? `<div class="vl">機器名</div><div class="vchips">${[`<button data-vm="" aria-pressed="${!p.m}">選ばない</button>`,
       ...s.machines.map((m,i)=>`<button data-vm="${i}" aria-pressed="${p.m===m}">${esc(m)}</button>`)].join('')}</div>` : '';
   $('#pv2b').innerHTML=`<h4>${esc(photoLabel(s,p))}</h4>
@@ -1280,9 +1311,7 @@ async function viewPhoto(id){
     ${mch}
     <div class="vl">撮った場所を直す</div>
     <select id="vsite">${S.map(x=>`<option value="${x.id}" ${x.id===s.id?'selected':''}>${esc(x.t==='mp'? (x.g?x.g+'　':'')+x.n+'（'+x.pump+'）' : x.g+'　'+x.n)}</option>`).join('')}</select>
-    <button class="rm" id="vdel">🗑　この写真を削除する</button>
-    <button id="vclose">✕　閉じる</button>`;
-  $('#pv2').classList.add('on');
+    <button class="rm" id="vdel">🗑　この写真を削除する</button>`;
 }
 function afterView(){ $('#pv2').classList.remove('on'); VIEW=null;
   if(camOn()){ camBars(); camLast(); } else if(CURS) open_(CURS.id,true); }
@@ -1290,9 +1319,26 @@ $('#pv2b').addEventListener('click',async e=>{
   const p=VIEW&&ST.photos[VIEW]; if(!p) return;
   const vm=e.target.closest('[data-vm]');
   if(vm){ const s=SI[p.s]; p.m= vm.dataset.vm==='' ? '' : s.machines[+vm.dataset.vm]; save(); viewPhoto(VIEW); return; }
-  if(e.target.closest('#vdel')){ if(!confirm('この写真を削除します。元に戻せません。')) return; await delPhoto(VIEW); afterView(); return; }
-  if(e.target.closest('#vclose')) afterView();
+  if(e.target.closest('#vdel')){ if(!confirm('この写真を削除します。元に戻せません。')) return;
+    const L=viewOrder(SI[p.s]), i=L.indexOf(VIEW), nx=L[i+1]||L[i-1];
+    await delPhoto(VIEW); if(nx) viewPhoto(nx); else afterView(); return; }
 });
+$('#vclose').addEventListener('click',afterView);
+$('#vprev').addEventListener('click',()=>viewStep(-1));
+$('#vnext').addEventListener('click',()=>viewStep(1));
+addEventListener('keydown',e=>{ if(!$('#pv2').classList.contains('on')) return;
+  if(e.key==='ArrowLeft') viewStep(-1); else if(e.key==='ArrowRight') viewStep(1); else if(e.key==='Escape') afterView(); });
+/* 指で左右にめくる（横に50px以上、かつ縦より横に大きく動いたとき） */
+(function(){
+  const w=$('#pv2wrap'), im=$('#pv2img'); let x0=null, y0=0, dx=0, horiz=null;
+  w.addEventListener('touchstart',e=>{ if(e.touches.length!==1){ x0=null; return; } x0=e.touches[0].clientX; y0=e.touches[0].clientY; dx=0; horiz=null; im.classList.remove('sw'); },{passive:true});
+  w.addEventListener('touchmove',e=>{ if(x0==null) return; dx=e.touches[0].clientX-x0; const dy=e.touches[0].clientY-y0;
+    if(horiz===null && (Math.abs(dx)>8||Math.abs(dy)>8)) horiz=Math.abs(dx)>Math.abs(dy);
+    if(horiz) im.style.transform='translateX('+dx+'px)'; },{passive:true});
+  const end=()=>{ if(x0==null) return; im.classList.add('sw'); im.style.transform='';
+    if(horiz && Math.abs(dx)>50) viewStep(dx<0?1:-1); x0=null; };
+  w.addEventListener('touchend',end); w.addEventListener('touchcancel',()=>{ x0=null; im.classList.add('sw'); im.style.transform=''; });
+})();
 $('#pv2b').addEventListener('change',e=>{
   if(e.target.id!=='vsite') return; const p=VIEW&&ST.photos[VIEW]; if(!p) return;
   const to=SI[e.target.value]; p.s=to.id; p.m=(to.t==='pl' && to.machines.includes(p.m)) ? p.m : '';
